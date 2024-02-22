@@ -24,7 +24,7 @@ class _MyAppState extends State<MyApp> {
     Flashcard(question: 'Whats two plus two', answer: '4 quick maths')
   ];
 
-  List<Deck> _decks = [Deck(name: 'English'), Deck(name: 'Math')];
+  List<Deck> decks = [Deck(name: 'English'), Deck(name: 'Math')];
 
   final _imagePath = 'images/FlipDeck_Lettering.png';
 
@@ -84,7 +84,7 @@ class _MyAppState extends State<MyApp> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const FlashcardEditorView()),
+                              builder: (context) =>  FlashcardEditorView()),
                         );
                       },
                       child: Icon(Icons.add),
