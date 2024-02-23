@@ -24,7 +24,7 @@ class _MyAppState extends State<MyApp> {
     Flashcard(question: 'Whats two plus two', answer: '4 quick maths')
   ];
 
-  List<Deck> decks = [Deck(name: 'English'), Deck(name: 'Math')];
+  final List<Deck> decks = [Deck(name: 'English'), Deck(name: 'Math')];
 
   final _imagePath = 'images/FlipDeck_Lettering.png';
 

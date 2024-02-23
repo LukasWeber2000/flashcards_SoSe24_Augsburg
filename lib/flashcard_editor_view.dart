@@ -1,3 +1,4 @@
+import 'package:easy_flashcard/deck.dart';
 import 'package:flutter/material.dart';
 
 import 'main.dart';
@@ -58,13 +59,15 @@ class FlashcardEditorView extends StatelessWidget {
                     ),
                     DropdownButton<String>(
                       // Value that is selected initially
-                      value: items[0], // You can change the default value here
+                      value: decks[0].name, // You can change the default value here
 
                       // List of items for the dropdown menu
-                      items: items.map((String value) {
+
+
+                      items: decks.map((Deck decks) {
                         return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
+                          value: decks.name,
+                          child: Text(decks.name),
                         );
                       }).toList(),
 
@@ -91,5 +94,6 @@ class FlashcardEditorView extends StatelessWidget {
     );
   }
 
-  final List<String> items = ['Option 1', 'Option 2', 'Option 3'];
+  //final List<String> items = ['Option 1', 'Option 2', 'Option 3'];
+  final List<Deck> decks = [Deck(name: 'Math'), Deck(name: 'English')];
 }
