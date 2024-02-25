@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "159703621769",
+    "project_id": "flipdecksose24augsburg",
+    "storage_bucket": "flipdecksose24augsburg.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:159703621769:android:979ecb33a40fe797716658",
+        "android_client_info": {
+          "package_name": "com.example.easy_flashcard"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAhiN3VF-h4D5a5zecnRpf8UNMtwY8Zxgg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

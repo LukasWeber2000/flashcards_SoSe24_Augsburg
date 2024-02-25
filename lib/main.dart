@@ -109,23 +109,26 @@ class _MyAppState extends State<MyApp> {
                                 text: _flashcards[_currentIndex].answer,
                               )),
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            OutlinedButton.icon(
-                              onPressed: showPreviousCard,
-                              icon: Icon(Icons.chevron_left),
-                              label: Text('Prev'),
-                              style: OutlinedButton.styleFrom(
-                                  foregroundColor: Colors.white),
-                            ),
-                            OutlinedButton.icon(
-                                onPressed: showNextCard,
-                                icon: Icon(Icons.chevron_right),
-                                label: Text('Next'),
+                        Padding(
+                          padding: const EdgeInsets.only(top:12, bottom: 12),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              OutlinedButton.icon(
+                                onPressed: showPreviousCard,
+                                icon: Icon(Icons.chevron_left),
+                                label: Text('Prev'),
                                 style: OutlinedButton.styleFrom(
-                                    foregroundColor: Colors.white))
-                          ],
+                                    foregroundColor: Colors.white),
+                              ),
+                              OutlinedButton.icon(
+                                  onPressed: showNextCard,
+                                  icon: Icon(Icons.chevron_right),
+                                  label: Text('Next'),
+                                  style: OutlinedButton.styleFrom(
+                                      foregroundColor: Colors.white))
+                            ],
+                          ),
                         ),
                         ButtonBar(
                           alignment: MainAxisAlignment.center,
