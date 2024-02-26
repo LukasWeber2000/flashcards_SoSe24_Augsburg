@@ -113,7 +113,11 @@ class _MyAppState extends State<MyApp> {
                     title: Text('Kartenstapel',
                         style: TextStyle(color: Colors.white)),
                     onTap: () {
-                      // Aktion für Menüpunkt 2
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => DeckView()),
+                      );
                       Navigator.pop(context); // Schließt den Drawer
                     },
                   ),

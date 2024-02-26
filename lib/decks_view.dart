@@ -1,10 +1,14 @@
 import 'package:easy_flashcard/deck.dart';
 import 'package:flutter/material.dart';
 
+import 'flashcard_editor_view.dart';
 import 'main.dart';
 
 class DeckView extends StatelessWidget {
   DeckView({super.key});
+
+  final _imagePath = 'images/FlipDeck_Lettering.png';
+  final _imagelogo = 'images/FlipDeck_Logo_final.png';
 
   @override
   Widget build(BuildContext context) {
@@ -49,8 +53,56 @@ class DeckView extends StatelessWidget {
                 ],
               ),
             ),
-
+            endDrawer: Drawer(
+              backgroundColor: Color(0xFF1A1A1A),
+              surfaceTintColor: Color(0xFF1A1A1A),
+              child: ListView(
+                children: <Widget>[
+                  DrawerHeader(
+                    decoration: BoxDecoration(
+                        color: Colors.white10,
+                        image: DecorationImage(
+                            image: AssetImage(_imagelogo),
+                            scale: Checkbox.width)),
+                    child: Text('',
+                        style: TextStyle(
+                            color: Color(0xFFFFFFFF),
+                            fontWeight: FontWeight.bold)),
+                  ),
+                  ListTile(
+                    shape: Border(bottom: BorderSide(color: Colors.white)),
+                    title: Text('Karte hinzufügen',
+                        style: TextStyle(color: Colors.white)),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => FlashcardEditorView()),
+                      );
+                      // Aktion für Menüpunkt 1
+                      //Navigator.pop(context); // Schließt den Drawer
+                    },
+                  ),
+                  ListTile(
+                    shape: Border(bottom: BorderSide(color: Colors.white)),
+                    title: Text('Kartenstapel',
+                        style: TextStyle(color: Colors.white)),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => DeckView()),
+                      );
+                      // Aktion für Menüpunkt 2
+                      Navigator.pop(context); // Schließt den Drawer
+                    },
+                  ),
+                  // Füge hier weitere Menüpunkte hinzu
+                ],
+              ),
+            ),
           )
+
       ),
     );
   }
