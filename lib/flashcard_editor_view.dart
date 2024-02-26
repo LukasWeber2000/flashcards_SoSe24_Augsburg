@@ -210,9 +210,5 @@ class FlashcardEditorView extends StatelessWidget {
   }
 
   //final List<String> items = ['Option 1', 'Option 2', 'Option 3'];
-  final List<Deck> decks = [
-    Deck(name: 'Math'),
-    Deck(name: 'English'),
-    Deck(name: 'Ein etwas längeres Kartendeck')
-  ];
+
 }

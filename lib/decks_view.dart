@@ -41,7 +41,6 @@ class DeckView extends StatelessWidget {
                   const Text(
                     'Stapelauswahl',
                     style: TextStyle(color: Colors.white),
-
                   ),
                   IconButton(
                     onPressed: () {},
@@ -90,8 +89,7 @@ class DeckView extends StatelessWidget {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
-                            builder: (context) => DeckView()),
+                        MaterialPageRoute(builder: (context) => DeckView()),
                       );
                       // Aktion für Menüpunkt 2
                       Navigator.pop(context); // Schließt den Drawer
@@ -101,9 +99,78 @@ class DeckView extends StatelessWidget {
                 ],
               ),
             ),
-          )
+            body: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: SizedBox(
+                    width: double.maxFinite,
+                    height: 400,
+                    child: ListView(
+                      children: [
+                        const SizedBox(
+                          width: double.maxFinite,
+                          child: TextField(
+                            style: TextStyle(color: Colors.white),
+                            cursorColor: Color(0xFF549186),
+                            decoration: InputDecoration(
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Color(0xFF549186)),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Color(0xFF549186)),
+                              ),
+                              border: OutlineInputBorder(),
+                              labelStyle: TextStyle(color: Color(0xFF549186)),
+                              labelText: 'Deckname',
+                            ),
+                          ),
+                        ),
+                        OutlinedButton(
+                          onPressed: () {
 
-      ),
+
+                          },
+                          child: Icon(Icons.add),
+                          style: OutlinedButton.styleFrom(
+                              shape: CircleBorder(),
+                              foregroundColor: Color(0xFF549186)),
+                        ),
+                        for (var deck in decks)
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 5),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  border: Border.all(color: Color(0xFF549186)),
+                                  borderRadius: BorderRadius.horizontal(
+                                      right: Radius.circular(10),
+                                      left: Radius.circular(10))),
+                              child: ListTile(
+                                title: Text(
+                                  '${deck.name} ',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                                leading: Icon(Icons.gamepad_outlined),
+                                onTap: () {
+                                  currentDeck = deck.name;
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => MyApp()),
+                                  );
+                                },
+                              ),
+                            ),
+                          ),
+                      ],
+                    ),
+                  ),
+                ),
+                Spacer(),
+              ],
+            ),
+          )),
     );
   }
-  }
+}

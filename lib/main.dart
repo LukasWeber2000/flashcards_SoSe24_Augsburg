@@ -7,6 +7,14 @@ import 'package:flip_card/flip_card.dart';
 import 'flashcard.dart';
 import 'flashcard_editor_view.dart';
 
+final List<Deck> decks = [
+  Deck(name: 'Math'),
+  Deck(name: 'English'),
+  Deck(name: 'Ein etwas längeres Kartendecke')
+];
+
+var currentDeck = decks[0].name;
+
 void main() {
   runApp(MyApp());
 }
@@ -53,8 +61,7 @@ class _MyAppState extends State<MyApp> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
-                            builder: (context) => DeckView()),
+                        MaterialPageRoute(builder: (context) => DeckView()),
                       );
                     },
                     icon: Icon(
@@ -89,14 +96,15 @@ class _MyAppState extends State<MyApp> {
                         image: DecorationImage(
                             image: AssetImage(_imagelogo),
                             scale: Checkbox.width)),
-                    child: Text('',
+                    child: const Text('',
                         style: TextStyle(
                             color: Color(0xFFFFFFFF),
                             fontWeight: FontWeight.bold)),
                   ),
                   ListTile(
-                    shape: Border(bottom: BorderSide(color: Colors.white)),
-                    title: Text('Karte hinzufügen',
+                    shape:
+                        const Border(bottom: BorderSide(color: Colors.white)),
+                    title: const Text('Karte hinzufügen',
                         style: TextStyle(color: Colors.white)),
                     onTap: () {
                       Navigator.push(
@@ -105,12 +113,13 @@ class _MyAppState extends State<MyApp> {
                             builder: (context) => FlashcardEditorView()),
                       );
                       // Aktion für Menüpunkt 1
-                      //Navigator.pop(context); // Schließt den Drawer
+                      Navigator.pop(context); // Schließt den Drawer
                     },
                   ),
                   ListTile(
-                    shape: Border(bottom: BorderSide(color: Colors.white)),
-                    title: Text('Kartenstapel',
+                    shape:
+                        const Border(bottom: BorderSide(color: Colors.white)),
+                    title: const Text('Kartenstapel',
                         style: TextStyle(color: Colors.white)),
                     onTap: () {
                       Navigator.push(
@@ -149,9 +158,11 @@ class _MyAppState extends State<MyApp> {
                       ),
                     ),
                     Spacer(),
-                    const Text(
-                      "< current Deck >",
-                      style: TextStyle(color: Colors.white),
+                    FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Text( "$currentDeck",
+                        style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,),
+                      ),
                     ),
                     Spacer(),
                     Container(
@@ -159,10 +170,10 @@ class _MyAppState extends State<MyApp> {
                         padding: const EdgeInsets.only(top: 8),
                         child: OutlinedButton(
                           onPressed: () {},
-                          child: Icon(Icons.question_mark),
                           style: OutlinedButton.styleFrom(
                               shape: CircleBorder(),
                               foregroundColor: Color(0xFF549186)),
+                          child: Icon(Icons.question_mark),
                         ),
                       ),
                     ),
