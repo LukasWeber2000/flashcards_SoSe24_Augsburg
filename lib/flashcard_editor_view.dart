@@ -69,7 +69,7 @@ class FlashcardEditorView extends StatelessWidget {
                         DropdownButtonHideUnderline(
                           child: DropdownButton<String>(
                             dropdownColor: Colors.black,
-                            value: decks[1].name,
+                            value: currentDeck,
                             items: decks.map((Deck decks) {
                               return DropdownMenuItem<String>(
                                 alignment: Alignment.center,
@@ -83,6 +83,7 @@ class FlashcardEditorView extends StatelessWidget {
 
                             // Handler called when an item is selected
                             onChanged: (String? newValue) {
+                              currentDeck = newValue!;
                               // You can put your logic here to respond to the selection of a new item
                               print('Selected item: $newValue');
                             },

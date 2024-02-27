@@ -8,9 +8,10 @@ import 'flashcard.dart';
 import 'flashcard_editor_view.dart';
 
 final List<Deck> decks = [
-  Deck(name: 'Math'),
-  Deck(name: 'English'),
-  Deck(name: 'Ein etwas längeres Kartendecke')
+  Deck(name: '01: Programming'),
+  Deck(name: '02: Database'),
+  Deck(name: '03: Mathematics'),
+  Deck(name: '04: Customizing')
 ];
 
 var currentDeck = decks[0].name;
@@ -107,13 +108,14 @@ class _MyAppState extends State<MyApp> {
                     title: const Text('Karte hinzufügen',
                         style: TextStyle(color: Colors.white)),
                     onTap: () {
+                      Navigator.pop(context);
                       Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (context) => FlashcardEditorView()),
                       );
                       // Aktion für Menüpunkt 1
-                      Navigator.pop(context); // Schließt den Drawer
+                       // Schließt den Drawer
                     },
                   ),
                   ListTile(
@@ -122,12 +124,13 @@ class _MyAppState extends State<MyApp> {
                     title: const Text('Kartenstapel',
                         style: TextStyle(color: Colors.white)),
                     onTap: () {
+                      Navigator.pop(context);
                       Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (context) => DeckView()),
                       );
-                      Navigator.pop(context); // Schließt den Drawer
+                       // Schließt den Drawer
                     },
                   ),
                   // Füge hier weitere Menüpunkte hinzu
@@ -272,3 +275,4 @@ class _MyAppState extends State<MyApp> {
     });
   }
 }
+
