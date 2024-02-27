@@ -6,6 +6,7 @@ import 'package:flip_card/flip_card.dart';
 
 import 'flashcard.dart';
 import 'flashcard_editor_view.dart';
+import 'main_appbar.dart';
 
 final List<Deck> decks = [
   Deck(name: '01: Programming'),
@@ -52,40 +53,17 @@ class _MyAppState extends State<MyApp> {
         return Padding(
           padding: const EdgeInsets.only(top: 50),
           child: Scaffold(
-            appBar: AppBar(
-              backgroundColor: Colors.black,
-              flexibleSpace: Row(
-                mainAxisAlignment: MainAxisAlignment
-                    .spaceBetween, // Align items to start and end of row
-                children: [
-                  IconButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => DeckView()),
-                      );
-                    },
-                    icon: Icon(
-                      Icons.arrow_back,
-                      color: Color(0xFF549186),
-                    ),
-                  ),
-                  Image.asset(
-                    _imagePath,
-                    fit: BoxFit.contain,
-                    // Adjust the image's fit within the app bar
-                    height: 40, // Adjust the height of the image as needed
-                  ),
-                  IconButton(
-                    onPressed: () => Scaffold.of(context).openEndDrawer(),
-                    icon: Icon(
-                      Icons.menu,
-                      color: Color(0xFF549186),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            appBar: CustomAppBar(
+            imagePath: _imagePath,
+            imageLogo: _imagelogo,
+            onMenuPressed: () => Scaffold.of(context).openEndDrawer(),
+            onBackPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => DeckView()),
+              );
+            },
+          ),
             endDrawer: Drawer(
               backgroundColor: Color(0xFF1A1A1A),
               surfaceTintColor: Color(0xFF1A1A1A),
