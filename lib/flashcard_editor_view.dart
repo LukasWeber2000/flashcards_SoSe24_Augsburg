@@ -221,14 +221,16 @@ class FlashcardEditorView extends StatelessWidget {
     );
   }
 
-
   List<Flashcard> flashcards = [];
 
   void doStuff() async {
     flashcards.add(Flashcard(
         question: questionTextController.text,
         answer: answerTextController.text,
-        hint: hintTextController.text));
+        hint: hintTextController.text,
+        ease: 2.5,
+        interval: 1.0,
+        deck: currentDeck));
 
     // Write the updated list of flashcards to the file
     await writeFlashcardList(flashcards);
@@ -239,9 +241,12 @@ class FlashcardEditorView extends StatelessWidget {
 
   void readFlashcardListLocal(List<Flashcard> list) {
     for (int i = 0; i < list.length; i++) {
-      print('Question: ' + list[i].question
-          + ' - Answer: ' + list[i].answer
-      + '- Hint:'+(list[i].hint??''));
+      print('Question: ' +
+          list[i].question +
+          ' - Answer: ' +
+          list[i].answer +
+          '- Hint:' +
+          (list[i].hint ?? ''));
     }
   }
 
@@ -265,7 +270,8 @@ class FlashcardEditorView extends StatelessWidget {
 
     // Print all flashcards
     for (int i = 0; i < flashcards.length; i++) {
-      print('Question: ${flashcards[i].question} - Answer: ${flashcards[i].answer} - Hint: ${flashcards[i].hint ?? ''}');
+      print(
+          'Question: ${flashcards[i].question} - Answer: ${flashcards[i].answer} - Hint: ${flashcards[i].hint ?? ''}');
     }
   }
 
@@ -279,6 +285,4 @@ class FlashcardEditorView extends StatelessWidget {
     print(path);
     return File('$path/flashcards.json');
   }
-
-
 }
