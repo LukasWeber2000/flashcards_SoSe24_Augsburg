@@ -29,9 +29,9 @@ class _MyAppState extends State<MyApp> {
   final List<Flashcard> _flashcards = [
     Flashcard(
         question: 'What programming language does Flutter use?',
-        answer: 'Dart'),
-    Flashcard(question: 'Who is the best programmer?', answer: 'Manu Klima'),
-    Flashcard(question: 'Whats two plus two', answer: '4 quick maths')
+        answer: 'Dart',interval: 1.0,ease: 2.5),
+    Flashcard(question: 'Who is the best programmer?', answer: 'Manu Klima',interval: 1.0,ease: 2.5),
+    Flashcard(question: 'Whats two plus two', answer: '4 quick maths',interval: 1.0,ease: 2.5)
   ];
 
   final List<Deck> decks = [Deck(name: 'English'), Deck(name: 'Math')];
