@@ -68,11 +68,12 @@ class FlashcardEditorView extends StatelessWidget {
                         ),
                         DropdownButtonHideUnderline(
                           child: DropdownButton<String>(
+
                             dropdownColor: Colors.black,
                             value: currentDeck,
                             items: decks.map((Deck decks) {
                               return DropdownMenuItem<String>(
-                                alignment: Alignment.center,
+                                alignment: Alignment.centerRight,
                                 value: decks.name,
                                 child: Text(decks.name,
                                       style:
