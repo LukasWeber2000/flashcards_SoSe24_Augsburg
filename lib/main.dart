@@ -41,7 +41,7 @@ class _MyAppState extends State<MyApp> {
   final _imagelogo = 'images/FlipDeck_Logo_final.png';
 
   int _currentIndex = 0;
-
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -53,10 +53,11 @@ class _MyAppState extends State<MyApp> {
         return Padding(
           padding: const EdgeInsets.only(top: 50),
           child: Scaffold(
+            key: _scaffoldKey,
             appBar: CustomAppBar(
             imagePath: _imagePath,
             imageLogo: _imagelogo,
-            onMenuPressed: () => Scaffold.of(context).openEndDrawer(),
+            onMenuPressed: () => _scaffoldKey.currentState?.openEndDrawer(),
             onBackPressed: () {
               Navigator.push(
                 context,
