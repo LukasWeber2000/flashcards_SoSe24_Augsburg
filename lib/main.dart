@@ -1,6 +1,7 @@
 import 'package:easy_flashcard/deck.dart';
 import 'package:easy_flashcard/decks_view.dart';
 import 'package:easy_flashcard/flashcard_view.dart';
+import 'package:easy_flashcard/flipdeck_algorithm.dart';
 import 'package:flutter/material.dart';
 import 'package:flip_card/flip_card.dart';
 
@@ -30,9 +31,22 @@ class _MyAppState extends State<MyApp> {
   final List<Flashcard> _flashcards = [
     Flashcard(
         question: 'What programming language does Flutter use?',
-        answer: 'Dart',interval: 1.0,ease: 2.5, deck: 'deckname'),
-    Flashcard(question: 'Who is the best programmer?', answer: 'Manu Klima',interval: 1.0,ease: 2.5, deck: 'deckname'),
-    Flashcard(question: 'Whats two plus two', answer: '4 quick maths',interval: 1.0,ease: 2.5, deck: 'deckname')
+        answer: 'Dart',
+        interval: 1.0,
+        ease: 2.5,
+        deck: '01: Programming'),
+    Flashcard(
+        question: 'Who is the best programmer?',
+        answer: 'Manu Klima',
+        interval: 1.0,
+        ease: 2.5,
+        deck: '01: Programming'),
+    Flashcard(
+        question: 'Whats two plus two',
+        answer: '4 quick maths',
+        interval: 1.0,
+        ease: 2.5,
+        deck: '03: Mathematics')
   ];
 
   final List<Deck> decks = [Deck(name: 'English'), Deck(name: 'Math')];
@@ -40,10 +54,21 @@ class _MyAppState extends State<MyApp> {
   final _imagePath = 'images/FlipDeck_Lettering.png';
   final _imagelogo = 'images/FlipDeck_Logo_final.png';
 
+  //Dummy anlegen
+  Flashcard current = Flashcard(
+      question: 'question',
+      answer: 'answer',
+      interval: 0.0,
+      ease: 0.0,
+      deck: 'deck');
+
   int _currentIndex = 0;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
+    showNextCard();
+    print(current.question);
     return MaterialApp(
       theme: ThemeData(
         scaffoldBackgroundColor:
@@ -55,16 +80,16 @@ class _MyAppState extends State<MyApp> {
           child: Scaffold(
             key: _scaffoldKey,
             appBar: CustomAppBar(
-            imagePath: _imagePath,
-            imageLogo: _imagelogo,
-            onMenuPressed: () => _scaffoldKey.currentState?.openEndDrawer(),
-            onBackPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => DeckView()),
-              );
-            },
-          ),
+              imagePath: _imagePath,
+              imageLogo: _imagelogo,
+              onMenuPressed: () => _scaffoldKey.currentState?.openEndDrawer(),
+              onBackPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => DeckView()),
+                );
+              },
+            ),
             endDrawer: Drawer(
               backgroundColor: Color(0xFF1A1A1A),
               surfaceTintColor: Color(0xFF1A1A1A),
@@ -94,7 +119,7 @@ class _MyAppState extends State<MyApp> {
                             builder: (context) => FlashcardEditorView()),
                       );
                       // Aktion für Menüpunkt 1
-                       // Schließt den Drawer
+                      // Schließt den Drawer
                     },
                   ),
                   ListTile(
@@ -106,10 +131,9 @@ class _MyAppState extends State<MyApp> {
                       Navigator.pop(context);
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
-                            builder: (context) => DeckView()),
+                        MaterialPageRoute(builder: (context) => DeckView()),
                       );
-                       // Schließt den Drawer
+                      // Schließt den Drawer
                     },
                   ),
                   // Füge hier weitere Menüpunkte hinzu
@@ -142,8 +166,12 @@ class _MyAppState extends State<MyApp> {
                     Spacer(),
                     FittedBox(
                       fit: BoxFit.scaleDown,
-                      child: Text( "$currentDeck",
-                        style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,),
+                      child: Text(
+                        "$currentDeck",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                     Spacer(),
@@ -171,10 +199,10 @@ class _MyAppState extends State<MyApp> {
                         height: 350,
                         child: FlipCard(
                             front: FlashcardView(
-                              text: _flashcards[_currentIndex].question,
+                              text: ('${current.question} ${current.interval}'),
                             ),
                             back: FlashcardView(
-                              text: _flashcards[_currentIndex].answer,
+                              text: current.answer,
                             )),
                       ),
                       Padding(
@@ -183,7 +211,7 @@ class _MyAppState extends State<MyApp> {
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             OutlinedButton.icon(
-                              onPressed: showPreviousCard,
+                              onPressed: () {}, //showPreviousCard,
                               icon: Icon(Icons.chevron_left),
                               label: Text('Prev'),
                               style: OutlinedButton.styleFrom(
@@ -201,10 +229,10 @@ class _MyAppState extends State<MyApp> {
                       ButtonBar(
                         alignment: MainAxisAlignment.center,
                         children: [
-                          _buildButton('Again', Colors.red),
-                          _buildButton('Difficult', Colors.orange),
-                          _buildButton('Good', Colors.yellow),
-                          _buildButton('Easy', Colors.green),
+                          _buildButton('Again', Colors.red, 'again'),
+                          _buildButton('Difficult', Colors.orange, 'difficult'),
+                          _buildButton('Good', Colors.yellow, 'good'),
+                          _buildButton('Easy', Colors.green, 'easy'),
                         ],
                       ),
                     ],
@@ -219,9 +247,12 @@ class _MyAppState extends State<MyApp> {
     );
   }
 
-  Widget _buildButton(String label, Color color) {
+  Widget _buildButton(String label, Color color, String state) {
     return OutlinedButton(
-      onPressed: () {},
+      onPressed: () {
+        FlipDeckAlgorithm.processAnswer(state, current);
+        showNextCard();
+      },
       style: OutlinedButton.styleFrom(
         side: BorderSide(color: color),
         foregroundColor: Colors.white,
@@ -236,11 +267,12 @@ class _MyAppState extends State<MyApp> {
 
   void showNextCard() {
     setState(() {
-      if (_currentIndex + 1 < _flashcards.length) {
+      current = getLowestCard();
+      /*if (_currentIndex + 1 < _flashcards.length) {
         _currentIndex++;
       } else {
         _currentIndex = 0;
-      }
+      }*/
     });
   }
 
@@ -253,5 +285,18 @@ class _MyAppState extends State<MyApp> {
       }
     });
   }
-}
 
+  Flashcard getLowestCard() {
+    double intervall = _flashcards.first.interval;
+    Flashcard lowest = _flashcards.first;
+    for (int i = 0; i < _flashcards.length; i++) {
+      if (_flashcards[i].deck == currentDeck) {
+        if (_flashcards[i].interval < intervall) {
+          intervall = _flashcards[i].interval;
+          lowest = _flashcards[i];
+        }
+      }
+    }
+    return lowest;
+  }
+}

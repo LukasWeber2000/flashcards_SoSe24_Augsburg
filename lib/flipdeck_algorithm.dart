@@ -1,19 +1,19 @@
 import 'package:easy_flashcard/flashcard.dart';
 
-class FlipDeckAlgorithm {
-  double defaultStartingEase = 2.5;
-  double defaultIntervalModifier = 1.0;
-  double defaultEasyBonus = 1.3;
-  double defaultHardInterval = 1.2;
+ class FlipDeckAlgorithm {
+ static double defaultStartingEase = 2.5;
+ static double defaultIntervalModifier = 1.0;
+ static double defaultEasyBonus = 1.3;
+ static  double defaultHardInterval = 1.2;
 
-  void processAnswer(String answer, Flashcard card) {
+ static void processAnswer(String answer, Flashcard card) {
     switch (answer) {
       case 'again':
         double newInterval = card.interval * 0.5; // & of old interval
         double newEase = card.ease - 0.2; // -20% from ease
         updateCard(card, newInterval, newEase);
         break;
-      case 'hard':
+      case 'difficult':
         double newInterval = card.interval * defaultHardInterval;
         double newEase = card.ease - 0.15; // -15% from ease
         updateCard(card, newInterval, newEase);
@@ -32,7 +32,7 @@ class FlipDeckAlgorithm {
     }
   }
 
-  void updateCard(Flashcard card,double newInterval, double newEase) {
+  static void updateCard(Flashcard card,double newInterval, double newEase) {
     // card.interval = newInterval;
     card.interval = newInterval;
     // card.ease = newEase;
