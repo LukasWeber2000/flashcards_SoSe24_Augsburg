@@ -5,6 +5,7 @@ class Flashcard {
   double ease;
   String? hint;
   String deck;
+  DateTime dueDate;
 
   Flashcard(
       {required this.question,
@@ -12,7 +13,8 @@ class Flashcard {
       this.hint,
       required this.interval,
       required this.ease,
-      required this.deck});
+      required this.deck,
+      required this.dueDate});
 
   // Method to convert Flashcard object to a JSON object
   Map<String, dynamic> toJson() {
@@ -21,7 +23,8 @@ class Flashcard {
       'answer': answer,
       'hint': hint,
       'ease': ease,
-      'interval': interval
+      'interval': interval,
+      'dueDate': dueDate,
     };
   }
 
@@ -33,6 +36,7 @@ class Flashcard {
         hint: json['hint'],
         ease: json['ease'],
         interval: json['interval'],
-        deck: 'deck');
+        deck: 'deck',
+        dueDate: json['dueDate']);
   }
 }

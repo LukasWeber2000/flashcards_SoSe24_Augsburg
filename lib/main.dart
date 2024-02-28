@@ -1,6 +1,7 @@
 import 'package:easy_flashcard/deck.dart';
 import 'package:easy_flashcard/decks_view.dart';
 import 'package:easy_flashcard/flashcard_view.dart';
+import 'package:easy_flashcard/flipdeck_algorithm.dart';
 import 'package:flutter/material.dart';
 import 'package:flip_card/flip_card.dart';
 
