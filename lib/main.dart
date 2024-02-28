@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flip_card/flip_card.dart';
 
 import 'flashcard.dart';
+import 'flashcards.dart';
 import 'flashcard_editor_view.dart';
 import 'main_appbar.dart';
 
@@ -27,13 +28,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  final List<Flashcard> _flashcards = [
-    Flashcard(
-        question: 'What programming language does Flutter use?',
-        answer: 'Dart',interval: 1.0,ease: 2.5, deck: 'deckname'),
-    Flashcard(question: 'Who is the best programmer?', answer: 'Manu Klima',interval: 1.0,ease: 2.5, deck: 'deckname'),
-    Flashcard(question: 'Whats two plus two', answer: '4 quick maths',interval: 1.0,ease: 2.5, deck: 'deckname')
-  ];
+
 
   final List<Deck> decks = [Deck(name: 'English'), Deck(name: 'Math')];
 
@@ -171,10 +166,10 @@ class _MyAppState extends State<MyApp> {
                         height: 350,
                         child: FlipCard(
                             front: FlashcardView(
-                              text: _flashcards[_currentIndex].question,
+                              text: flashcards[_currentIndex].question,
                             ),
                             back: FlashcardView(
-                              text: _flashcards[_currentIndex].answer,
+                              text: flashcards[_currentIndex].answer,
                             )),
                       ),
                       Padding(
@@ -236,7 +231,7 @@ class _MyAppState extends State<MyApp> {
 
   void showNextCard() {
     setState(() {
-      if (_currentIndex + 1 < _flashcards.length) {
+      if (_currentIndex + 1 < flashcards.length) {
         _currentIndex++;
       } else {
         _currentIndex = 0;
@@ -249,7 +244,7 @@ class _MyAppState extends State<MyApp> {
       if (_currentIndex > 0) {
         _currentIndex--;
       } else {
-        _currentIndex = _flashcards.length - 1;
+        _currentIndex = flashcards.length - 1;
       }
     });
   }

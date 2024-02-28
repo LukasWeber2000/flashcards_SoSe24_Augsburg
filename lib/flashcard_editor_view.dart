@@ -1,12 +1,8 @@
 import 'package:easy_flashcard/deck.dart';
+import 'package:easy_flashcard/main.dart';
 import 'package:easy_flashcard/flashcard.dart';
 import 'package:flutter/material.dart';
-import 'package:path_provider/path_provider.dart';
-import 'dart:async';
-import 'dart:io';
-import 'dart:convert';
-
-import 'main.dart';
+import 'flashcards.dart';
 
 class FlashcardEditorView extends StatelessWidget {
   FlashcardEditorView({super.key});
@@ -14,6 +10,7 @@ class FlashcardEditorView extends StatelessWidget {
   final questionTextController = TextEditingController();
   final answerTextController = TextEditingController();
   final hintTextController = TextEditingController();
+
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +45,7 @@ class FlashcardEditorView extends StatelessWidget {
                     style: TextStyle(color: Colors.white),
                   ),
                   IconButton(
-                    onPressed: doStuff,
+                    onPressed: saveFlashcard,
                     icon: const Icon(
                       Icons.check,
                       color: Color(0xFF549186),
@@ -93,7 +90,7 @@ class FlashcardEditorView extends StatelessWidget {
                             onChanged: (String? newValue) {
                               // You can put your logic here to respond to the selection of a new item
                               print('Selected item: $newValue');
-                              print(_localPath);
+                              print(localPath);
                             },
                           ),
                         ),
@@ -221,68 +218,36 @@ class FlashcardEditorView extends StatelessWidget {
     );
   }
 
-  List<Flashcard> flashcards = [];
 
-  void doStuff() async {
-    flashcards.add(Flashcard(
-        question: questionTextController.text,
-        answer: answerTextController.text,
-        hint: hintTextController.text,
-        ease: 2.5,
-        interval: 1.0,
-        deck: currentDeck));
-
-    // Write the updated list of flashcards to the file
-    await writeFlashcardList(flashcards);
-
-    // Read all flashcards from the file
-    await readFlashcardList();
+  bool isQuestionUnique(String question, List<Flashcard> flashcards) {
+    return !flashcards.any((flashcard) => flashcard.question == question);
   }
 
-  void readFlashcardListLocal(List<Flashcard> list) {
-    for (int i = 0; i < list.length; i++) {
-      print('Question: ' +
-          list[i].question +
-          ' - Answer: ' +
-          list[i].answer +
-          '- Hint:' +
-          (list[i].hint ?? ''));
+  void saveFlashcard() async {
+    flashcards = await getFlashcardListFromJson();
+
+
+    if (isQuestionUnique(questionTextController.text, flashcards)) {
+      flashcards.add(Flashcard(
+          question: questionTextController.text,
+          answer: answerTextController.text,
+          hint: hintTextController.text,
+          ease: 2.5,
+          interval: 1.0,
+          deck: currentDeck));
+
+      // Write all Flashcards
+      writeFlashcardListToFile(flashcards);
+
+
+    // Read all flashcards
+    await readAllFlashcards(flashcards);
+    }else{
+      print('Flashcard is already in list');
     }
   }
 
-  Future<void> writeFlashcardList(List<Flashcard> flashcards) async {
-    final file = await _localFile;
-    final jsonList = flashcards.map((flashcard) => flashcard.toJson()).toList();
-    final jsonString = json.encode(jsonList);
-    await file.writeAsString(jsonString);
-  }
 
-  Future<void> readFlashcardList() async {
-    final file = await _localFile;
-    if (!await file.exists()) {
-      print('File does not exist');
-      return;
-    }
 
-    final jsonString = await file.readAsString();
-    final jsonList = json.decode(jsonString) as List<dynamic>;
-    flashcards = jsonList.map((json) => Flashcard.fromJson(json)).toList();
 
-    // Print all flashcards
-    for (int i = 0; i < flashcards.length; i++) {
-      print(
-          'Question: ${flashcards[i].question} - Answer: ${flashcards[i].answer} - Hint: ${flashcards[i].hint ?? ''}');
-    }
-  }
-
-  Future<String> get _localPath async {
-    final directory = await getApplicationDocumentsDirectory();
-    return directory.path;
-  }
-
-  Future<File> get _localFile async {
-    final path = await _localPath;
-    print(path);
-    return File('$path/flashcards.json');
-  }
 }
