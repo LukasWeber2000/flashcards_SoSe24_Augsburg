@@ -24,6 +24,7 @@ class Flashcard {
       'hint': hint,
       'ease': ease,
       'interval': interval,
+      'deck': deck,
       'dueDate': dueDate,
     };
   }
@@ -36,7 +37,7 @@ class Flashcard {
         hint: json['hint'],
         ease: json['ease'],
         interval: json['interval'],
-        deck: 'deck',
+        deck: json['deck'],
         dueDate: json['dueDate']);
   }
 }

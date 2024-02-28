@@ -234,7 +234,8 @@ class FlashcardEditorView extends StatelessWidget {
           hint: hintTextController.text,
           ease: 2.5,
           interval: 1.0,
-          deck: currentDeck));
+          deck: currentDeck
+          ,dueDate: DateTime.now()));
 
       // Write all Flashcards
       writeFlashcardListToFile(flashcards);
