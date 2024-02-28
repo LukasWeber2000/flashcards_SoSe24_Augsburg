@@ -1,6 +1,7 @@
 import 'package:easy_flashcard/deck.dart';
 import 'package:easy_flashcard/decks_view.dart';
 import 'package:easy_flashcard/flashcard_view.dart';
+import 'package:easy_flashcard/flipdeck_algorithm.dart';
 import 'package:flutter/material.dart';
 import 'package:flip_card/flip_card.dart';
 
@@ -30,9 +31,9 @@ class _MyAppState extends State<MyApp> {
   final List<Flashcard> _flashcards = [
     Flashcard(
         question: 'What programming language does Flutter use?',
-        answer: 'Dart',interval: 1.0,ease: 2.5, deck: 'deckname'),
-    Flashcard(question: 'Who is the best programmer?', answer: 'Manu Klima',interval: 1.0,ease: 2.5, deck: 'deckname'),
-    Flashcard(question: 'Whats two plus two', answer: '4 quick maths',interval: 1.0,ease: 2.5, deck: 'deckname')
+        answer: 'Dart',interval: 1.0,ease: 2.5, deck: 'deckname',dueDate: DateTime.now()),
+    Flashcard(question: 'Who is the best programmer?', answer: 'Manu Klima',interval: 1.0,ease: 2.5, deck: 'deckname',dueDate: DateTime.now()),
+    Flashcard(question: 'Whats two plus two', answer: '4 quick maths',interval: 1.0,ease: 2.5, deck: 'deckname',dueDate: DateTime.now())
   ];
 
   final List<Deck> decks = [Deck(name: 'English'), Deck(name: 'Math')];
@@ -201,7 +202,7 @@ class _MyAppState extends State<MyApp> {
                       ButtonBar(
                         alignment: MainAxisAlignment.center,
                         children: [
-                          _buildButton('Again', Colors.red),
+                          _buildButton('Again', Colors.red,),
                           _buildButton('Difficult', Colors.orange),
                           _buildButton('Good', Colors.yellow),
                           _buildButton('Easy', Colors.green),
@@ -221,7 +222,9 @@ class _MyAppState extends State<MyApp> {
 
   Widget _buildButton(String label, Color color) {
     return OutlinedButton(
-      onPressed: () {},
+      onPressed: () {
+
+      },
       style: OutlinedButton.styleFrom(
         side: BorderSide(color: color),
         foregroundColor: Colors.white,
