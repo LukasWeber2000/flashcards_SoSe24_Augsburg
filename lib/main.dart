@@ -1,21 +1,17 @@
 import 'package:easy_flashcard/deck.dart';
 import 'package:easy_flashcard/decks_view.dart';
 import 'package:easy_flashcard/flashcard_view.dart';
-import 'package:easy_flashcard/flipdeck_algorithm.dart';
+import 'package:easy_flashcard/flashcard_algorithm.dart';
 import 'package:flutter/material.dart';
 import 'package:flip_card/flip_card.dart';
 
+import 'decks.dart';
 import 'flashcard.dart';
 import 'flashcards.dart';
 import 'flashcard_editor_view.dart';
 import 'main_appbar.dart';
 
-final List<Deck> decks = [
-  Deck(name: 'Programming'),
-  Deck(name: 'Database'),
-  Deck(name: 'Mathematics'),
-  Deck(name: 'Customizing')
-];
+
 
 var currentDeck = decks[0].name;
 

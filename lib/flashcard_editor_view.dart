@@ -2,6 +2,7 @@ import 'package:easy_flashcard/deck.dart';
 import 'package:easy_flashcard/main.dart';
 import 'package:easy_flashcard/flashcard.dart';
 import 'package:flutter/material.dart';
+import 'decks.dart';
 import 'flashcards.dart';
 
 class FlashcardEditorView extends StatelessWidget {
