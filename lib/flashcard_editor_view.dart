@@ -4,6 +4,7 @@ import 'package:easy_flashcard/flashcard.dart';
 import 'package:flutter/material.dart';
 import 'decks.dart';
 import 'flashcards.dart';
+import 'learn_view.dart';
 
 class FlashcardEditorView extends StatelessWidget {
   FlashcardEditorView({super.key});
@@ -33,7 +34,7 @@ class FlashcardEditorView extends StatelessWidget {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => MyApp()),
+                        MaterialPageRoute(builder: (context) => Learn()),
                       );
                     },
                     icon: const Icon(
