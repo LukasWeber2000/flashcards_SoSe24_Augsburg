@@ -16,7 +16,7 @@ final List<Deck> decks = [
   Deck(name: '04: Customizing')
 ];
 
-var currentDeck = decks[0].name;
+var currentDeck = decks[2].name;
 
 void main() {
   runApp(MyApp());
@@ -49,7 +49,7 @@ class _MyAppState extends State<MyApp> {
         deck: '03: Mathematics')
   ];
 
-  final List<Deck> decks = [Deck(name: 'English'), Deck(name: 'Math')];
+
 
   final _imagePath = 'images/FlipDeck_Lettering.png';
   final _imagelogo = 'images/FlipDeck_Logo_final.png';
@@ -268,6 +268,7 @@ class _MyAppState extends State<MyApp> {
   void showNextCard() {
     setState(() {
       current = getLowestCard();
+      //print(current.question);
 
       /*if (_currentIndex + 1 < _flashcards.length) {
         _currentIndex++;
@@ -288,16 +289,23 @@ class _MyAppState extends State<MyApp> {
   }
 
   Flashcard getLowestCard() {
-    double intervall = _flashcards.first.interval;
+    double intervall = double.maxFinite;
     Flashcard lowest = _flashcards.first;
+    bool nocard = true;
     for (int i = 0; i < _flashcards.length; i++) {
       if (_flashcards[i].deck == currentDeck) {
+        nocard = false;
         if (_flashcards[i].interval < intervall) {
           intervall = _flashcards[i].interval;
           lowest = _flashcards[i];
         }
       }
     }
-    return lowest;
+    if(nocard == true){
+      return Flashcard(question: 'Legen sie erst eine Karte an', answer: '-', interval: 2.0, ease: 2.0, deck: 'Test');
+    }else {
+      print('getLowestCard ${current.question}');
+      return lowest;
+    }
   }
 }
