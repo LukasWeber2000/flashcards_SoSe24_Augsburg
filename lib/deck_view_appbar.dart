@@ -20,6 +20,7 @@ class CustomDeckAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+
       color: Colors.black,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),

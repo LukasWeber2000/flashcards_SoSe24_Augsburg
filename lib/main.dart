@@ -16,6 +16,8 @@ class DeckView extends StatelessWidget {
   final _imagePath = 'images/FlipDeck_Lettering.png';
   final _imagelogo = 'images/FlipDeck_Logo_final.png';
 
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -28,10 +30,11 @@ class DeckView extends StatelessWidget {
           return Padding(
               padding: const EdgeInsets.only(top: 50),
               child: Scaffold(
+                key: _scaffoldKey,
                 appBar: CustomDeckAppBar(
                   imagePath: _imagePath,
                   imageLogo: _imagelogo,
-                  onMenuPressed: () {},
+                  onMenuPressed: () => _scaffoldKey.currentState?.openEndDrawer(),
                   onBackPressed: () {
                     Navigator.push(
                       context,
