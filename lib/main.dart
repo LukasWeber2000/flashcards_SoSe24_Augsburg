@@ -11,10 +11,10 @@ import 'flashcard_editor_view.dart';
 import 'main_appbar.dart';
 
 final List<Deck> decks = [
-  Deck(name: '01: Programming'),
-  Deck(name: '02: Database'),
-  Deck(name: '03: Mathematics'),
-  Deck(name: '04: Customizing')
+  Deck(name: 'Programming'),
+  Deck(name: 'Database'),
+  Deck(name: 'Mathematics'),
+  Deck(name: 'Customizing')
 ];
 
 var currentDeck = decks[0].name;
@@ -40,7 +40,8 @@ class _MyAppState extends State<MyApp> {
       answer: 'answer',
       interval: 0.0,
       ease: 0.0,
-      deck: 'deck');
+      deck: 'deck',
+      dueDate: DateTime.now());
 
   int _currentIndex = 0;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -259,7 +260,7 @@ class _MyAppState extends State<MyApp> {
       }
     });
   }
-}
+
 
   Flashcard getLowestCard() {
     double intervall = double.maxFinite;
@@ -274,9 +275,14 @@ class _MyAppState extends State<MyApp> {
         }
       }
     }
-    if(nocard == true){
-      return Flashcard(question: 'Legen sie erst eine Karte an', answer: '-', interval: 2.0, ease: 2.0, deck: 'Test');
-    }else {
+    if (nocard == true) {
+      return Flashcard(question: 'Legen sie erst eine Karte an',
+          answer: '-',
+          interval: 2.0,
+          ease: 2.0,
+          deck: 'Test',
+          dueDate: DateTime.now());
+    } else {
       print('getLowestCard ${current.question}');
       return lowest;
     }
