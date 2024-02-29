@@ -78,6 +78,10 @@ class FlashcardEditorView extends StatelessWidget {
                           child: DropdownButton<String>(
                             dropdownColor: Colors.black,
                             value: currentDeck,
+                            onTap: (){
+
+                            },
+
                             items: decks.map((Deck decks) {
                               return DropdownMenuItem<String>(
                                 alignment: Alignment.center,
