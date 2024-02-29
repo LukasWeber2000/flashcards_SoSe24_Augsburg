@@ -79,9 +79,9 @@ class DeckView extends StatelessWidget {
           body: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: const Row(
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     FittedBox(
@@ -167,6 +167,7 @@ class DeckView extends StatelessWidget {
                                     //leading: Icon(Icons.gamepad_outlined),
                                     onTap: () {
                                       currentDeck = deck.name;
+                                      print(currentDeck);
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
