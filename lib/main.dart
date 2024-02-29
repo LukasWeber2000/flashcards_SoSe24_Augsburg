@@ -1,3 +1,4 @@
+import 'package:easy_flashcard/card_management_view.dart';
 import 'package:easy_flashcard/deck.dart';
 import 'package:flutter/material.dart';
 
@@ -84,6 +85,21 @@ class DeckView extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(builder: (context) => DeckView()),
+                          );
+                          // Aktion für Menüpunkt 2
+                          // Schließt den Drawer
+                        },
+                      ),
+                      ListTile(
+                        shape:
+                        const Border(bottom: BorderSide(color: Colors.white)),
+                        title: const Text('Card Management',
+                            style: TextStyle(color: Colors.white)),
+                        onTap: () {
+                          Navigator.pop(context);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => CardManagementView()),
                           );
                           // Aktion für Menüpunkt 2
                           // Schließt den Drawer
