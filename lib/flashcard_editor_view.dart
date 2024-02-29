@@ -6,9 +6,13 @@ import 'decks.dart';
 import 'flashcards.dart';
 import 'learn_view.dart';
 
-class FlashcardEditorView extends StatelessWidget {
+class FlashcardEditorView extends StatefulWidget {
   FlashcardEditorView({super.key});
 
+  _MeinDropdownWidgetState createState() => _MeinDropdownWidgetState();
+}
+
+class _MeinDropdownWidgetState extends State<FlashcardEditorView> {
   final questionTextController = TextEditingController();
   final answerTextController = TextEditingController();
   final hintTextController = TextEditingController();
@@ -78,10 +82,6 @@ class FlashcardEditorView extends StatelessWidget {
                           child: DropdownButton<String>(
                             dropdownColor: Colors.black,
                             value: currentDeck,
-                            onTap: (){
-
-                            },
-
                             items: decks.map((Deck decks) {
                               return DropdownMenuItem<String>(
                                 alignment: Alignment.center,
@@ -95,8 +95,11 @@ class FlashcardEditorView extends StatelessWidget {
                             // Handler called when an item is selected
                             onChanged: (String? newValue) {
                               // You can put your logic here to respond to the selection of a new item
-                              print('Selected item: $newValue');
-                              print(localPath);
+                              setState(() {
+                                currentDeck = newValue!;
+                                print('Selected item: $newValue');
+                                // Sie können hier zusätzliche Logik einfügen, z.B. den Wert in einer Datenbank speichern oder eine andere Aktion ausführen
+                              });
                             },
                           ),
                         ),
@@ -253,6 +256,8 @@ class FlashcardEditorView extends StatelessWidget {
       print('Flashcard is already in list');
     }
   }
+
+
 
 
 
