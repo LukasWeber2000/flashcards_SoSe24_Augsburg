@@ -37,6 +37,7 @@ class _LearnState extends State<Learn> {
   Widget build(BuildContext context) {
     showNextCard();
     return Scaffold(
+      backgroundColor: Colors.black12,
       body: Builder(builder: (context) {
         return Padding(
           padding: const EdgeInsets.only(top: 50),

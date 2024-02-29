@@ -6,6 +6,8 @@ import 'decks.dart';
 import 'flashcards.dart';
 import 'learn_view.dart';
 
+
+
 class FlashcardEditorView extends StatefulWidget {
   FlashcardEditorView({super.key});
 
@@ -16,6 +18,9 @@ class _MeinDropdownWidgetState extends State<FlashcardEditorView> {
   final questionTextController = TextEditingController();
   final answerTextController = TextEditingController();
   final hintTextController = TextEditingController();
+
+  late final String imagePath;
+  late final String imageLogo;
 
 
   @override
