@@ -167,6 +167,7 @@ class DeckView extends StatelessWidget {
                                     //leading: Icon(Icons.gamepad_outlined),
                                     onTap: () {
                                       currentDeck = deck.name;
+                                      print(currentDeck);
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(

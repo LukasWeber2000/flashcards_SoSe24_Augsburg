@@ -268,6 +268,7 @@ class _MyAppState extends State<MyApp> {
   void showNextCard() {
     setState(() {
       current = getLowestCard();
+
       /*if (_currentIndex + 1 < _flashcards.length) {
         _currentIndex++;
       } else {
