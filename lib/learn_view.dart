@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flip_card/flip_card.dart';
 
 import 'custom_appbar.dart';
+import 'custom_drawer.dart';
 import 'decks.dart';
 import 'flashcard.dart';
 import 'flashcards.dart';
@@ -18,8 +19,6 @@ class Learn extends StatefulWidget {
 }
 
 class _LearnState extends State<Learn> {
-  final _imagePath = 'images/FlipDeck_Lettering.png';
-  final _imagelogo = 'images/FlipDeck_Logo_final.png';
 
   //Dummy anlegen
   Flashcard current = Flashcard(
@@ -41,68 +40,20 @@ class _LearnState extends State<Learn> {
         return Padding(
           padding: const EdgeInsets.only(top: 50),
           child: Scaffold(
+            backgroundColor: Colors.black,
             key: _scaffoldKey,
             appBar: CustomAppbar(
               onRightButtonPressed: () => _scaffoldKey.currentState?.openEndDrawer(),
               onLeftButtonPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => Learn()),
+                  MaterialPageRoute(builder: (context) => DeckView()),
                 );
               },
               rightIcon: Icons.menu,
               leftIcon: Icons.arrow_back,
             ),
-            endDrawer: Drawer(
-              backgroundColor: Color(0xFF1A1A1A),
-              surfaceTintColor: Color(0xFF1A1A1A),
-              child: ListView(
-                children: <Widget>[
-                  DrawerHeader(
-                    decoration: BoxDecoration(
-                        color: Colors.white10,
-                        image: DecorationImage(
-                            image: AssetImage(_imagelogo),
-                            scale: Checkbox.width)),
-                    child: const Text('',
-                        style: TextStyle(
-                            color: Color(0xFFFFFFFF),
-                            fontWeight: FontWeight.bold)),
-                  ),
-                  ListTile(
-                    shape:
-                        const Border(bottom: BorderSide(color: Colors.white)),
-                    title: const Text('Karte hinzufügen',
-                        style: TextStyle(color: Colors.white)),
-                    onTap: () {
-                      Navigator.pop(context);
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => FlashcardEditorView()),
-                      );
-                      // Aktion für Menüpunkt 1
-                      // Schließt den Drawer
-                    },
-                  ),
-                  ListTile(
-                    shape:
-                        const Border(bottom: BorderSide(color: Colors.white)),
-                    title: const Text('Kartenstapel',
-                        style: TextStyle(color: Colors.white)),
-                    onTap: () {
-                      Navigator.pop(context);
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => DeckView()),
-                      );
-                      // Schließt den Drawer
-                    },
-                  ),
-                  // Füge hier weitere Menüpunkte hinzu
-                ],
-              ),
-            ),
+            endDrawer: CustomDrawer(),
             body: Column(
               children: [
                 Row(

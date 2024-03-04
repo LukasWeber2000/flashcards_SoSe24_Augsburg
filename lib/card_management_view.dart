@@ -1,4 +1,5 @@
 import 'package:easy_flashcard/custom_appbar.dart';
+import 'package:easy_flashcard/custom_drawer.dart';
 import 'package:flutter/material.dart';
 
 import 'flashcard_editor_view.dart';
@@ -28,6 +29,7 @@ class CardManagementView extends StatelessWidget {
           rightIcon: Icons.menu,
           leftIcon: Icons.arrow_back,
         ),
+        endDrawer: CustomDrawer(),
         body: ListView.builder(
           itemCount: flashcards.length,
           itemBuilder: (context, index) {

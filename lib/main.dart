@@ -3,6 +3,7 @@ import 'package:easy_flashcard/deck.dart';
 import 'package:flutter/material.dart';
 
 import 'custom_appbar.dart';
+import 'custom_drawer.dart';
 import 'decks.dart';
 import 'flashcard_editor_view.dart';
 import 'learn_view.dart';
@@ -43,72 +44,7 @@ class DeckView extends StatelessWidget {
                   leftIcon: Icons.arrow_back,
                 ),
 
-                endDrawer: Drawer(
-                  backgroundColor: Color(0xFF1A1A1A),
-                  surfaceTintColor: Color(0xFF1A1A1A),
-                  child: ListView(
-                    children: <Widget>[
-                      DrawerHeader(
-                        decoration: BoxDecoration(
-                            color: Colors.white10,
-                            image: DecorationImage(
-                                image: AssetImage(_imagelogo),
-                                scale: Checkbox.width)),
-                        child: const Text('',
-                            style: TextStyle(
-                                color: Color(0xFFFFFFFF),
-                                fontWeight: FontWeight.bold)),
-                      ),
-                      ListTile(
-                        shape:
-                            const Border(bottom: BorderSide(color: Colors.white)),
-                        title: const Text('Karte hinzufügen',
-                            style: TextStyle(color: Colors.white)),
-                        onTap: () {
-                          Navigator.pop(context);
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => FlashcardEditorView()),
-                          );
-                          // Aktion für Menüpunkt 1
-                          // Schließt den Drawer
-                        },
-                      ),
-                      ListTile(
-                        shape:
-                            const Border(bottom: BorderSide(color: Colors.white)),
-                        title: const Text('Kartenstapel',
-                            style: TextStyle(color: Colors.white)),
-                        onTap: () {
-                          Navigator.pop(context);
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => DeckView()),
-                          );
-                          // Aktion für Menüpunkt 2
-                          // Schließt den Drawer
-                        },
-                      ),
-                      ListTile(
-                        shape:
-                        const Border(bottom: BorderSide(color: Colors.white)),
-                        title: const Text('Card Management',
-                            style: TextStyle(color: Colors.white)),
-                        onTap: () {
-                          Navigator.pop(context);
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => CardManagementView()),
-                          );
-                          // Aktion für Menüpunkt 2
-                          // Schließt den Drawer
-                        },
-                      ),
-                      // Füge hier weitere Menüpunkte hinzu
-                    ],
-                  ),
-                ),
+                endDrawer: CustomDrawer(),
                 body: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
