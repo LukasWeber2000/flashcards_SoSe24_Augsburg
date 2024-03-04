@@ -37,7 +37,7 @@ class CardManagementView extends StatelessWidget {
             return ListTile(
               onTap: () {Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => FlashcardEditorView()),
+              MaterialPageRoute(builder: (context) => FlashcardEditorView(flashcard: flashcard,)),
               );},
               textColor: Colors.white,
               title: Text(flashcard.question),

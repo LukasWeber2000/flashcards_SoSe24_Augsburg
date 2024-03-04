@@ -7,15 +7,20 @@ import 'flashcards.dart';
 import 'learn_view.dart';
 
 class FlashcardEditorView extends StatelessWidget {
-  FlashcardEditorView({super.key});
+  FlashcardEditorView({super.key, this.flashcard});
 
   final questionTextController = TextEditingController();
   final answerTextController = TextEditingController();
   final hintTextController = TextEditingController();
+  final Flashcard? flashcard;
+
 
 
   @override
   Widget build(BuildContext context) {
+    if(flashcard != null){
+      loadFlashcard(flashcard);
+    }
     return MaterialApp(
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.white10,
@@ -222,6 +227,12 @@ class FlashcardEditorView extends StatelessWidget {
             )),
       ),
     );
+  }
+
+  void loadFlashcard(Flashcard? flashcard){
+    questionTextController.text = flashcard?.question??'';
+    answerTextController.text = flashcard?.answer??'';
+    hintTextController.text = flashcard?.hint??'';
   }
 
 
