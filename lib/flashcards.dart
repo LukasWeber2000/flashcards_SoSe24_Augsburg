@@ -47,7 +47,8 @@ Future<void> writeFlashcardListToFile(List<Flashcard> flashcards) async {
 Future<List<Flashcard>> getFlashcardListFromJson() async {
   final file = await localFile;
   if (!await file.exists()) {
-    throw Exception('File does not exist: ${file.path}');
+    await file.create();
+    return flashcards;
   }
 
   final jsonString = await file.readAsString();

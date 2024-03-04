@@ -1,26 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:easy_flashcard/deck.dart';
-import 'flashcard_editor_view.dart';
-import 'main.dart';
 
-class CustomDeckAppBar extends StatelessWidget implements PreferredSizeWidget {
-  final String imagePath;
-  final String imageLogo;
-  final VoidCallback onMenuPressed;
-  final VoidCallback onBackPressed;
+class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
+  final imagePath = 'images/FlipDeck_Lettering.png';
+  final VoidCallback? onRightButtonPressed;
+  final VoidCallback? onLeftButtonPressed;
+  final IconData? rightIcon;
+  final IconData? leftIcon;
 
-  const CustomDeckAppBar({
+  const CustomAppbar({
     Key? key,
-    required this.imagePath,
-    required this.imageLogo,
-    required this.onMenuPressed,
-    required this.onBackPressed,
+    this.onRightButtonPressed,
+    this.onLeftButtonPressed,
+    this.rightIcon,
+    this.leftIcon,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-
       color: Colors.black,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -28,10 +25,9 @@ class CustomDeckAppBar extends StatelessWidget implements PreferredSizeWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             IconButton(
-              onPressed: onBackPressed,
-              icon: Icon(
-                Icons.arrow_back,
-                color: Color(0xFF549186),
+              onPressed: onLeftButtonPressed,
+              icon: Icon(leftIcon,
+                  color: Color(0xFF549186)
               ),
             ),
             Image.asset(
@@ -40,9 +36,9 @@ class CustomDeckAppBar extends StatelessWidget implements PreferredSizeWidget {
               height: 40,
             ),
             IconButton(
-              onPressed: onMenuPressed,
+              onPressed: onRightButtonPressed,
               icon: Icon(
-                Icons.menu,
+                rightIcon,
                 color: Color(0xFF549186),
               ),
             ),

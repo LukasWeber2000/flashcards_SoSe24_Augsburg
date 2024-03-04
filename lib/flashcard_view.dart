@@ -12,7 +12,8 @@ class FlashcardView extends StatelessWidget {
       child: Center(
         child: Text(text, textAlign: TextAlign.center,style: TextStyle(
           color: Colors.white, // White text color
-        )),
+        )
+        ),
       ),
     );
   }

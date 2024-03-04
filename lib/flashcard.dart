@@ -25,19 +25,21 @@ class Flashcard {
       'ease': ease,
       'interval': interval,
       'deck': deck,
-      'dueDate': dueDate,
+      'dueDate': dueDate.toIso8601String(),
     };
   }
 
   // Method to create Flashcard object from a JSON object
   factory Flashcard.fromJson(Map<String, dynamic> json) {
     return Flashcard(
-        question: json['question'],
-        answer: json['answer'],
-        hint: json['hint'],
-        ease: json['ease'],
-        interval: json['interval'],
-        deck: json['deck'],
-        dueDate: json['dueDate']);
+      question: json['question'],
+      answer: json['answer'],
+      hint: json['hint'],
+      ease: json['ease'].toDouble(), // Parse ease as double
+      interval: json['interval'].toDouble(), // Parse interval as double
+      deck: json['deck'],
+      dueDate: DateTime.parse(json['dueDate']), // Parse dueDate as DateTime
+    );
   }
+
 }
