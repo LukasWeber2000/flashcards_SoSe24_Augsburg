@@ -6,25 +6,21 @@ import 'decks.dart';
 import 'flashcards.dart';
 import 'learn_view.dart';
 
+class FlashcardEditorView extends StatelessWidget {
+  FlashcardEditorView({super.key, this.flashcard});
 
-
-class FlashcardEditorView extends StatefulWidget {
-  FlashcardEditorView({super.key});
-
-  _MeinDropdownWidgetState createState() => _MeinDropdownWidgetState();
-}
-
-class _MeinDropdownWidgetState extends State<FlashcardEditorView> {
   final questionTextController = TextEditingController();
   final answerTextController = TextEditingController();
   final hintTextController = TextEditingController();
+  final Flashcard? flashcard;
 
-  late final String imagePath;
-  late final String imageLogo;
 
 
   @override
   Widget build(BuildContext context) {
+    if(flashcard != null){
+      loadFlashcard(flashcard);
+    }
     return MaterialApp(
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.white10,
@@ -87,6 +83,10 @@ class _MeinDropdownWidgetState extends State<FlashcardEditorView> {
                           child: DropdownButton<String>(
                             dropdownColor: Colors.black,
                             value: currentDeck,
+                            onTap: (){
+
+                            },
+
                             items: decks.map((Deck decks) {
                               return DropdownMenuItem<String>(
                                 alignment: Alignment.center,
@@ -100,11 +100,8 @@ class _MeinDropdownWidgetState extends State<FlashcardEditorView> {
                             // Handler called when an item is selected
                             onChanged: (String? newValue) {
                               // You can put your logic here to respond to the selection of a new item
-                              setState(() {
-                                currentDeck = newValue!;
-                                print('Selected item: $newValue');
-                                // Sie können hier zusätzliche Logik einfügen, z.B. den Wert in einer Datenbank speichern oder eine andere Aktion ausführen
-                              });
+                              print('Selected item: $newValue');
+                              print(localPath);
                             },
                           ),
                         ),
@@ -232,6 +229,12 @@ class _MeinDropdownWidgetState extends State<FlashcardEditorView> {
     );
   }
 
+  void loadFlashcard(Flashcard? flashcard){
+    questionTextController.text = flashcard?.question??'';
+    answerTextController.text = flashcard?.answer??'';
+    hintTextController.text = flashcard?.hint??'';
+  }
+
 
   bool isQuestionUnique(String question, List<Flashcard> flashcards) {
     return !flashcards.any((flashcard) => flashcard.question == question);
@@ -261,8 +264,6 @@ class _MeinDropdownWidgetState extends State<FlashcardEditorView> {
       print('Flashcard is already in list');
     }
   }
-
-
 
 
 
