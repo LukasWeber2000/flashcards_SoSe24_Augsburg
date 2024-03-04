@@ -3,12 +3,12 @@ import 'package:easy_flashcard/flashcard_algorithm.dart';
 import 'package:flutter/material.dart';
 import 'package:flip_card/flip_card.dart';
 
+import 'custom_appbar.dart';
 import 'decks.dart';
 import 'flashcard.dart';
 import 'flashcards.dart';
 import 'flashcard_editor_view.dart';
 import 'main.dart';
-import 'main_appbar.dart';
 
 var currentDeck = decks[0].name;
 
@@ -42,16 +42,16 @@ class _LearnState extends State<Learn> {
           padding: const EdgeInsets.only(top: 50),
           child: Scaffold(
             key: _scaffoldKey,
-            appBar: CustomAppBar(
-              imagePath: _imagePath,
-              imageLogo: _imagelogo,
-              onMenuPressed: () => _scaffoldKey.currentState?.openEndDrawer(),
-              onBackPressed: () {
+            appBar: CustomAppbar(
+              onRightButtonPressed: () => _scaffoldKey.currentState?.openEndDrawer(),
+              onLeftButtonPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => DeckView()),
+                  MaterialPageRoute(builder: (context) => Learn()),
                 );
               },
+              rightIcon: Icons.menu,
+              leftIcon: Icons.arrow_back,
             ),
             endDrawer: Drawer(
               backgroundColor: Color(0xFF1A1A1A),

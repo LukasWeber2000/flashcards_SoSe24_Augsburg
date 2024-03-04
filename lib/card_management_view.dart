@@ -1,4 +1,4 @@
-import 'package:easy_flashcard/card_management_view_appbar.dart';
+import 'package:easy_flashcard/custom_appbar.dart';
 import 'package:flutter/material.dart';
 
 import 'flashcard_editor_view.dart';
@@ -8,8 +8,6 @@ import 'learn_view.dart';
 class CardManagementView extends StatelessWidget {
   CardManagementView({super.key});
 
-  final _imagePath = 'images/FlipDeck_Lettering.png';
-  final _imagelogo = 'images/FlipDeck_Logo_final.png';
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -19,16 +17,16 @@ class CardManagementView extends StatelessWidget {
       child: Scaffold(
         key: _scaffoldKey,
         backgroundColor: Colors.black,
-        appBar: CardManagementViewAppBar(
-          imagePath: _imagePath,
-          imageLogo: _imagelogo,
-          onMenuPressed: () => _scaffoldKey.currentState?.openEndDrawer(),
-          onBackPressed: () {
+        appBar: CustomAppbar(
+          onRightButtonPressed: () => _scaffoldKey.currentState?.openEndDrawer(),
+          onLeftButtonPressed: () {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => Learn()),
             );
           },
+          rightIcon: Icons.menu,
+          leftIcon: Icons.arrow_back,
         ),
         body: ListView.builder(
           itemCount: flashcards.length,
