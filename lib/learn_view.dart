@@ -19,7 +19,6 @@ class Learn extends StatefulWidget {
 }
 
 class _LearnState extends State<Learn> {
-
   //Dummy anlegen
   Flashcard current = Flashcard(
       question: 'question',
@@ -30,7 +29,9 @@ class _LearnState extends State<Learn> {
       dueDate: DateTime.now());
 
   int _currentIndex = 0;
+  CardSide cardSide = CardSide.FRONT;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  GlobalKey<FlipCardState> _flipCardKey = GlobalKey<FlipCardState>();
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +44,8 @@ class _LearnState extends State<Learn> {
             backgroundColor: Colors.black,
             key: _scaffoldKey,
             appBar: CustomAppbar(
-              onRightButtonPressed: () => _scaffoldKey.currentState?.openEndDrawer(),
+              onRightButtonPressed: () =>
+                  _scaffoldKey.currentState?.openEndDrawer(),
               onLeftButtonPressed: () {
                 Navigator.push(
                   context,
@@ -112,12 +114,15 @@ class _LearnState extends State<Learn> {
                         width: 400,
                         height: 350,
                         child: FlipCard(
+                          side: CardSide.FRONT,
+                            key: _flipCardKey,
                             front: FlashcardView(
                               text: ('${current.question} ${current.interval}'),
                             ),
                             back: FlashcardView(
                               text: current.answer,
-                            )),
+                            )
+                        ),
                       ),
                       Padding(
                         padding: const EdgeInsets.only(top: 12, bottom: 12),
@@ -180,6 +185,11 @@ class _LearnState extends State<Learn> {
   }
 
   void showNextCard() {
+
+    if (_flipCardKey.currentState != null &&
+        !_flipCardKey.currentState!.isFront) {
+      _flipCardKey.currentState!.toggleCard();
+    }
     setState(() {
       current = getLowestCard();
     });

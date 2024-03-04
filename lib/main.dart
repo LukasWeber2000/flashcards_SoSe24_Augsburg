@@ -1,4 +1,3 @@
-import 'package:easy_flashcard/card_management_view.dart';
 import 'package:easy_flashcard/deck.dart';
 import 'package:flutter/material.dart';
 
@@ -14,8 +13,6 @@ void main() {
 
 class DeckView extends StatelessWidget {
   DeckView({super.key});
-
-  final _imagelogo = 'images/FlipDeck_Logo_final.png';
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
