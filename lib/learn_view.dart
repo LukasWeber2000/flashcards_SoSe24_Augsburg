@@ -69,10 +69,10 @@ class _LearnState extends State<Learn> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => FlashcardEditorView()),
+                                  builder: (context) => FlashcardEditorView(flashcard: current,)),
                             );
                           },
-                          child: Icon(Icons.add),
+                          child: Icon(Icons.edit),
                           style: OutlinedButton.styleFrom(
                               shape: CircleBorder(),
                               foregroundColor: Color(0xFF549186)),
@@ -218,7 +218,7 @@ class _LearnState extends State<Learn> {
     }
     if (nocard == true) {
       return Flashcard(
-          question: 'Legen sie erst eine Karte an',
+          question: 'Add your first FlashCard',
           answer: '-',
           interval: 2.0,
           ease: 2.0,

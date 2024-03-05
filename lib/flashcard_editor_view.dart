@@ -1,26 +1,40 @@
+import 'package:easy_flashcard/custom_popup.dart';
 import 'package:easy_flashcard/deck.dart';
 import 'package:easy_flashcard/main.dart';
 import 'package:easy_flashcard/flashcard.dart';
 import 'package:flutter/material.dart';
+import 'custom_appbar.dart';
+import 'custom_drawer.dart';
 import 'decks.dart';
 import 'flashcards.dart';
 import 'learn_view.dart';
+import 'package:toastification/toastification.dart';
 
-class FlashcardEditorView extends StatelessWidget {
-  FlashcardEditorView({super.key, this.flashcard});
+class FlashcardEditorView extends StatefulWidget {
+  FlashcardEditorView({Key? key, this.flashcard}) : super(key: key);
 
+  final Flashcard? flashcard;
+
+  @override
+  _FlashcardEditorViewState createState() => _FlashcardEditorViewState();
+}
+
+class _FlashcardEditorViewState extends State<FlashcardEditorView> {
   final questionTextController = TextEditingController();
   final answerTextController = TextEditingController();
   final hintTextController = TextEditingController();
-  final Flashcard? flashcard;
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-
+  @override
+  void initState() {
+    super.initState();
+    if (widget.flashcard != null) {
+      loadFlashcard(widget.flashcard);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    if(flashcard != null){
-      loadFlashcard(flashcard);
-    }
     return MaterialApp(
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.white10,
@@ -29,40 +43,42 @@ class FlashcardEditorView extends StatelessWidget {
       home: Padding(
         padding: const EdgeInsets.only(top: 50),
         child: Scaffold(
-            appBar: AppBar(
-              backgroundColor: Colors.black,
-              flexibleSpace: Row(
-                mainAxisAlignment: MainAxisAlignment
-                    .spaceBetween, // Align items to start and end of row
-                children: [
-                  IconButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => Learn()),
-                      );
-                    },
-                    icon: const Icon(
-                      Icons.arrow_back,
-                      color: Color(0xFF549186),
-                    ),
-                  ),
-                  const Text(
-                    'Edit Card',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  IconButton(
-                    onPressed: saveFlashcard,
-                    icon: const Icon(
-                      Icons.check,
-                      color: Color(0xFF549186),
-                    ),
-                  ),
-                ],
-              ),
+            key: _scaffoldKey,
+            appBar: CustomAppbar(
+              onRightButtonPressed: () =>
+                  _scaffoldKey.currentState?.openEndDrawer(),
+              onLeftButtonPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Learn()),
+                );
+              },
+              rightIcon: Icons.menu,
+              leftIcon: Icons.arrow_back,
             ),
+            endDrawer: CustomDrawer(),
             body: Column(
               children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    IconButton(
+                      onPressed: () =>
+                          deleteFlashcard(widget.flashcard, context),
+                      icon: Icon(
+                        Icons.delete,
+                        color: Color(0xFF549186),
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: () => saveFlashcard(context),
+                      icon: Icon(
+                        Icons.save,
+                        color: Color(0xFF549186),
+                      ),
+                    )
+                  ],
+                ),
                 Spacer(),
                 Container(
                   decoration: const BoxDecoration(
@@ -83,9 +99,7 @@ class FlashcardEditorView extends StatelessWidget {
                           child: DropdownButton<String>(
                             dropdownColor: Colors.black,
                             value: currentDeck,
-                            onTap: (){
-
-                            },
+                            onTap: () {},
 
                             items: decks.map((Deck decks) {
                               return DropdownMenuItem<String>(
@@ -100,8 +114,9 @@ class FlashcardEditorView extends StatelessWidget {
                             // Handler called when an item is selected
                             onChanged: (String? newValue) {
                               // You can put your logic here to respond to the selection of a new item
-                              print('Selected item: $newValue');
-                              print(localPath);
+                              setState(() {
+                                currentDeck = newValue!;
+                              });
                             },
                           ),
                         ),
@@ -229,20 +244,18 @@ class FlashcardEditorView extends StatelessWidget {
     );
   }
 
-  void loadFlashcard(Flashcard? flashcard){
-    questionTextController.text = flashcard?.question??'';
-    answerTextController.text = flashcard?.answer??'';
-    hintTextController.text = flashcard?.hint??'';
+  void loadFlashcard(Flashcard? flashcard) {
+    questionTextController.text = flashcard?.question ?? '';
+    answerTextController.text = flashcard?.answer ?? '';
+    hintTextController.text = flashcard?.hint ?? '';
   }
-
 
   bool isQuestionUnique(String question, List<Flashcard> flashcards) {
     return !flashcards.any((flashcard) => flashcard.question == question);
   }
 
-  void saveFlashcard() async {
+  saveFlashcard(BuildContext context) async {
     flashcards = await getFlashcardListFromJson();
-
 
     if (isQuestionUnique(questionTextController.text, flashcards)) {
       flashcards.add(Flashcard(
@@ -251,21 +264,64 @@ class FlashcardEditorView extends StatelessWidget {
           hint: hintTextController.text,
           ease: 2.5,
           interval: 1.0,
-          deck: currentDeck
-          ,dueDate: DateTime.now()));
+          deck: currentDeck,
+          dueDate: DateTime.now()));
 
       // Write all Flashcards
       writeFlashcardListToFile(flashcards);
 
+      // Read all flashcards
+      await readAllFlashcards(flashcards);
 
-    // Read all flashcards
-    await readAllFlashcards(flashcards);
-    }else{
+      toastification.show(
+          context: context,
+          title: Text('Saved Successfully'),
+          type: ToastificationType.success,
+          autoCloseDuration: const Duration(seconds: 2),
+          alignment: Alignment.bottomCenter,
+          showProgressBar: false,
+          style: ToastificationStyle.fillColored);
+    } else {
       print('Flashcard is already in list');
+      toastification.show(
+          context: context,
+          title: Text('Edited Successfully'),
+          type: ToastificationType.success,
+          autoCloseDuration: const Duration(seconds: 2),
+          alignment: Alignment.bottomCenter,
+          showProgressBar: false,
+          style: ToastificationStyle.fillColored);
     }
   }
 
+  deleteFlashcard(Flashcard? flashcard, BuildContext context) {
+    if (flashcard != null) {
+      flashcards.remove(flashcard);
+      writeFlashcardListToFile(flashcards);
+      clearInputs();
+      toastification.show(
+          context: context,
+          title: Text('Deleted Successfully'),
+          type: ToastificationType.success,
+          autoCloseDuration: const Duration(seconds: 2),
+          alignment: Alignment.bottomCenter,
+          showProgressBar: false,
+          style: ToastificationStyle.fillColored);
+    } else {
+      toastification.show(
+          context: context,
+          title: Text('No Flashcard selected'),
+          type: ToastificationType.info,
+          autoCloseDuration: const Duration(seconds: 3),
+          alignment: Alignment.bottomCenter,
+          showProgressBar: false,
+          style: ToastificationStyle.fillColored);
+    }
+  }
 
-
-
+  clearInputs() {
+    questionTextController.text = '';
+    answerTextController.text = '';
+    hintTextController.text = '';
+  }
 }
