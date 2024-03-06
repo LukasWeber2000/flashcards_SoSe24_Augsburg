@@ -95,7 +95,7 @@ class _LearnState extends State<Learn> {
                       child: Padding(
                         padding: const EdgeInsets.only(top: 8),
                         child: OutlinedButton(
-                          onPressed: () {},
+                          onPressed: () {print(currentDeck);},
                           style: OutlinedButton.styleFrom(
                               shape: CircleBorder(),
                               foregroundColor: Color(0xFF549186)),

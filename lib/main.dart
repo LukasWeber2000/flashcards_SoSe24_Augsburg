@@ -45,7 +45,7 @@ class DeckView extends StatelessWidget {
               openAddDeckDialog: () {
                 AddDeckDialog.show(context, decks);
               },
-              currentDeck: currentDeck,
+
             ),
           ));
     }

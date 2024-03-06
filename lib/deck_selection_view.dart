@@ -6,12 +6,12 @@ import 'learn_view.dart';
 class DeckSelection extends StatelessWidget {
   final List<Deck> decks;
   final Function() openAddDeckDialog;
-  String currentDeck;
+
 
   DeckSelection({super.key,
     required this.decks,
     required this.openAddDeckDialog,
-    required this.currentDeck,
+
   });
 
   @override
