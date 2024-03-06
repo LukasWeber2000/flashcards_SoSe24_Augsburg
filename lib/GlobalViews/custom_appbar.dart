@@ -26,7 +26,7 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
           children: [
             IconButton(
               onPressed: onLeftButtonPressed,
-              icon: Icon(leftIcon, color: Color(0xFF549186)),
+              icon: Icon(leftIcon, color: const Color(0xFF549186)),
             ),
             Image.asset(
               imagePath,
@@ -37,7 +37,7 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
               onPressed: onRightButtonPressed,
               icon: Icon(
                 rightIcon,
-                color: Color(0xFF549186),
+                color: const Color(0xFF549186),
               ),
             ),
           ],
@@ -47,5 +47,6 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(56.0); // Adjust height as needed
+  Size get preferredSize =>
+      const Size.fromHeight(56.0); // Adjust height as needed
 }

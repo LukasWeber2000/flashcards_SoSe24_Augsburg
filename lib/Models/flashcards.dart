@@ -80,11 +80,3 @@ Future<List<Flashcard>> getFlashcardListFromJson() async {
   flashcards = jsonList.map((json) => Flashcard.fromJson(json)).toList();
   return flashcards;
 }
-
-readAllFlashcards(List<Flashcard> flashcards) {
-  // Print all flashcards
-  for (int i = 0; i < flashcards.length; i++) {
-    print(
-        'Question: ${flashcards[i].question} - Answer: ${flashcards[i].answer} - Hint: ${flashcards[i].hint ?? ''}');
-  }
-}

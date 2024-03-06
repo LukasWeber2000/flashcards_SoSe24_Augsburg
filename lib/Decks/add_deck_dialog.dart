@@ -10,27 +10,24 @@ class AddDeckDialog {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text('Chose deck name'),
+          title: const Text('Chose deck name'),
           content: TextField(
             controller: textFieldController,
-            decoration: InputDecoration(hintText: "Deck name"),
+            decoration: const InputDecoration(hintText: "Deck name"),
           ),
           actions: <Widget>[
             TextButton(
-              child: Text('Cancle'),
+              child: const Text('Cancel'),
               onPressed: () {
-                Navigator.of(context)
-                    .pop(); // Schließt den Dialog ohne Speichern
+                Navigator.of(context).pop();
               },
             ),
             TextButton(
-              child: Text('Save'),
+              child: const Text('Save'),
               onPressed: () {
-                // Hier können Sie die Logik zum Speichern des Kartenstapelnamens implementieren
                 String deckName = textFieldController.text;
                 decks.add(Deck(name: deckName));
-                Navigator.of(context)
-                    .pop(); // Schließt den Dialog nach dem Speichern
+                Navigator.of(context).pop();
               },
             ),
           ],

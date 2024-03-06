@@ -24,13 +24,13 @@ class CardManagementView extends StatelessWidget {
           onLeftButtonPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => Learn()),
+              MaterialPageRoute(builder: (context) => const Learn()),
             );
           },
           rightIcon: Icons.menu,
           leftIcon: Icons.arrow_back,
         ),
-        endDrawer: CustomDrawer(),
+        endDrawer: const CustomDrawer(),
         body: ListView.builder(
           itemCount: flashcards.length,
           itemBuilder: (context, index) {

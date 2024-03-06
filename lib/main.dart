@@ -34,7 +34,7 @@ class DeckView extends StatelessWidget {
                   onLeftButtonPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => Learn()),
+                      MaterialPageRoute(builder: (context) => const Learn()),
                     );
                   },
                   rightIcon: Icons.menu,

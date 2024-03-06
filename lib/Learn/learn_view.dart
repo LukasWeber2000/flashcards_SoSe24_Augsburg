@@ -1,5 +1,5 @@
 import 'package:easy_flashcard/Learn/flashcard_view.dart';
-import 'package:easy_flashcard/Models/state-algorithm.dart';
+import 'package:easy_flashcard/Models/state_algorithm.dart';
 import 'package:flutter/material.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:toastification/toastification.dart';
@@ -22,7 +22,7 @@ class Learn extends StatefulWidget {
 }
 
 class _LearnState extends State<Learn> {
-  //Dummy anlegen
+  //add Dummy
   Flashcard currentFlashcard = Flashcard(
       question: 'question',
       answer: 'answer',
@@ -98,16 +98,17 @@ class _LearnState extends State<Learn> {
                     Padding(
                       padding: const EdgeInsets.only(top: 8),
                       child: OutlinedButton(
-                        onPressed: () => showHint(context,currentFlashcard.hint),
+                        onPressed: () =>
+                            showHint(context, currentFlashcard.hint),
                         style: OutlinedButton.styleFrom(
-                            shape: CircleBorder(),
-                            foregroundColor: Color(0xFF549186)),
-                        child: Icon(Icons.question_mark),
+                            shape: const CircleBorder(),
+                            foregroundColor: const Color(0xFF549186)),
+                        child: const Icon(Icons.question_mark),
                       ),
                     ),
                   ],
                 ),
-                Spacer(),
+                const Spacer(),
                 Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -119,7 +120,8 @@ class _LearnState extends State<Learn> {
                             side: CardSide.FRONT,
                             key: _flipCardKey,
                             front: FlashcardView(
-                              text: ('${currentFlashcard.question} ${currentFlashcard.interval}'),
+                              text:
+                                  ('${currentFlashcard.question} ${currentFlashcard.interval}'),
                             ),
                             back: FlashcardView(
                               text: currentFlashcard.answer,
@@ -137,7 +139,7 @@ class _LearnState extends State<Learn> {
                     ],
                   ),
                 ),
-                Spacer()
+                const Spacer()
               ],
             ),
           ),
@@ -175,19 +177,19 @@ class _LearnState extends State<Learn> {
   }
 
   Flashcard getLowestCard() {
-    double intervall = double.maxFinite;
+    double interval = double.maxFinite;
     Flashcard lowest = flashcards.first;
-    bool nocard = true;
+    bool noCard = true;
     for (int i = 0; i < flashcards.length; i++) {
       if (flashcards[i].deck == currentDeck) {
-        nocard = false;
-        if (flashcards[i].interval < intervall) {
-          intervall = flashcards[i].interval;
+        noCard = false;
+        if (flashcards[i].interval < interval) {
+          interval = flashcards[i].interval;
           lowest = flashcards[i];
         }
       }
     }
-    if (nocard == true) {
+    if (noCard == true) {
       return Flashcard(
           question: 'Add your first FlashCard',
           answer: '-',
@@ -196,18 +198,16 @@ class _LearnState extends State<Learn> {
           deck: 'Test',
           dueDate: DateTime.now());
     } else {
-      print('getLowestCard ${currentFlashcard.question}');
       return lowest;
     }
   }
 
-  showHint(BuildContext context, String? hint){
-    if(hint != null){
+  showHint(BuildContext context, String? hint) {
+    if (hint != null) {
       toastification.show(
           context: context,
-          title: Text(hint??''),
-          type: ToastificationType.success,
-          autoCloseDuration: const Duration(seconds: 2),
+          title: Text(hint),
+          type: ToastificationType.info,
           alignment: Alignment.bottomCenter,
           showProgressBar: false,
           style: ToastificationStyle.fillColored);

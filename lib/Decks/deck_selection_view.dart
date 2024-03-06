@@ -7,7 +7,7 @@ class DeckSelection extends StatelessWidget {
   final List<Deck> decks;
   final Function() openAddDeckDialog;
 
-  DeckSelection({
+  const DeckSelection({
     super.key,
     required this.decks,
     required this.openAddDeckDialog,
@@ -55,8 +55,9 @@ class DeckSelection extends StatelessWidget {
                           padding: const EdgeInsets.only(bottom: 5),
                           child: Container(
                             decoration: BoxDecoration(
-                                border: Border.all(color: Color(0xFF549186)),
-                                borderRadius: BorderRadius.horizontal(
+                                border:
+                                    Border.all(color: const Color(0xFF549186)),
+                                borderRadius: const BorderRadius.horizontal(
                                     right: Radius.circular(10),
                                     left: Radius.circular(10))),
                             child: ListTile(
@@ -64,7 +65,7 @@ class DeckSelection extends StatelessWidget {
                                 children: [
                                   Text(
                                     '${deck.name} ',
-                                    style: TextStyle(color: Colors.white),
+                                    style: const TextStyle(color: Colors.white),
                                   ),
                                   const Spacer(),
                                   OutlinedButton(
@@ -74,13 +75,14 @@ class DeckSelection extends StatelessWidget {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                FlashcardEditorView()),
+                                                const FlashcardEditorView()),
                                       );
                                     },
-                                    child: Icon(Icons.add),
                                     style: OutlinedButton.styleFrom(
-                                        shape: CircleBorder(),
-                                        foregroundColor: Color(0xFF549186)),
+                                        shape: const CircleBorder(),
+                                        foregroundColor:
+                                            const Color(0xFF549186)),
+                                    child: const Icon(Icons.add),
                                   ),
                                 ],
                               ),
@@ -89,7 +91,7 @@ class DeckSelection extends StatelessWidget {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => Learn()),
+                                      builder: (context) => const Learn()),
                                 );
                               },
                             ),
@@ -106,12 +108,12 @@ class DeckSelection extends StatelessWidget {
         OutlinedButton(
           onPressed: openAddDeckDialog,
           style: OutlinedButton.styleFrom(
-              side: BorderSide(color: Color(0xFF549186)),
+              side: const BorderSide(color: Color(0xFF549186)),
               foregroundColor: Colors.white,
               shape: RoundedRectangleBorder(
-                  side: BorderSide(color: Color(0xFF549186)),
+                  side: const BorderSide(color: Color(0xFF549186)),
                   borderRadius: BorderRadius.circular(8))),
-          child: Icon(Icons.add),
+          child: const Icon(Icons.add),
         ),
       ],
     );

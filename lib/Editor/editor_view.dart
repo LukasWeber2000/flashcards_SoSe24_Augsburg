@@ -9,15 +9,15 @@ import '../Learn/learn_view.dart';
 import 'package:toastification/toastification.dart';
 
 class FlashcardEditorView extends StatefulWidget {
-  FlashcardEditorView({Key? key, this.flashcard}) : super(key: key);
+  const FlashcardEditorView({Key? key, this.flashcard}) : super(key: key);
 
   final Flashcard? flashcard;
 
   @override
-  _FlashcardEditorViewState createState() => _FlashcardEditorViewState();
+  FlashcardEditorViewState createState() => FlashcardEditorViewState();
 }
 
-class _FlashcardEditorViewState extends State<FlashcardEditorView> {
+class FlashcardEditorViewState extends State<FlashcardEditorView> {
   final questionTextController = TextEditingController();
   final answerTextController = TextEditingController();
   final hintTextController = TextEditingController();
@@ -48,13 +48,13 @@ class _FlashcardEditorViewState extends State<FlashcardEditorView> {
               onLeftButtonPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => Learn()),
+                  MaterialPageRoute(builder: (context) => const Learn()),
                 );
               },
               rightIcon: Icons.menu,
               leftIcon: Icons.arrow_back,
             ),
-            endDrawer: CustomDrawer(),
+            endDrawer: const CustomDrawer(),
             body: Column(
               children: [
                 Row(
@@ -63,21 +63,21 @@ class _FlashcardEditorViewState extends State<FlashcardEditorView> {
                     IconButton(
                       onPressed: () =>
                           deleteFlashcard(widget.flashcard, context),
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.delete,
                         color: Color(0xFF549186),
                       ),
                     ),
                     IconButton(
                       onPressed: () => saveFlashcard(context),
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.save,
                         color: Color(0xFF549186),
                       ),
                     )
                   ],
                 ),
-                Spacer(),
+                const Spacer(),
                 Container(
                   decoration: const BoxDecoration(
                       border: Border(
@@ -122,13 +122,13 @@ class _FlashcardEditorViewState extends State<FlashcardEditorView> {
                     ),
                   ),
                 ),
-                Spacer(),
+                const Spacer(),
                 Container(
                   decoration: const BoxDecoration(
                       border: Border(
                     bottom: BorderSide(color: Colors.white),
                   )),
-                  child: Padding(
+                  child: const Padding(
                     padding: EdgeInsets.all(8.0),
                     child: Row(
                       children: [
@@ -138,13 +138,13 @@ class _FlashcardEditorViewState extends State<FlashcardEditorView> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(top: 12.0),
+                  padding: const EdgeInsets.only(top: 12.0),
                   child: SizedBox(
                     width: double.maxFinite,
                     child: TextField(
-                      style: TextStyle(color: Colors.white),
-                      cursorColor: Color(0xFF549186),
-                      decoration: InputDecoration(
+                      style: const TextStyle(color: Colors.white),
+                      cursorColor: const Color(0xFF549186),
+                      decoration: const InputDecoration(
                         focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: Color(0xFF549186)),
                         ),
@@ -159,7 +159,7 @@ class _FlashcardEditorViewState extends State<FlashcardEditorView> {
                     ),
                   ),
                 ),
-                Spacer(),
+                const Spacer(),
                 Container(
                   decoration: const BoxDecoration(
                       border: Border(
@@ -176,13 +176,13 @@ class _FlashcardEditorViewState extends State<FlashcardEditorView> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(top: 12.0),
+                  padding: const EdgeInsets.only(top: 12.0),
                   child: SizedBox(
                     width: double.maxFinite,
                     child: TextField(
-                      style: TextStyle(color: Colors.white),
-                      cursorColor: Color(0xFF549186),
-                      decoration: InputDecoration(
+                      style: const TextStyle(color: Colors.white),
+                      cursorColor: const Color(0xFF549186),
+                      decoration: const InputDecoration(
                         focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: Color(0xFF549186)),
                         ),
@@ -197,7 +197,7 @@ class _FlashcardEditorViewState extends State<FlashcardEditorView> {
                     ),
                   ),
                 ),
-                Spacer(),
+                const Spacer(),
                 Container(
                   decoration: const BoxDecoration(
                       border: Border(
@@ -214,13 +214,13 @@ class _FlashcardEditorViewState extends State<FlashcardEditorView> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(top: 12.0),
+                  padding: const EdgeInsets.only(top: 12.0),
                   child: SizedBox(
                     width: double.maxFinite,
                     child: TextField(
-                      style: TextStyle(color: Colors.white),
-                      cursorColor: Color(0xFF549186),
-                      decoration: InputDecoration(
+                      style: const TextStyle(color: Colors.white),
+                      cursorColor: const Color(0xFF549186),
+                      decoration: const InputDecoration(
                         focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: Color(0xFF549186)),
                         ),
@@ -235,7 +235,7 @@ class _FlashcardEditorViewState extends State<FlashcardEditorView> {
                     ),
                   ),
                 ),
-                Spacer(),
+                const Spacer(),
               ],
             )),
       ),
@@ -252,38 +252,33 @@ class _FlashcardEditorViewState extends State<FlashcardEditorView> {
     return !flashcards.any((flashcard) => flashcard.question == question);
   }
 
-  saveFlashcard(BuildContext context) async {
-    flashcards = await getFlashcardListFromJson();
+  saveFlashcard(BuildContext context) {
+    flashcards = getFlashcardListFromJson() as List<Flashcard>;
+    flashcards.add(Flashcard(
+        question: questionTextController.text,
+        answer: answerTextController.text,
+        hint: hintTextController.text,
+        ease: 2.5,
+        interval: 1.0,
+        deck: currentDeck,
+        dueDate: DateTime.now()));
+
+    // Write all Flashcards
+    writeFlashcardListToFile(flashcards);
 
     if (isQuestionUnique(questionTextController.text, flashcards)) {
-      flashcards.add(Flashcard(
-          question: questionTextController.text,
-          answer: answerTextController.text,
-          hint: hintTextController.text,
-          ease: 2.5,
-          interval: 1.0,
-          deck: currentDeck,
-          dueDate: DateTime.now()));
-
-      // Write all Flashcards
-      writeFlashcardListToFile(flashcards);
-
-      // Read all flashcards
-      await readAllFlashcards(flashcards);
-
       toastification.show(
           context: context,
-          title: Text('Saved Successfully'),
+          title: const Text('Saved Successfully'),
           type: ToastificationType.success,
           autoCloseDuration: const Duration(seconds: 2),
           alignment: Alignment.bottomCenter,
           showProgressBar: false,
           style: ToastificationStyle.fillColored);
     } else {
-      print('Flashcard is already in list');
       toastification.show(
           context: context,
-          title: Text('Edited Successfully'),
+          title: const Text('Edited Successfully'),
           type: ToastificationType.success,
           autoCloseDuration: const Duration(seconds: 2),
           alignment: Alignment.bottomCenter,
@@ -308,7 +303,7 @@ class _FlashcardEditorViewState extends State<FlashcardEditorView> {
     } else {
       toastification.show(
           context: context,
-          title: Text('No Flashcard selected'),
+          title: const Text('No Flashcard selected'),
           type: ToastificationType.info,
           autoCloseDuration: const Duration(seconds: 3),
           alignment: Alignment.bottomCenter,
