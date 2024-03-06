@@ -85,11 +85,11 @@ class _LearnState extends State<Learn> {
                       ),
                     ),
                     const Spacer(),
-                    FittedBox(
+                    const FittedBox(
                       fit: BoxFit.scaleDown,
                       child: Text(
                         'Learn View',
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
                           fontSize: 18,
@@ -112,7 +112,7 @@ class _LearnState extends State<Learn> {
                 ),
 
                 Padding(
-                  padding: const EdgeInsets.only(top:20.0,left:5,right: 5),
+                  padding: const EdgeInsets.only(top:30.0,left:5,right: 5),
                   child: Container(
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(30),
@@ -155,7 +155,7 @@ class _LearnState extends State<Learn> {
                                 ),
 
                                 Padding(
-                                  padding: const EdgeInsets.only(top:60.0),
+                                  padding: const EdgeInsets.only(top:50.0),
                                   child: ButtonBar(
                                     alignment: MainAxisAlignment.center,
                                     children: [

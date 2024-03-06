@@ -105,15 +105,18 @@ class DeckSelection extends StatelessWidget {
           ),
         ),
         const Spacer(),
-        OutlinedButton(
-          onPressed: openAddDeckDialog,
-          style: OutlinedButton.styleFrom(
-              side: const BorderSide(color: Color(0xFF549186)),
-              foregroundColor: Colors.white,
-              shape: RoundedRectangleBorder(
-                  side: const BorderSide(color: Color(0xFF549186)),
-                  borderRadius: BorderRadius.circular(8))),
-          child: const Icon(Icons.add),
+        Padding(
+          padding: const EdgeInsets.only(bottom: 15.0),
+          child: OutlinedButton(
+            onPressed: openAddDeckDialog,
+            style: OutlinedButton.styleFrom(
+                side: const BorderSide(color: Color(0xFF549186)),
+                foregroundColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                    side: const BorderSide(color: Color(0xFF549186)),
+                    borderRadius: BorderRadius.circular(8))),
+            child: const Icon(Icons.add),
+          ),
         ),
       ],
     );
