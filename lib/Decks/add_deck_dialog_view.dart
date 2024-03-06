@@ -14,7 +14,6 @@ class AddDeckDialog {
           content: TextField(
             controller: textFieldController,
             decoration: const InputDecoration(hintText: "Deck name"),
-            decoration: InputDecoration(hintText: "Deck name"),
             maxLength: 30,
           ),
           actions: <Widget>[

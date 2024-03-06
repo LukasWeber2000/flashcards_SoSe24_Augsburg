@@ -260,8 +260,8 @@ class FlashcardEditorViewState extends State<FlashcardEditorView> {
     return !flashcards.any((flashcard) => flashcard.question == question);
   }
 
-  saveFlashcard(BuildContext context) {
-    flashcards = getFlashcardListFromJson() as List<Flashcard>;
+  saveFlashcard(BuildContext context) async {
+    flashcards = await getFlashcardListFromJson();
     flashcards.add(Flashcard(
         question: questionTextController.text,
         answer: answerTextController.text,
