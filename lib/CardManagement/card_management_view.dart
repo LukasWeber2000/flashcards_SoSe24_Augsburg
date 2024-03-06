@@ -49,34 +49,55 @@ class CardManagementView extends StatelessWidget {
             ),
             Container(
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30),
+                  borderRadius: BorderRadius.circular(20),
                   border: Border.all(color: Colors.white)),
               child: SizedBox(
                 width: double.maxFinite,
                 height: 500,
-                child: ListView.builder(
-                  itemCount: flashcards.length,
-                  itemBuilder: (context, index) {
-                    final flashcard = flashcards[index];
-                    return ListTile(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => FlashcardEditorView(
-                                    flashcard: flashcard,
-                                  )),
-                        );
-                      },
-                      textColor: Colors.white,
-                      title: Text(flashcard.question),
-                      subtitle: Text(flashcard.answer),
-                      trailing: Checkbox(
-                        value: false,
-                        onChanged: (bool? value) {},
-                      ),
-                    );
-                  },
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ListView.builder(
+                    itemCount: flashcards.length,
+                    itemBuilder: (context, index) {
+                      final flashcard = flashcards[index];
+                      return Padding(
+                        padding: const EdgeInsets.only(bottom:8.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                              border:
+                              Border.all(color: const Color(0xFF549186)),
+                              borderRadius: const BorderRadius.horizontal(
+                                  right: Radius.circular(10),
+                                  left: Radius.circular(10))),
+                          child: ListTile(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => FlashcardEditorView(
+                                          flashcard: flashcard,
+                                        )),
+                              );
+                            },
+                            textColor: Colors.white,
+                            title: Text(flashcard.question),
+                            subtitle: Row(
+                              children: [
+                                Text(flashcard.answer),
+                                Spacer(),
+                                Text(flashcard.deck, style: TextStyle(color: Colors.white54,),)
+                              ],
+                            ),
+
+                            /*trailing: Checkbox(
+                              value: false,
+                              onChanged: (bool? value) {},
+                            ),*/
+                          ),
+                        ),
+                      );
+                    },
+                  ),
                 ),
               ),
             ),
