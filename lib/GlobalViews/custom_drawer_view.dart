@@ -28,9 +28,37 @@ class CustomDrawer extends StatelessWidget {
                     color: Color(0xFFFFFFFF), fontWeight: FontWeight.bold)),
           ),
           ListTile(
+            shape: const Border(bottom: BorderSide(color: Colors.white),),
+            title: Row(
+              children: [
+                Icon(Icons.list),
+                Padding(
+                  padding: const EdgeInsets.only(left: 12.0),
+                  child: const Text('Deck Overview',
+                      style: TextStyle(color: Colors.white)),
+                ),
+              ],
+            ),
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => DeckView()),
+              );
+            },
+          ),
+          ListTile(
             shape: const Border(bottom: BorderSide(color: Colors.white)),
             title:
-                const Text('Add Card', style: TextStyle(color: Colors.white)),
+                Row(
+                  children: [
+                    Icon(Icons.add),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 12.0),
+                      child: const Text('Add Card', style: TextStyle(color: Colors.white)),
+                    ),
+                  ],
+                ),
             onTap: () {
               Navigator.pop(context);
               Navigator.push(
@@ -42,20 +70,16 @@ class CustomDrawer extends StatelessWidget {
           ),
           ListTile(
             shape: const Border(bottom: BorderSide(color: Colors.white)),
-            title: const Text('Deck Overview',
-                style: TextStyle(color: Colors.white)),
-            onTap: () {
-              Navigator.pop(context);
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => DeckView()),
-              );
-            },
-          ),
-          ListTile(
-            shape: const Border(bottom: BorderSide(color: Colors.white)),
-            title: const Text('Card Management',
-                style: TextStyle(color: Colors.white)),
+            title: Row(
+              children: [
+                Icon(Icons.manage_search),
+                Padding(
+                  padding: const EdgeInsets.only(left: 12.0),
+                  child: const Text('Card Management',
+                      style: TextStyle(color: Colors.white)),
+                ),
+              ],
+            ),
             onTap: () {
               Navigator.pop(context);
               Navigator.push(
