@@ -39,11 +39,12 @@ class _LearnState extends State<Learn> {
   Widget build(BuildContext context) {
     showNextCard();
     return Scaffold(
+      backgroundColor: Colors.black,
       body: Builder(builder: (context) {
         return Padding(
           padding: const EdgeInsets.only(top: 50),
           child: Scaffold(
-            backgroundColor: Colors.black,
+            backgroundColor: Colors.white10,
             key: _scaffoldKey,
             appBar: CustomAppbar(
               onRightButtonPressed: () =>
@@ -87,10 +88,11 @@ class _LearnState extends State<Learn> {
                     FittedBox(
                       fit: BoxFit.scaleDown,
                       child: Text(
-                        currentDeck,
+                        'Learn View',
                         style: const TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
+                          fontSize: 18,
                         ),
                       ),
                     ),
@@ -107,37 +109,71 @@ class _LearnState extends State<Learn> {
                     ),
                   ],
                 ),
-                Spacer(),
-                Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        width: 400,
-                        height: 350,
-                        child: FlipCard(
-                            side: CardSide.FRONT,
-                            key: _flipCardKey,
-                            front: FlashcardView(
-                              text: ('${currentFlashcard.question} ${currentFlashcard.interval}'),
+
+                Padding(
+                  padding: const EdgeInsets.only(top:20.0,left:5,right: 5),
+                  child: Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30),
+                        border: Border.all(color: Colors.white)),
+                    child: Center(
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 20.0, bottom: 20),
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(bottom:60.0),
+                              child: FittedBox(
+                                fit: BoxFit.scaleDown,
+                                child: Text(
+                                  currentDeck,
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
                             ),
-                            back: FlashcardView(
-                              text: currentFlashcard.answer,
-                            )),
+
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+
+                                SizedBox(
+                                  width: 380,
+                                  height: 400,
+                                  child: FlipCard(
+                                      side: CardSide.FRONT,
+                                      key: _flipCardKey,
+                                      front: FlashcardView(
+                                        text: ('${currentFlashcard.question} ${currentFlashcard.interval}'),
+                                      ),
+                                      back: FlashcardView(
+                                        text: currentFlashcard.answer,
+                                      )),
+                                ),
+
+                                Padding(
+                                  padding: const EdgeInsets.only(top:60.0),
+                                  child: ButtonBar(
+                                    alignment: MainAxisAlignment.center,
+                                    children: [
+                                      _buildButton('Again', Colors.red, 'again'),
+                                      _buildButton('Difficult', Colors.orange, 'difficult'),
+                                      _buildButton('Good', Colors.yellow, 'good'),
+                                      _buildButton('Easy', Colors.green, 'easy'),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
-                      ButtonBar(
-                        alignment: MainAxisAlignment.center,
-                        children: [
-                          _buildButton('Again', Colors.red, 'again'),
-                          _buildButton('Difficult', Colors.orange, 'difficult'),
-                          _buildButton('Good', Colors.yellow, 'good'),
-                          _buildButton('Easy', Colors.green, 'easy'),
-                        ],
-                      ),
-                    ],
+                    ),
                   ),
                 ),
-                Spacer()
+
               ],
             ),
           ),

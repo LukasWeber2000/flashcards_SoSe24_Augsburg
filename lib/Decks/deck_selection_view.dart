@@ -19,7 +19,7 @@ class DeckSelection extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         const Padding(
-          padding: EdgeInsets.all(8.0),
+          padding: EdgeInsets.only(top:15.0, bottom: 30),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -28,13 +28,13 @@ class DeckSelection extends StatelessWidget {
                 child: Text(
                   "Deck Selection",
                   style: TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.bold),
+                      color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18),
                 ),
               )
             ],
           ),
         ),
-        const Spacer(),
+
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Container(
