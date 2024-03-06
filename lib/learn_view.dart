@@ -69,7 +69,9 @@ class _LearnState extends State<Learn> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => FlashcardEditorView(flashcard: current,)),
+                                  builder: (context) => FlashcardEditorView(
+                                        flashcard: current,
+                                      )),
                             );
                           },
                           child: Icon(Icons.edit),
@@ -95,7 +97,9 @@ class _LearnState extends State<Learn> {
                       child: Padding(
                         padding: const EdgeInsets.only(top: 8),
                         child: OutlinedButton(
-                          onPressed: () {print(currentDeck);},
+                          onPressed: () {
+                            print(currentDeck);
+                          },
                           style: OutlinedButton.styleFrom(
                               shape: CircleBorder(),
                               foregroundColor: Color(0xFF549186)),

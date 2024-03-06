@@ -19,7 +19,8 @@ class CardManagementView extends StatelessWidget {
         key: _scaffoldKey,
         backgroundColor: Colors.black,
         appBar: CustomAppbar(
-          onRightButtonPressed: () => _scaffoldKey.currentState?.openEndDrawer(),
+          onRightButtonPressed: () =>
+              _scaffoldKey.currentState?.openEndDrawer(),
           onLeftButtonPressed: () {
             Navigator.push(
               context,
@@ -35,10 +36,15 @@ class CardManagementView extends StatelessWidget {
           itemBuilder: (context, index) {
             final flashcard = flashcards[index];
             return ListTile(
-              onTap: () {Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => FlashcardEditorView(flashcard: flashcard,)),
-              );},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => FlashcardEditorView(
+                            flashcard: flashcard,
+                          )),
+                );
+              },
               textColor: Colors.white,
               title: Text(flashcard.question),
               subtitle: Text(flashcard.answer),

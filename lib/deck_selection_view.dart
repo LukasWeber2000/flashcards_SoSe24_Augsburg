@@ -7,11 +7,10 @@ class DeckSelection extends StatelessWidget {
   final List<Deck> decks;
   final Function() openAddDeckDialog;
 
-
-  DeckSelection({super.key,
+  DeckSelection({
+    super.key,
     required this.decks,
     required this.openAddDeckDialog,
-
   });
 
   @override

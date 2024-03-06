@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class FlashcardView extends StatelessWidget {
   final String text;
+
   const FlashcardView({Key? key, required this.text}) : super(key: key);
 
   @override
@@ -10,10 +11,11 @@ class FlashcardView extends StatelessWidget {
       elevation: 4,
       color: Colors.white10,
       child: Center(
-        child: Text(text, textAlign: TextAlign.center,style: TextStyle(
-          color: Colors.white, // White text color
-        )
-        ),
+        child: Text(text,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: Colors.white, // White text color
+            )),
       ),
     );
   }

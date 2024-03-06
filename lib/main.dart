@@ -19,36 +19,35 @@ class DeckView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(
-        scaffoldBackgroundColor:
-            Colors.white10, // Set the background color here
-      ),
-      home: Builder(builder: (context) {
-      return Padding(
-          padding: const EdgeInsets.only(top: 50),
-          child: Scaffold(
-            key: _scaffoldKey,
-            appBar: CustomAppbar(
-              onRightButtonPressed: () => _scaffoldKey.currentState?.openEndDrawer(),
-              onLeftButtonPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Learn()),
-                );
-              },
-              rightIcon: Icons.menu,
-              leftIcon: Icons.arrow_back,
-            ),
-            endDrawer: const CustomDrawer(),
-            body: DeckSelection(
-              decks: decks,
-              openAddDeckDialog: () {
-                AddDeckDialog.show(context, decks);
-              },
-
-            ),
-          ));
-    }
-    ));
+        theme: ThemeData(
+          scaffoldBackgroundColor:
+              Colors.white10, // Set the background color here
+        ),
+        home: Builder(builder: (context) {
+          return Padding(
+              padding: const EdgeInsets.only(top: 50),
+              child: Scaffold(
+                key: _scaffoldKey,
+                appBar: CustomAppbar(
+                  onRightButtonPressed: () =>
+                      _scaffoldKey.currentState?.openEndDrawer(),
+                  onLeftButtonPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Learn()),
+                    );
+                  },
+                  rightIcon: Icons.menu,
+                  leftIcon: Icons.arrow_back,
+                ),
+                endDrawer: const CustomDrawer(),
+                body: DeckSelection(
+                  decks: decks,
+                  openAddDeckDialog: () {
+                    AddDeckDialog.show(context, decks);
+                  },
+                ),
+              ));
+        }));
   }
 }

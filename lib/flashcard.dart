@@ -35,11 +35,12 @@ class Flashcard {
       question: json['question'],
       answer: json['answer'],
       hint: json['hint'],
-      ease: json['ease'].toDouble(), // Parse ease as double
-      interval: json['interval'].toDouble(), // Parse interval as double
+      ease: json['ease'].toDouble(),
+      // Parse ease as double
+      interval: json['interval'].toDouble(),
+      // Parse interval as double
       deck: json['deck'],
       dueDate: DateTime.parse(json['dueDate']), // Parse dueDate as DateTime
     );
   }
-
 }

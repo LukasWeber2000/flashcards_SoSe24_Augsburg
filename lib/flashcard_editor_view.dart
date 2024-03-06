@@ -44,7 +44,8 @@ class _FlashcardEditorViewState extends State<FlashcardEditorView> {
         child: Scaffold(
             key: _scaffoldKey,
             appBar: CustomAppbar(
-              onRightButtonPressed: () => _scaffoldKey.currentState?.openEndDrawer(),
+              onRightButtonPressed: () =>
+                  _scaffoldKey.currentState?.openEndDrawer(),
               onLeftButtonPressed: () {
                 Navigator.push(
                   context,
@@ -61,7 +62,8 @@ class _FlashcardEditorViewState extends State<FlashcardEditorView> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     IconButton(
-                      onPressed: () => deleteFlashcard(widget.flashcard, context),
+                      onPressed: () =>
+                          deleteFlashcard(widget.flashcard, context),
                       icon: Icon(
                         Icons.delete,
                         color: Color(0xFF549186),
@@ -277,8 +279,7 @@ class _FlashcardEditorViewState extends State<FlashcardEditorView> {
           autoCloseDuration: const Duration(seconds: 2),
           alignment: Alignment.bottomCenter,
           showProgressBar: false,
-          style: ToastificationStyle.fillColored
-      );
+          style: ToastificationStyle.fillColored);
     } else {
       print('Flashcard is already in list');
       toastification.show(
@@ -288,13 +289,12 @@ class _FlashcardEditorViewState extends State<FlashcardEditorView> {
           autoCloseDuration: const Duration(seconds: 2),
           alignment: Alignment.bottomCenter,
           showProgressBar: false,
-          style: ToastificationStyle.fillColored
-      );
+          style: ToastificationStyle.fillColored);
     }
   }
 
-  deleteFlashcard(Flashcard? flashcard, BuildContext context){
-    if(flashcard != null){
+  deleteFlashcard(Flashcard? flashcard, BuildContext context) {
+    if (flashcard != null) {
       flashcards.remove(flashcard);
       writeFlashcardListToFile(flashcards);
       clearInputs();
@@ -305,9 +305,8 @@ class _FlashcardEditorViewState extends State<FlashcardEditorView> {
           autoCloseDuration: const Duration(seconds: 2),
           alignment: Alignment.bottomCenter,
           showProgressBar: false,
-          style: ToastificationStyle.fillColored
-      );
-    }else{
+          style: ToastificationStyle.fillColored);
+    } else {
       toastification.show(
           context: context,
           title: Text('No Flashcard selected'),
@@ -315,14 +314,11 @@ class _FlashcardEditorViewState extends State<FlashcardEditorView> {
           autoCloseDuration: const Duration(seconds: 3),
           alignment: Alignment.bottomCenter,
           showProgressBar: false,
-          style: ToastificationStyle.fillColored
-      );
+          style: ToastificationStyle.fillColored);
     }
-
-
   }
 
-  clearInputs(){
+  clearInputs() {
     questionTextController.text = '';
     answerTextController.text = '';
     hintTextController.text = '';

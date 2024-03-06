@@ -26,9 +26,7 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
           children: [
             IconButton(
               onPressed: onLeftButtonPressed,
-              icon: Icon(leftIcon,
-                  color: Color(0xFF549186)
-              ),
+              icon: Icon(leftIcon, color: Color(0xFF549186)),
             ),
             Image.asset(
               imagePath,

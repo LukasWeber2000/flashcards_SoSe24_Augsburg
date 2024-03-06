@@ -11,7 +11,6 @@ class CustomDrawer extends StatelessWidget {
 
   final String _imagelogo = 'images/FlipDeck_Logo_final.png';
 
-
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -23,32 +22,27 @@ class CustomDrawer extends StatelessWidget {
             decoration: BoxDecoration(
                 color: Colors.white10,
                 image: DecorationImage(
-                    image: AssetImage(_imagelogo),
-                    scale: Checkbox.width)),
+                    image: AssetImage(_imagelogo), scale: Checkbox.width)),
             child: const Text('',
                 style: TextStyle(
-                    color: Color(0xFFFFFFFF),
-                    fontWeight: FontWeight.bold)),
+                    color: Color(0xFFFFFFFF), fontWeight: FontWeight.bold)),
           ),
           ListTile(
-            shape:
-            const Border(bottom: BorderSide(color: Colors.white)),
+            shape: const Border(bottom: BorderSide(color: Colors.white)),
             title: const Text('Karte hinzufügen',
                 style: TextStyle(color: Colors.white)),
             onTap: () {
               Navigator.pop(context);
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => FlashcardEditorView()),
+                MaterialPageRoute(builder: (context) => FlashcardEditorView()),
               );
               // Aktion für Menüpunkt 1
               // Schließt den Drawer
             },
           ),
           ListTile(
-            shape:
-            const Border(bottom: BorderSide(color: Colors.white)),
+            shape: const Border(bottom: BorderSide(color: Colors.white)),
             title: const Text('Kartenstapel',
                 style: TextStyle(color: Colors.white)),
             onTap: () {
@@ -62,8 +56,7 @@ class CustomDrawer extends StatelessWidget {
             },
           ),
           ListTile(
-            shape:
-            const Border(bottom: BorderSide(color: Colors.white)),
+            shape: const Border(bottom: BorderSide(color: Colors.white)),
             title: const Text('Card Management',
                 style: TextStyle(color: Colors.white)),
             onTap: () {

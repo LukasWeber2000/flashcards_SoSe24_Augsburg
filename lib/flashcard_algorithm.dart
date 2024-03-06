@@ -1,12 +1,12 @@
 import 'package:easy_flashcard/flashcard.dart';
 
- class FlipDeckAlgorithm {
- static double defaultStartingEase = 2.5;
- static double defaultIntervalModifier = 1.0;
- static double defaultEasyBonus = 1.3;
- static  double defaultHardInterval = 1.2;
+class FlipDeckAlgorithm {
+  static double defaultStartingEase = 2.5;
+  static double defaultIntervalModifier = 1.0;
+  static double defaultEasyBonus = 1.3;
+  static double defaultHardInterval = 1.2;
 
- static void processAnswer(String answer, Flashcard card) {
+  static void processAnswer(String answer, Flashcard card) {
     switch (answer) {
       case 'again':
         double newInterval = card.interval * 0.5; // & of old interval
@@ -36,12 +36,14 @@ import 'package:easy_flashcard/flashcard.dart';
     }
   }
 
-  static DateTime calculateDueDate(DateTime currentDueDate, double newInterval) {
+  static DateTime calculateDueDate(
+      DateTime currentDueDate, double newInterval) {
     // Calculate new due date based on current due date and new interval
     return currentDueDate.add(Duration(days: newInterval.toInt()));
   }
 
-  static void updateCard(Flashcard card,double newInterval, double newEase, DateTime newDueDate) {
+  static void updateCard(
+      Flashcard card, double newInterval, double newEase, DateTime newDueDate) {
     card.interval = newInterval;
     card.ease = newEase;
     card.dueDate = newDueDate;
