@@ -14,6 +14,8 @@ class AddDeckDialog {
           content: TextField(
             controller: textFieldController,
             decoration: const InputDecoration(hintText: "Deck name"),
+            decoration: InputDecoration(hintText: "Deck name"),
+            maxLength: 30,
           ),
           actions: <Widget>[
             TextButton(
@@ -25,6 +27,7 @@ class AddDeckDialog {
             TextButton(
               child: const Text('Save'),
               onPressed: () {
+                // Hier können Sie die Logik zum Speichern des Kartenstapelnamens implementieren
                 String deckName = textFieldController.text;
                 decks.add(Deck(name: deckName));
                 Navigator.of(context).pop();

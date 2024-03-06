@@ -47,7 +47,9 @@ class DeckView extends StatelessWidget {
                     AddDeckDialog.show(context, decks);
                   },
                 ),
-              ));
-        }));
+              )
+          );
+        })
+    );
   }
 }

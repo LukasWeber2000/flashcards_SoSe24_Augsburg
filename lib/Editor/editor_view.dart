@@ -60,20 +60,28 @@ class FlashcardEditorViewState extends State<FlashcardEditorView> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    IconButton(
+                    OutlinedButton(
                       onPressed: () =>
                           deleteFlashcard(widget.flashcard, context),
-                      icon: const Icon(
-                        Icons.delete,
-                        color: Color(0xFF549186),
+                      style: OutlinedButton.styleFrom(
+                          shape: const CircleBorder(),
+                          foregroundColor: Color(0xFF549186)),
+                      child: const Icon(Icons.delete),
+                    ),
+                    const FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Text(
+                        "Add Card",
+                        style: TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18),
                       ),
                     ),
-                    IconButton(
+                    OutlinedButton(
                       onPressed: () => saveFlashcard(context),
-                      icon: const Icon(
-                        Icons.save,
-                        color: Color(0xFF549186),
-                      ),
+                      style: OutlinedButton.styleFrom(
+                          shape: const CircleBorder(),
+                          foregroundColor: const Color(0xFF549186)),
+                      child: const Icon(Icons.save),
                     )
                   ],
                 ),
