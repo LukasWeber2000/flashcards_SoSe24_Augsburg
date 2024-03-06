@@ -18,6 +18,7 @@ class DeckView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    fillDecksFromFlashcards();
     return MaterialApp(
         theme: ThemeData(
           scaffoldBackgroundColor:
