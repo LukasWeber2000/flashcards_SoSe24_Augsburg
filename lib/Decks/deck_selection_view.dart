@@ -1,17 +1,26 @@
+import 'package:easy_flashcard/Decks/add_deck_dialog_view.dart';
 import 'package:flutter/material.dart';
 import '../Models/deck.dart';
 import '../Editor/editor_view.dart';
 import '../Learn/learn_view.dart';
+import '../Models/decks.dart';
 
-class DeckSelection extends StatelessWidget {
+class DeckSelection extends StatefulWidget {
   final List<Deck> decks;
-  final Function() openAddDeckDialog;
 
   const DeckSelection({
-    super.key,
+    Key? key,
     required this.decks,
-    required this.openAddDeckDialog,
-  });
+  }) : super(key: key);
+
+  @override
+  _DeckSelectionState createState() => _DeckSelectionState();
+}
+
+class _DeckSelectionState extends State<DeckSelection> {
+  void refresh() {
+    setState(() {}); // Leerer setState-Aufruf, um die UI neu zu zeichnen
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +28,7 @@ class DeckSelection extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         const Padding(
-          padding: EdgeInsets.only(top:15.0, bottom: 30),
+          padding: EdgeInsets.only(top: 15.0, bottom: 30),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -28,13 +37,14 @@ class DeckSelection extends StatelessWidget {
                 child: Text(
                   "Deck Selection",
                   style: TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18),
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18),
                 ),
               )
             ],
           ),
         ),
-
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Container(
@@ -108,7 +118,10 @@ class DeckSelection extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(bottom: 15.0),
           child: OutlinedButton(
-            onPressed: openAddDeckDialog,
+            onPressed: () {
+              AddDeckDialog.show(context, decks, refresh);
+
+            },
             style: OutlinedButton.styleFrom(
                 side: const BorderSide(color: Color(0xFF549186)),
                 foregroundColor: Colors.white,

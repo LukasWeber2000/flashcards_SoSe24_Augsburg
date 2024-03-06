@@ -43,10 +43,8 @@ class DeckView extends StatelessWidget {
                 ),
                 endDrawer: const CustomDrawer(),
                 body: DeckSelection(
+                  key: key,
                   decks: decks,
-                  openAddDeckDialog: () {
-                    AddDeckDialog.show(context, decks);
-                  },
                 ),
               )
           );
