@@ -1,4 +1,4 @@
-import 'package:easy_flashcard/GlobalViews/custom_appbar.dart';
+import 'package:easy_flashcard/GlobalViews/custom_appbar_view.dart';
 import 'package:easy_flashcard/GlobalViews/custom_drawer_view.dart';
 import 'package:flutter/material.dart';
 

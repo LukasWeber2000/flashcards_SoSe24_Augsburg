@@ -1,7 +1,7 @@
 import 'package:easy_flashcard/Models/deck.dart';
 import 'package:easy_flashcard/Models/flashcard.dart';
 import 'package:flutter/material.dart';
-import '../GlobalViews/custom_appbar.dart';
+import '../GlobalViews/custom_appbar_view.dart';
 import '../GlobalViews/custom_drawer_view.dart';
 import '../Models/decks.dart';
 import '../Models/flashcards.dart';

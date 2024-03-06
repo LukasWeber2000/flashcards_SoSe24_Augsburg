@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:toastification/toastification.dart';
 
-import '../GlobalViews/custom_appbar.dart';
+import '../GlobalViews/custom_appbar_view.dart';
 import '../GlobalViews/custom_drawer_view.dart';
 import '../Models/decks.dart';
 import '../Models/flashcard.dart';

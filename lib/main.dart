@@ -1,8 +1,8 @@
 import 'package:easy_flashcard/Decks/deck_selection_view.dart';
 import 'package:flutter/material.dart';
 
-import 'Decks/add_deck_dialog.dart';
-import 'GlobalViews/custom_appbar.dart';
+import 'Decks/add_deck_dialog_view.dart';
+import 'GlobalViews/custom_appbar_view.dart';
 import 'GlobalViews/custom_drawer_view.dart';
 import 'Models/decks.dart';
 import 'Learn/learn_view.dart';
