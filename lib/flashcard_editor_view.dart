@@ -1,5 +1,4 @@
 import 'package:easy_flashcard/deck.dart';
-import 'package:easy_flashcard/main.dart';
 import 'package:easy_flashcard/flashcard.dart';
 import 'package:flutter/material.dart';
 import 'custom_appbar.dart';
