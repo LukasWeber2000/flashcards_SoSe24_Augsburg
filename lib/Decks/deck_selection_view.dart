@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'deck.dart';
-import 'flashcard_editor_view.dart';
-import 'learn_view.dart';
+import '../Models/deck.dart';
+import '../Editor/editor_view.dart';
+import '../Learn/learn_view.dart';
 
 class DeckSelection extends StatelessWidget {
   final List<Deck> decks;

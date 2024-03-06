@@ -1,4 +1,4 @@
-import 'package:easy_flashcard/flashcard.dart';
+import 'package:easy_flashcard/Models/flashcard.dart';
 
 class Deck {
   late final List<Flashcard> flashcards;

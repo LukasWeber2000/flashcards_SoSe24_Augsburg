@@ -1,4 +1,4 @@
-import 'package:easy_flashcard/flashcard.dart';
+import 'package:easy_flashcard/Models/flashcard.dart';
 
 class FlipDeckAlgorithm {
   static double defaultStartingEase = 2.5;

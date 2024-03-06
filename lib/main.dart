@@ -1,11 +1,11 @@
-import 'package:easy_flashcard/deck_selection_view.dart';
+import 'package:easy_flashcard/Decks/deck_selection_view.dart';
 import 'package:flutter/material.dart';
 
-import 'add_deck_dialog.dart';
-import 'custom_appbar.dart';
-import 'custom_drawer.dart';
-import 'decks.dart';
-import 'learn_view.dart';
+import 'Decks/add_deck_dialog.dart';
+import 'GlobalViews/custom_appbar.dart';
+import 'GlobalViews/custom_drawer_view.dart';
+import 'Models/decks.dart';
+import 'Learn/learn_view.dart';
 
 void main() {
   runApp(DeckView());

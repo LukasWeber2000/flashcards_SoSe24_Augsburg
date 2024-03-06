@@ -1,10 +1,10 @@
-import 'package:easy_flashcard/custom_appbar.dart';
-import 'package:easy_flashcard/custom_drawer.dart';
+import 'package:easy_flashcard/GlobalViews/custom_appbar.dart';
+import 'package:easy_flashcard/GlobalViews/custom_drawer_view.dart';
 import 'package:flutter/material.dart';
 
-import 'flashcard_editor_view.dart';
-import 'flashcards.dart';
-import 'learn_view.dart';
+import '../Editor/editor_view.dart';
+import '../Models/flashcards.dart';
+import '../Learn/learn_view.dart';
 
 class CardManagementView extends StatelessWidget {
   CardManagementView({super.key});

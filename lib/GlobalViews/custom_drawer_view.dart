@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'card_management_view.dart';
-import 'flashcard_editor_view.dart';
-import 'main.dart';
+import '../CardManagement/card_management_view.dart';
+import '../Editor/editor_view.dart';
+import '../main.dart';
 
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({

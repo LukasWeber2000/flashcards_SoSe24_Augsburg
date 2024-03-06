@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'deck.dart';
+import '../Models/deck.dart';
 
 class AddDeckDialog {
   static void show(BuildContext context, List<Deck> decks) {

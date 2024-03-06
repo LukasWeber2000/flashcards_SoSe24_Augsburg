@@ -1,26 +1,29 @@
-import 'package:easy_flashcard/flashcard_view.dart';
-import 'package:easy_flashcard/flashcard_algorithm.dart';
+import 'package:easy_flashcard/Learn/flashcard_view.dart';
+import 'package:easy_flashcard/Models/state-algorithm.dart';
 import 'package:flutter/material.dart';
 import 'package:flip_card/flip_card.dart';
+import 'package:toastification/toastification.dart';
 
-import 'custom_appbar.dart';
-import 'custom_drawer.dart';
-import 'decks.dart';
-import 'flashcard.dart';
-import 'flashcards.dart';
-import 'flashcard_editor_view.dart';
-import 'main.dart';
+import '../GlobalViews/custom_appbar.dart';
+import '../GlobalViews/custom_drawer_view.dart';
+import '../Models/decks.dart';
+import '../Models/flashcard.dart';
+import '../Models/flashcards.dart';
+import '../Editor/editor_view.dart';
+import '../main.dart';
 
 var currentDeck = decks[0].name;
 
 class Learn extends StatefulWidget {
+  const Learn({super.key});
+
   @override
   State<StatefulWidget> createState() => _LearnState();
 }
 
 class _LearnState extends State<Learn> {
   //Dummy anlegen
-  Flashcard current = Flashcard(
+  Flashcard currentFlashcard = Flashcard(
       question: 'question',
       answer: 'answer',
       interval: 0.0,
@@ -28,7 +31,6 @@ class _LearnState extends State<Learn> {
       deck: 'deck',
       dueDate: DateTime.now());
 
-  int _currentIndex = 0;
   CardSide cardSide = CardSide.FRONT;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final GlobalKey<FlipCardState> _flipCardKey = GlobalKey<FlipCardState>();
@@ -55,7 +57,7 @@ class _LearnState extends State<Learn> {
               rightIcon: Icons.menu,
               leftIcon: Icons.arrow_back,
             ),
-            endDrawer: CustomDrawer(),
+            endDrawer: const CustomDrawer(),
             body: Column(
               children: [
                 Row(
@@ -70,41 +72,37 @@ class _LearnState extends State<Learn> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) => FlashcardEditorView(
-                                        flashcard: current,
+                                        flashcard: currentFlashcard,
                                       )),
                             );
                           },
-                          child: Icon(Icons.edit),
                           style: OutlinedButton.styleFrom(
-                              shape: CircleBorder(),
-                              foregroundColor: Color(0xFF549186)),
+                              shape: const CircleBorder(),
+                              foregroundColor: const Color(0xFF549186)),
+                          child: const Icon(Icons.edit),
                         ),
                       ),
                     ),
-                    Spacer(),
+                    const Spacer(),
                     FittedBox(
                       fit: BoxFit.scaleDown,
                       child: Text(
-                        "$currentDeck",
-                        style: TextStyle(
+                        currentDeck,
+                        style: const TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
-                    Spacer(),
-                    Container(
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 8),
-                        child: OutlinedButton(
-                          onPressed: () {
-                            print(currentDeck);
-                          },
-                          style: OutlinedButton.styleFrom(
-                              shape: CircleBorder(),
-                              foregroundColor: Color(0xFF549186)),
-                          child: Icon(Icons.question_mark),
-                        ),
+                    const Spacer(),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 8),
+                      child: OutlinedButton(
+                        onPressed: () => showHint(context,currentFlashcard.hint),
+                        style: OutlinedButton.styleFrom(
+                            shape: CircleBorder(),
+                            foregroundColor: Color(0xFF549186)),
+                        child: Icon(Icons.question_mark),
                       ),
                     ),
                   ],
@@ -121,32 +119,11 @@ class _LearnState extends State<Learn> {
                             side: CardSide.FRONT,
                             key: _flipCardKey,
                             front: FlashcardView(
-                              text: ('${current.question} ${current.interval}'),
+                              text: ('${currentFlashcard.question} ${currentFlashcard.interval}'),
                             ),
                             back: FlashcardView(
-                              text: current.answer,
+                              text: currentFlashcard.answer,
                             )),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 12, bottom: 12),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            OutlinedButton.icon(
-                              onPressed: () {},
-                              icon: Icon(Icons.chevron_left),
-                              label: Text('Prev'),
-                              style: OutlinedButton.styleFrom(
-                                  foregroundColor: Colors.white),
-                            ),
-                            OutlinedButton.icon(
-                                onPressed: showNextCard,
-                                icon: Icon(Icons.chevron_right),
-                                label: Text('Next'),
-                                style: OutlinedButton.styleFrom(
-                                    foregroundColor: Colors.white))
-                          ],
-                        ),
                       ),
                       ButtonBar(
                         alignment: MainAxisAlignment.center,
@@ -172,7 +149,7 @@ class _LearnState extends State<Learn> {
   Widget _buildButton(String label, Color color, String state) {
     return OutlinedButton(
       onPressed: () {
-        FlipDeckAlgorithm.processAnswer(state, current);
+        FlipDeckAlgorithm.processAnswer(state, currentFlashcard);
         showNextCard();
       },
       style: OutlinedButton.styleFrom(
@@ -193,17 +170,7 @@ class _LearnState extends State<Learn> {
       _flipCardKey.currentState!.toggleCard();
     }
     setState(() {
-      current = getLowestCard();
-    });
-  }
-
-  void showPreviousCard() {
-    setState(() {
-      if (_currentIndex > 0) {
-        _currentIndex--;
-      } else {
-        _currentIndex = flashcards.length - 1;
-      }
+      currentFlashcard = getLowestCard();
     });
   }
 
@@ -229,8 +196,21 @@ class _LearnState extends State<Learn> {
           deck: 'Test',
           dueDate: DateTime.now());
     } else {
-      print('getLowestCard ${current.question}');
+      print('getLowestCard ${currentFlashcard.question}');
       return lowest;
+    }
+  }
+
+  showHint(BuildContext context, String? hint){
+    if(hint != null){
+      toastification.show(
+          context: context,
+          title: Text(hint??''),
+          type: ToastificationType.success,
+          autoCloseDuration: const Duration(seconds: 2),
+          alignment: Alignment.bottomCenter,
+          showProgressBar: false,
+          style: ToastificationStyle.fillColored);
     }
   }
 }
