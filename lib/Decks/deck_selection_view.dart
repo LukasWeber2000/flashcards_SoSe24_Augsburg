@@ -1,4 +1,5 @@
 import 'package:easy_flashcard/Decks/add_deck_dialog_view.dart';
+import 'package:easy_flashcard/Models/flashcards.dart';
 import 'package:flutter/material.dart';
 import '../Models/deck.dart';
 import '../Editor/editor_view.dart';
@@ -61,6 +62,7 @@ class _DeckSelectionState extends State<DeckSelection> {
                   child: ListView(
                     children: [
                       for (var deck in decks)
+
                         Padding(
                           padding: const EdgeInsets.only(bottom: 5),
                           child: Container(
@@ -96,6 +98,7 @@ class _DeckSelectionState extends State<DeckSelection> {
                                   ),
                                 ],
                               ),
+                              subtitle: Text('Cards: ${getcardcount(deck)}', style: TextStyle(color: Colors.white54)),
                               onTap: () {
                                 currentDeck = deck.name;
                                 Navigator.push(
@@ -133,5 +136,15 @@ class _DeckSelectionState extends State<DeckSelection> {
         ),
       ],
     );
+  }
+
+  getcardcount(Deck deck) {
+    var count = 0;
+    for(var flash in flashcards){
+      if(flash.deck == deck.name){
+        count++;
+      }
+    }
+    return count;
   }
 }

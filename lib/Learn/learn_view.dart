@@ -243,6 +243,7 @@ class _LearnState extends State<Learn> {
           context: context,
           title: Text(hint),
           type: ToastificationType.info,
+          autoCloseDuration: const Duration(seconds: 2),
           alignment: Alignment.bottomCenter,
           showProgressBar: false,
           style: ToastificationStyle.fillColored);
@@ -252,6 +253,7 @@ class _LearnState extends State<Learn> {
           title: Text("Hint is empty"),
           type: ToastificationType.info,
           alignment: Alignment.bottomCenter,
+          autoCloseDuration: const Duration(seconds: 2),
           showProgressBar: false,
           style: ToastificationStyle.fillColored);
     }
