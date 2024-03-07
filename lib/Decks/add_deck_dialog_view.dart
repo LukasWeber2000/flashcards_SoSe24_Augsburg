@@ -34,15 +34,23 @@ class AddDeckDialog {
                   decks.add(Deck(name: deckName));
                   Navigator.of(context).pop();
                   onDeckAdded();
+                  toastification.show(
+                      context: context,
+                      title: Text('Deck "${textFieldController.text}" wurde erfolgreich angelegt!'),
+                      type: ToastificationType.success,
+                      alignment: Alignment.bottomCenter,
+                      autoCloseDuration: const Duration(seconds: 2),
+                      showProgressBar: false,
+                      style: ToastificationStyle.fillColored);
                 }else{
                   toastification.show(
                       context: context,
                       title: Text("Deckname fehlt"),
                       type: ToastificationType.warning,
                       alignment: Alignment.bottomCenter,
+                      autoCloseDuration: const Duration(seconds: 3),
                       showProgressBar: false,
                       style: ToastificationStyle.fillColored);
-                  
                 }
               },
             ),

@@ -246,6 +246,14 @@ class _LearnState extends State<Learn> {
           alignment: Alignment.bottomCenter,
           showProgressBar: false,
           style: ToastificationStyle.fillColored);
+    }else {
+      toastification.show(
+          context: context,
+          title: Text("Hint is empty"),
+          type: ToastificationType.info,
+          alignment: Alignment.bottomCenter,
+          showProgressBar: false,
+          style: ToastificationStyle.fillColored);
     }
   }
 }

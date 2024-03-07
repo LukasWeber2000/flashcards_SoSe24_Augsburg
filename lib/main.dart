@@ -33,22 +33,17 @@ class DeckView extends StatelessWidget {
                   onRightButtonPressed: () =>
                       _scaffoldKey.currentState?.openEndDrawer(),
                   onLeftButtonPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const Learn()),
-                    );
+
                   },
                   rightIcon: Icons.menu,
-                  leftIcon: Icons.arrow_back,
+                  //leftIcon: Icons.arrow_back,
                 ),
                 endDrawer: const CustomDrawer(),
                 body: DeckSelection(
                   key: key,
                   decks: decks,
                 ),
-              )
-          );
-        })
-    );
+              ));
+        }));
   }
 }
