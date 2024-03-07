@@ -261,6 +261,7 @@ class FlashcardEditorViewState extends State<FlashcardEditorView> {
   }
 
   saveFlashcard(BuildContext context) async {
+
     flashcards = await getFlashcardListFromJson();
     flashcards.add(Flashcard(
         question: questionTextController.text,
@@ -293,9 +294,11 @@ class FlashcardEditorViewState extends State<FlashcardEditorView> {
           showProgressBar: false,
           style: ToastificationStyle.fillColored);
     }
+    FocusScope.of(context).unfocus();
   }
 
   deleteFlashcard(Flashcard? flashcard, BuildContext context) {
+    FocusScope.of(context).unfocus();
     if (flashcard != null) {
       flashcards.remove(flashcard);
       writeFlashcardListToFile(flashcards);
