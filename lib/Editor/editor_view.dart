@@ -264,20 +264,17 @@ class FlashcardEditorViewState extends State<FlashcardEditorView> {
 
   saveFlashcard(BuildContext context) async {
     if (questionTextController.text != '' && answerTextController.text != '') {
-      flashcards = await getFlashcardListFromJson();
-      flashcards.add(Flashcard(
-          question: questionTextController.text,
-          answer: answerTextController.text,
-          hint: hintTextController.text,
-          ease: 2.5,
-          interval: 1.0,
-          deck: currentDeck,
-          dueDate: DateTime.now()));
-
-      // Write all Flashcards
-      writeFlashcardListToFile(flashcards);
-
       if (isQuestionUnique(questionTextController.text, flashcards)) {
+        flashcards = await getFlashcardListFromJson();
+        flashcards.add(Flashcard(
+            question: questionTextController.text,
+            answer: answerTextController.text,
+            hint: hintTextController.text,
+            ease: 2.5,
+            interval: 1.0,
+            deck: currentDeck,
+            dueDate: DateTime.now()));
+
         toastification.show(
             context: context,
             title: const Text('Saved Successfully'),
@@ -288,6 +285,17 @@ class FlashcardEditorViewState extends State<FlashcardEditorView> {
             style: ToastificationStyle.fillColored);
         clearInputs();
       } else {
+        int flashcardToEditIndex = flashcards.indexWhere(
+            (flashcard) => flashcard.question == questionTextController.text);
+        flashcards[flashcardToEditIndex] = Flashcard(
+            question: questionTextController.text,
+            answer: answerTextController.text,
+            hint: hintTextController.text,
+            ease: flashcards[flashcardToEditIndex].ease,
+            interval: flashcards[flashcardToEditIndex].interval,
+            deck: currentDeck,
+            dueDate: flashcards[flashcardToEditIndex].dueDate);
+
         toastification.show(
             context: context,
             title: const Text('Edited Successfully'),
@@ -297,10 +305,13 @@ class FlashcardEditorViewState extends State<FlashcardEditorView> {
             showProgressBar: false,
             style: ToastificationStyle.fillColored);
       }
+      // Write all Flashcards
+      writeFlashcardListToFile(flashcards);
     } else {
       toastification.show(
           context: context,
-          title: const Text('Please fill in all required fields before proceeding.'),
+          title: const Text(
+              'Please fill in all required fields before proceeding.'),
           type: ToastificationType.success,
           autoCloseDuration: const Duration(seconds: 4),
           alignment: Alignment.bottomCenter,

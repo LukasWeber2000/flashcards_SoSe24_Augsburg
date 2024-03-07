@@ -7,40 +7,51 @@ class Flashcard {
   String deck;
   DateTime dueDate;
 
-  Flashcard(
-      {required this.question,
-      required this.answer,
-      this.hint,
-      required this.interval,
-      required this.ease,
-      required this.deck,
-      required this.dueDate});
+  Flashcard({
+    required this.question,
+    required this.answer,
+    this.hint,
+    required this.interval,
+    required this.ease,
+    required this.deck,
+    required this.dueDate,
+  });
 
-  // Method to convert Flashcard object to a JSON object
   Map<String, dynamic> toJson() {
-    return {
+    // Include hint only if it is not null
+    final Map<String, dynamic> data = {
       'question': question,
       'answer': answer,
-      'hint': hint,
       'ease': ease,
       'interval': interval,
       'deck': deck,
       'dueDate': dueDate.toIso8601String(),
     };
+
+    if (hint != null) {
+      data['hint'] = hint;
+    }
+
+    return data;
   }
 
-  // Method to create Flashcard object from a JSON object
   factory Flashcard.fromJson(Map<String, dynamic> json) {
+    // Check for required fields and throw FormatException if any are missing
+    const requiredFields = ['question', 'answer', 'ease', 'interval', 'deck', 'dueDate'];
+    for (var field in requiredFields) {
+      if (!json.containsKey(field)) {
+        throw FormatException('Missing required field: $field');
+      }
+    }
+
     return Flashcard(
       question: json['question'],
       answer: json['answer'],
       hint: json['hint'],
       ease: json['ease'].toDouble(),
-      // Parse ease as double
       interval: json['interval'].toDouble(),
-      // Parse interval as double
       deck: json['deck'],
-      dueDate: DateTime.parse(json['dueDate']), // Parse dueDate as DateTime
+      dueDate: DateTime.parse(json['dueDate']),
     );
   }
 }
