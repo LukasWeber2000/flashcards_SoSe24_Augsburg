@@ -73,7 +73,9 @@ class FlashcardEditorViewState extends State<FlashcardEditorView> {
                       child: Text(
                         "Add Card",
                         style: TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18),
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18),
                       ),
                     ),
                     OutlinedButton(
@@ -261,39 +263,51 @@ class FlashcardEditorViewState extends State<FlashcardEditorView> {
   }
 
   saveFlashcard(BuildContext context) async {
+    if (questionTextController.text != '' && answerTextController.text != '') {
+      flashcards = await getFlashcardListFromJson();
+      flashcards.add(Flashcard(
+          question: questionTextController.text,
+          answer: answerTextController.text,
+          hint: hintTextController.text,
+          ease: 2.5,
+          interval: 1.0,
+          deck: currentDeck,
+          dueDate: DateTime.now()));
 
-    flashcards = await getFlashcardListFromJson();
-    flashcards.add(Flashcard(
-        question: questionTextController.text,
-        answer: answerTextController.text,
-        hint: hintTextController.text,
-        ease: 2.5,
-        interval: 1.0,
-        deck: currentDeck,
-        dueDate: DateTime.now()));
+      // Write all Flashcards
+      writeFlashcardListToFile(flashcards);
 
-    // Write all Flashcards
-    writeFlashcardListToFile(flashcards);
-
-    if (isQuestionUnique(questionTextController.text, flashcards)) {
-      toastification.show(
-          context: context,
-          title: const Text('Saved Successfully'),
-          type: ToastificationType.success,
-          autoCloseDuration: const Duration(seconds: 2),
-          alignment: Alignment.bottomCenter,
-          showProgressBar: false,
-          style: ToastificationStyle.fillColored);
+      if (isQuestionUnique(questionTextController.text, flashcards)) {
+        toastification.show(
+            context: context,
+            title: const Text('Saved Successfully'),
+            type: ToastificationType.success,
+            autoCloseDuration: const Duration(seconds: 2),
+            alignment: Alignment.bottomCenter,
+            showProgressBar: false,
+            style: ToastificationStyle.fillColored);
+        clearInputs();
+      } else {
+        toastification.show(
+            context: context,
+            title: const Text('Edited Successfully'),
+            type: ToastificationType.success,
+            autoCloseDuration: const Duration(seconds: 2),
+            alignment: Alignment.bottomCenter,
+            showProgressBar: false,
+            style: ToastificationStyle.fillColored);
+      }
     } else {
       toastification.show(
           context: context,
-          title: const Text('Edited Successfully'),
+          title: const Text('Please fill in all required fields before proceeding.'),
           type: ToastificationType.success,
-          autoCloseDuration: const Duration(seconds: 2),
+          autoCloseDuration: const Duration(seconds: 4),
           alignment: Alignment.bottomCenter,
           showProgressBar: false,
           style: ToastificationStyle.fillColored);
     }
+
     FocusScope.of(context).unfocus();
   }
 
