@@ -88,67 +88,73 @@ class FlashcardEditorViewState extends State<FlashcardEditorView> {
                   ],
                 ),
                 const Spacer(),
-                Container(
-                  decoration: const BoxDecoration(
-                      border: Border(
-                    bottom: BorderSide(color: Colors.white),
-                  )),
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 15.0, right: 15.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text(
-                          "Deck:",
-                          style: TextStyle(
-                              color: Colors.white, fontWeight: FontWeight.bold),
-                        ),
-                        DropdownButtonHideUnderline(
-                          child: DropdownButton<String>(
-                            dropdownColor: Colors.black,
-                            value: currentDeck,
-                            onTap: () {},
-
-                            items: decks.map((Deck decks) {
-                              return DropdownMenuItem<String>(
-                                alignment: Alignment.center,
-                                value: decks.name,
-                                child: Text(decks.name,
-                                    style: const TextStyle(
-                                        color: Color(0xFF549186))),
-                              );
-                            }).toList(),
-
-                            // Handler called when an item is selected
-                            onChanged: (String? newValue) {
-                              // You can put your logic here to respond to the selection of a new item
-                              setState(() {
-                                currentDeck = newValue!;
-                              });
-                            },
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30),
+                        border: Border.all(color: Colors.white)),
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 15.0, right: 15.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text(
+                            "Deck:",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
                           ),
-                        ),
-                      ],
+                          DropdownButtonHideUnderline(
+                            child: DropdownButton<String>(
+                              dropdownColor: Colors.black,
+                              value: currentDeck,
+                              onTap: () {},
+
+                              items: decks.map((Deck decks) {
+                                return DropdownMenuItem<String>(
+                                  alignment: Alignment.center,
+                                  value: decks.name,
+                                  child: Text(decks.name,
+                                      style: const TextStyle(
+                                          color: Color(0xFF549186))),
+                                );
+                              }).toList(),
+
+                              // Handler called when an item is selected
+                              onChanged: (String? newValue) {
+                                // You can put your logic here to respond to the selection of a new item
+                                setState(() {
+                                  currentDeck = newValue!;
+                                });
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
                 const Spacer(),
-                Container(
-                  decoration: const BoxDecoration(
-                      border: Border(
-                    bottom: BorderSide(color: Colors.white),
-                  )),
-                  child: const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Row(
-                      children: [
-                        Text("Hint:", style: TextStyle(color: Colors.white)),
-                      ],
+                Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Container(
+                    decoration: const BoxDecoration(
+                        border: Border(
+                      bottom: BorderSide(color: Colors.white),
+                    )),
+                    child: const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Row(
+                        children: [
+                          Text("Hint:", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold)),
+                        ],
+                      ),
                     ),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 12.0),
+                  padding: const EdgeInsets.only(top: 8.0, left:8, right: 8),
                   child: SizedBox(
                     width: double.maxFinite,
                     child: TextField(
@@ -163,30 +169,33 @@ class FlashcardEditorViewState extends State<FlashcardEditorView> {
                         ),
                         border: OutlineInputBorder(),
                         labelStyle: TextStyle(color: Color(0xFF549186)),
-                        labelText: 'Hint',
+                        labelText: 'Type your hint here ...',
                       ),
                       controller: hintTextController,
                     ),
                   ),
                 ),
                 const Spacer(),
-                Container(
-                  decoration: const BoxDecoration(
-                      border: Border(
-                    bottom: BorderSide(color: Colors.white),
-                  )),
-                  child: const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Row(
-                      children: [
-                        Text("Front Side:",
-                            style: TextStyle(color: Colors.white)),
-                      ],
+                Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Container(
+                    decoration: const BoxDecoration(
+                        border: Border(
+                      bottom: BorderSide(color: Colors.white),
+                    )),
+                    child: const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Row(
+                        children: [
+                          Text("Front Side:",
+                              style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold)),
+                        ],
+                      ),
                     ),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 12.0),
+                  padding: const EdgeInsets.only(top: 8.0, left: 8, right:8),
                   child: SizedBox(
                     width: double.maxFinite,
                     child: TextField(
@@ -201,30 +210,33 @@ class FlashcardEditorViewState extends State<FlashcardEditorView> {
                         ),
                         border: OutlineInputBorder(),
                         labelStyle: TextStyle(color: Color(0xFF549186)),
-                        labelText: 'Question',
+                        labelText: 'Type your question here ...',
                       ),
                       controller: questionTextController,
                     ),
                   ),
                 ),
                 const Spacer(),
-                Container(
-                  decoration: const BoxDecoration(
-                      border: Border(
-                    bottom: BorderSide(color: Colors.white),
-                  )),
-                  child: const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Row(
-                      children: [
-                        Text("Back Side:",
-                            style: TextStyle(color: Colors.white)),
-                      ],
+                Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Container(
+                    decoration: const BoxDecoration(
+                        border: Border(
+                      bottom: BorderSide(color: Colors.white),
+                    )),
+                    child: const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Row(
+                        children: [
+                          Text("Back Side:",
+                              style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                        ],
+                      ),
                     ),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 12.0),
+                  padding: const EdgeInsets.only(top: 8.0, left: 8, right:8),
                   child: SizedBox(
                     width: double.maxFinite,
                     child: TextField(
@@ -239,7 +251,7 @@ class FlashcardEditorViewState extends State<FlashcardEditorView> {
                         ),
                         border: OutlineInputBorder(),
                         labelStyle: TextStyle(color: Color(0xFF549186)),
-                        labelText: 'Answer',
+                        labelText: 'Type your answer here ...',
                       ),
                       controller: answerTextController,
                     ),
@@ -300,7 +312,7 @@ class FlashcardEditorViewState extends State<FlashcardEditorView> {
             context: context,
             title: const Text('Edited Successfully'),
             type: ToastificationType.success,
-            autoCloseDuration: const Duration(seconds: 2),
+            autoCloseDuration: const Duration(seconds: 5),
             alignment: Alignment.bottomCenter,
             showProgressBar: false,
             style: ToastificationStyle.fillColored);
@@ -312,8 +324,8 @@ class FlashcardEditorViewState extends State<FlashcardEditorView> {
           context: context,
           title: const Text(
               'Please fill in all required fields before proceeding.'),
-          type: ToastificationType.success,
-          autoCloseDuration: const Duration(seconds: 4),
+          type: ToastificationType.info,
+          autoCloseDuration: const Duration(seconds: 5),
           alignment: Alignment.bottomCenter,
           showProgressBar: false,
           style: ToastificationStyle.fillColored);
@@ -331,8 +343,8 @@ class FlashcardEditorViewState extends State<FlashcardEditorView> {
       toastification.show(
           context: context,
           title: const Text('Deleted Successfully'),
-          type: ToastificationType.success,
-          autoCloseDuration: const Duration(seconds: 2),
+          type: ToastificationType.error,
+          autoCloseDuration: const Duration(seconds: 5),
           alignment: Alignment.bottomCenter,
           showProgressBar: false,
           style: ToastificationStyle.fillColored);
@@ -341,7 +353,7 @@ class FlashcardEditorViewState extends State<FlashcardEditorView> {
           context: context,
           title: const Text('No Flashcard selected'),
           type: ToastificationType.info,
-          autoCloseDuration: const Duration(seconds: 3),
+          autoCloseDuration: const Duration(seconds: 5),
           alignment: Alignment.bottomCenter,
           showProgressBar: false,
           style: ToastificationStyle.fillColored);
