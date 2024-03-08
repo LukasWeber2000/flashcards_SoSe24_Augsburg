@@ -53,7 +53,7 @@ class CardManagementView extends StatelessWidget {
                   border: Border.all(color: Colors.white)),
               child: SizedBox(
                 width: double.maxFinite,
-                height: 500,
+                height: 600,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: ListView.builder(
@@ -83,7 +83,7 @@ class CardManagementView extends StatelessWidget {
                             title: Text(flashcard.question),
                             subtitle: Row(
                               children: [
-                                Text(flashcard.answer),
+                                Text(flashcard.answer.length > 20 ? '${flashcard.answer.substring(0, 20)}...' : flashcard.answer,),
                                 Spacer(),
                                 Text(flashcard.deck, style: TextStyle(color: Colors.white54,),)
                               ],
