@@ -6,16 +6,16 @@ import 'package:toastification/toastification.dart';
 
 import '../GlobalViews/custom_appbar_view.dart';
 import '../GlobalViews/custom_drawer_view.dart';
-import '../Models/decks.dart';
+import '../Models/deck.dart';
 import '../Models/flashcard.dart';
-import '../Models/flashcards.dart';
 import '../Editor/editor_view.dart';
 import '../main.dart';
 
-var currentDeck = decks[0].name;
-
 class Learn extends StatefulWidget {
-  const Learn({super.key});
+  final List<Flashcard> flashcards;
+  final Deck currentDeck;
+  final List<Deck> decks;
+  const Learn({super.key, required this.flashcards, required this.currentDeck, required this.decks});
 
   @override
   State<StatefulWidget> createState() => _LearnState();
@@ -28,7 +28,7 @@ class _LearnState extends State<Learn> {
       answer: 'answer',
       interval: 0.0,
       ease: 0.0,
-      deck: 'deck',
+      deck: Deck(name: 'deck'),
       dueDate: DateTime.now());
 
   CardSide cardSide = CardSide.FRONT;
@@ -58,124 +58,126 @@ class _LearnState extends State<Learn> {
               rightIcon: Icons.menu,
               leftIcon: Icons.arrow_back,
             ),
-            endDrawer: const CustomDrawer(),
-            body: Column(
-              children: [
-                Row(
-                  children: [
-                    Container(
-                      alignment: Alignment.topRight,
-                      child: Padding(
+            endDrawer: CustomDrawer(currentDeck: widget.currentDeck, flashcards: widget.flashcards, decks: widget.decks,),
+            body: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      Container(
+                        alignment: Alignment.topRight,
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 8),
+                          child: OutlinedButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => FlashcardEditorView(
+                                          flashcard: currentFlashcard, currentDeck: widget.currentDeck, flashcards: widget.flashcards, decks: widget.decks,
+                                        )),
+                              );
+                            },
+                            style: OutlinedButton.styleFrom(
+                                shape: const CircleBorder(),
+                                foregroundColor: const Color(0xFF549186)),
+                            child: const Icon(Icons.edit),
+                          ),
+                        ),
+                      ),
+                      const Spacer(),
+                      const FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Text(
+                          'Learn View',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                          ),
+                        ),
+                      ),
+                      const Spacer(),
+                      Padding(
                         padding: const EdgeInsets.only(top: 8),
                         child: OutlinedButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => FlashcardEditorView(
-                                        flashcard: currentFlashcard,
-                                      )),
-                            );
-                          },
+                          onPressed: () =>
+                              showHint(context, currentFlashcard.hint),
                           style: OutlinedButton.styleFrom(
                               shape: const CircleBorder(),
                               foregroundColor: const Color(0xFF549186)),
-                          child: const Icon(Icons.edit),
+                          child: const Icon(Icons.question_mark),
                         ),
                       ),
-                    ),
-                    const Spacer(),
-                    const FittedBox(
-                      fit: BoxFit.scaleDown,
-                      child: Text(
-                        'Learn View',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
-                        ),
-                      ),
-                    ),
-                    const Spacer(),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 8),
-                      child: OutlinedButton(
-                        onPressed: () =>
-                            showHint(context, currentFlashcard.hint),
-                        style: OutlinedButton.styleFrom(
-                            shape: const CircleBorder(),
-                            foregroundColor: const Color(0xFF549186)),
-                        child: const Icon(Icons.question_mark),
-                      ),
-                    ),
-                  ],
-                ),
-
-                Padding(
-                  padding: const EdgeInsets.only(top:30.0,left:5,right: 5),
-                  child: Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30),
-                        border: Border.all(color: Colors.white)),
-                    child: Center(
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 20.0, bottom: 20),
-                        child: Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(bottom:60.0),
-                              child: FittedBox(
-                                fit: BoxFit.scaleDown,
-                                child: Text(
-                                  currentDeck,
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
+                    ],
+                  ),
+              
+                  Padding(
+                    padding: const EdgeInsets.only(top:30.0,left:5,right: 5),
+                    child: Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(30),
+                          border: Border.all(color: Colors.white)),
+                      child: Center(
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 20.0, bottom: 20),
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(bottom:60.0),
+                                child: FittedBox(
+                                  fit: BoxFit.scaleDown,
+                                  child: Text(
+                                    widget.currentDeck.name,
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-
-                                SizedBox(
-                                  width: 380,
-                                  height: 400,
-                                  child: FlipCard(
-                                      side: CardSide.FRONT,
-                                      key: _flipCardKey,
-                                      front: FlashcardView(
-                                        text: ('${currentFlashcard.question} ${currentFlashcard.interval}'), side: CardSide.FRONT,
-                                      ),
-                                      back: FlashcardView(
-                                        text: currentFlashcard.answer, side: CardSide.BACK,
-                                      )),
-                                ),
-
-                                Padding(
-                                  padding: const EdgeInsets.only(top:50.0),
-                                  child: ButtonBar(
-                                    alignment: MainAxisAlignment.center,
-                                    children: [
-                                      _buildButton('Again', Colors.red, 'again'),
-                                      _buildButton('Difficult', Colors.orange, 'difficult'),
-                                      _buildButton('Good', Colors.yellow, 'good'),
-                                      _buildButton('Easy', Colors.green, 'easy'),
-                                    ],
+              
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+              
+                                  SizedBox(
+                                    width: 380,
+                                    height: 400,
+                                    child: FlipCard(
+                                        side: CardSide.FRONT,
+                                        key: _flipCardKey,
+                                        front: FlashcardView(
+                                          text: ('${currentFlashcard.question} ${currentFlashcard.interval}'), side: CardSide.FRONT,
+                                        ),
+                                        back: FlashcardView(
+                                          text: currentFlashcard.answer, side: CardSide.BACK,
+                                        )),
                                   ),
-                                ),
-                              ],
-                            ),
-                          ],
+              
+                                  Padding(
+                                    padding: const EdgeInsets.only(top:50.0),
+                                    child: ButtonBar(
+                                      alignment: MainAxisAlignment.center,
+                                      children: [
+                                        _buildButton('Again', Colors.red, 'again'),
+                                        _buildButton('Difficult', Colors.orange, 'difficult'),
+                                        _buildButton('Good', Colors.yellow, 'good'),
+                                        _buildButton('Easy', Colors.green, 'easy'),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-
-              ],
+              
+                ],
+              ),
             ),
           ),
         );
@@ -213,14 +215,14 @@ class _LearnState extends State<Learn> {
 
   Flashcard getLowestCard() {
     double interval = double.maxFinite;
-    Flashcard lowest = flashcards.first;
+    Flashcard lowest = widget.flashcards.first;
     bool noCard = true;
-    for (int i = 0; i < flashcards.length; i++) {
-      if (flashcards[i].deck == currentDeck) {
+    for (int i = 0; i < widget.flashcards.length; i++) {
+      if (widget.flashcards[i].deck.name == widget.currentDeck.name) {
         noCard = false;
-        if (flashcards[i].interval < interval) {
-          interval = flashcards[i].interval;
-          lowest = flashcards[i];
+        if (widget.flashcards[i].interval < interval) {
+          interval = widget.flashcards[i].interval;
+          lowest = widget.flashcards[i];
         }
       }
     }
@@ -230,7 +232,7 @@ class _LearnState extends State<Learn> {
           answer: '-',
           interval: 2.0,
           ease: 2.0,
-          deck: 'Test',
+          deck: Deck(name: 'deck'),
           dueDate: DateTime.now());
     } else {
       return lowest;

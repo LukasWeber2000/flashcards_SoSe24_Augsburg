@@ -4,12 +4,16 @@ import 'package:easy_flashcard/main.dart';
 import 'package:flutter/material.dart';
 
 import '../Editor/editor_view.dart';
-import '../Models/flashcards.dart';
+import '../Models/deck.dart';
+import '../Models/flashcard.dart';
 
 class CardManagementView extends StatelessWidget {
-  CardManagementView({super.key});
+  CardManagementView({super.key, required this.flashcards, required this.currentDeck, required this.decks});
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  final List<Flashcard> flashcards;
+  final Deck currentDeck;
+  final List<Deck> decks;
 
   @override
   Widget build(BuildContext context) {
@@ -24,13 +28,13 @@ class CardManagementView extends StatelessWidget {
           onLeftButtonPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => DeckView()),
+              MaterialPageRoute(builder: (context) => const DeckView()),
             );
           },
           rightIcon: Icons.menu,
           leftIcon: Icons.arrow_back,
         ),
-        endDrawer: const CustomDrawer(),
+        endDrawer: CustomDrawer(currentDeck: currentDeck, flashcards: flashcards, decks: decks,),
         body: Column(
           children: [
             const Padding(
@@ -75,7 +79,7 @@ class CardManagementView extends StatelessWidget {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => FlashcardEditorView(
-                                          flashcard: flashcard,
+                                          flashcard: flashcard, currentDeck: currentDeck, flashcards: flashcards, decks: decks,
                                         )),
                               );
                             },
@@ -84,8 +88,8 @@ class CardManagementView extends StatelessWidget {
                             subtitle: Row(
                               children: [
                                 Text(flashcard.answer),
-                                Spacer(),
-                                Text(flashcard.deck, style: TextStyle(color: Colors.white54,),)
+                                const Spacer(),
+                                Text(flashcard.deck.name, style: const TextStyle(color: Colors.white54,),)
                               ],
                             ),
 

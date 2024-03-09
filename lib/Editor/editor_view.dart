@@ -3,15 +3,17 @@ import 'package:easy_flashcard/Models/flashcard.dart';
 import 'package:flutter/material.dart';
 import '../GlobalViews/custom_appbar_view.dart';
 import '../GlobalViews/custom_drawer_view.dart';
-import '../Models/decks.dart';
 import '../Models/flashcards.dart';
 import '../Learn/learn_view.dart';
 import 'package:toastification/toastification.dart';
 
 class FlashcardEditorView extends StatefulWidget {
-  const FlashcardEditorView({Key? key, this.flashcard}) : super(key: key);
+  FlashcardEditorView({super.key, this.flashcard, required this.decks, required this.currentDeck, required this.flashcards, });
 
   final Flashcard? flashcard;
+  Deck currentDeck;
+  final List<Flashcard> flashcards;
+  final List<Deck> decks;
 
   @override
   FlashcardEditorViewState createState() => FlashcardEditorViewState();
@@ -23,6 +25,7 @@ class FlashcardEditorViewState extends State<FlashcardEditorView> {
   final hintTextController = TextEditingController();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
+
   @override
   void initState() {
     super.initState();
@@ -33,6 +36,7 @@ class FlashcardEditorViewState extends State<FlashcardEditorView> {
 
   @override
   Widget build(BuildContext context) {
+
     return MaterialApp(
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.white10,
@@ -48,13 +52,13 @@ class FlashcardEditorViewState extends State<FlashcardEditorView> {
               onLeftButtonPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const Learn()),
+                  MaterialPageRoute(builder: (context) => Learn(flashcards: widget.flashcards, currentDeck: widget.currentDeck, decks: widget.decks,)),
                 );
               },
               rightIcon: Icons.menu,
               leftIcon: Icons.arrow_back,
             ),
-            endDrawer: const CustomDrawer(),
+            endDrawer: CustomDrawer(currentDeck: widget.currentDeck, flashcards: widget.flashcards, decks: widget.decks,),
             body: Column(
               children: [
                 Row(
@@ -104,26 +108,26 @@ class FlashcardEditorViewState extends State<FlashcardEditorView> {
                               color: Colors.white, fontWeight: FontWeight.bold),
                         ),
                         DropdownButtonHideUnderline(
-                          child: DropdownButton<String>(
+                          child: DropdownButton<Deck>(
                             dropdownColor: Colors.black,
-                            value: currentDeck,
+                            value: widget.currentDeck,
                             onTap: () {},
 
-                            items: decks.map((Deck decks) {
-                              return DropdownMenuItem<String>(
+                            items: widget.decks.map((Deck deck) {
+                              return DropdownMenuItem<Deck>(
                                 alignment: Alignment.center,
-                                value: decks.name,
-                                child: Text(decks.name,
+                                value: deck,
+                                child: Text(deck.name,
                                     style: const TextStyle(
                                         color: Color(0xFF549186))),
                               );
                             }).toList(),
 
                             // Handler called when an item is selected
-                            onChanged: (String? newValue) {
+                            onChanged: (Deck? newValue) {
                               // You can put your logic here to respond to the selection of a new item
                               setState(() {
-                                currentDeck = newValue!;
+                                widget.currentDeck = newValue!;
                               });
                             },
                           ),
@@ -264,15 +268,14 @@ class FlashcardEditorViewState extends State<FlashcardEditorView> {
 
   saveFlashcard(BuildContext context) async {
     if (questionTextController.text != '' && answerTextController.text != '') {
-      if (isQuestionUnique(questionTextController.text, flashcards)) {
-        flashcards = await getFlashcardListFromJson();
-        flashcards.add(Flashcard(
+      if (isQuestionUnique(questionTextController.text, widget.flashcards)) {
+        widget.flashcards.add(Flashcard(
             question: questionTextController.text,
             answer: answerTextController.text,
             hint: hintTextController.text,
             ease: 2.5,
             interval: 1.0,
-            deck: currentDeck,
+            deck: widget.currentDeck,
             dueDate: DateTime.now()));
 
         toastification.show(
@@ -285,16 +288,16 @@ class FlashcardEditorViewState extends State<FlashcardEditorView> {
             style: ToastificationStyle.fillColored);
         clearInputs();
       } else {
-        int flashcardToEditIndex = flashcards.indexWhere(
+        int flashcardToEditIndex = widget.flashcards.indexWhere(
             (flashcard) => flashcard.question == questionTextController.text);
-        flashcards[flashcardToEditIndex] = Flashcard(
+        widget.flashcards[flashcardToEditIndex] = Flashcard(
             question: questionTextController.text,
             answer: answerTextController.text,
             hint: hintTextController.text,
-            ease: flashcards[flashcardToEditIndex].ease,
-            interval: flashcards[flashcardToEditIndex].interval,
-            deck: currentDeck,
-            dueDate: flashcards[flashcardToEditIndex].dueDate);
+            ease: widget.flashcards[flashcardToEditIndex].ease,
+            interval: widget.flashcards[flashcardToEditIndex].interval,
+            deck: widget.currentDeck,
+            dueDate: widget.flashcards[flashcardToEditIndex].dueDate);
 
         toastification.show(
             context: context,
@@ -306,7 +309,7 @@ class FlashcardEditorViewState extends State<FlashcardEditorView> {
             style: ToastificationStyle.fillColored);
       }
       // Write all Flashcards
-      writeFlashcardListToFile(flashcards);
+      writeFlashcardListToFile(widget.flashcards);
     } else {
       toastification.show(
           context: context,
@@ -325,8 +328,8 @@ class FlashcardEditorViewState extends State<FlashcardEditorView> {
   deleteFlashcard(Flashcard? flashcard, BuildContext context) {
     FocusScope.of(context).unfocus();
     if (flashcard != null) {
-      flashcards.remove(flashcard);
-      writeFlashcardListToFile(flashcards);
+      widget.flashcards.remove(flashcard);
+      writeFlashcardListToFile(widget.flashcards);
       clearInputs();
       toastification.show(
           context: context,

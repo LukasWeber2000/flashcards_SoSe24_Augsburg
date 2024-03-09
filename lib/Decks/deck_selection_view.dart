@@ -1,17 +1,18 @@
 import 'package:easy_flashcard/Decks/add_deck_dialog_view.dart';
-import 'package:easy_flashcard/Models/flashcards.dart';
+import 'package:easy_flashcard/Models/flashcard.dart';
 import 'package:flutter/material.dart';
 import '../Models/deck.dart';
 import '../Editor/editor_view.dart';
 import '../Learn/learn_view.dart';
-import '../Models/decks.dart';
 
 class DeckSelection extends StatefulWidget {
   final List<Deck> decks;
+  final List<Flashcard> flashcards;
 
   const DeckSelection({
     Key? key,
     required this.decks,
+    required this.flashcards,
   }) : super(key: key);
 
   @override
@@ -19,8 +20,9 @@ class DeckSelection extends StatefulWidget {
 }
 
 class _DeckSelectionState extends State<DeckSelection> {
+  Deck currentDeck = Deck(name: '');
   void refresh() {
-    setState(() {}); // Leerer setState-Aufruf, um die UI neu zu zeichnen
+    setState(() {});
   }
 
   @override
@@ -61,7 +63,7 @@ class _DeckSelectionState extends State<DeckSelection> {
                   padding: const EdgeInsets.all(8.0),
                   child: ListView(
                     children: [
-                      for (var deck in decks)
+                      for (var deck in widget.decks)
 
                         Padding(
                           padding: const EdgeInsets.only(bottom: 5),
@@ -82,12 +84,12 @@ class _DeckSelectionState extends State<DeckSelection> {
                                   const Spacer(),
                                   OutlinedButton(
                                     onPressed: () {
-                                      currentDeck = deck.name;
+                                      currentDeck = deck;
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                const FlashcardEditorView()),
+                                                FlashcardEditorView(currentDeck: currentDeck, flashcards: widget.flashcards, decks: widget.decks)),
                                       );
                                     },
                                     style: OutlinedButton.styleFrom(
@@ -98,13 +100,13 @@ class _DeckSelectionState extends State<DeckSelection> {
                                   ),
                                 ],
                               ),
-                              subtitle: Text('Cards: ${getcardcount(deck)}', style: TextStyle(color: Colors.white54)),
+                              subtitle: Text('Cards: ${getCardCount(deck)}', style: TextStyle(color: Colors.white54)),
                               onTap: () {
-                                currentDeck = deck.name;
+                                currentDeck = deck;
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => const Learn()),
+                                      builder: (context) => Learn(flashcards: widget.flashcards, currentDeck: currentDeck, decks: widget.decks,)),
                                 );
                               },
                             ),
@@ -122,7 +124,7 @@ class _DeckSelectionState extends State<DeckSelection> {
           padding: const EdgeInsets.only(bottom: 15.0),
           child: OutlinedButton(
             onPressed: () {
-              AddDeckDialog.show(context, decks, refresh);
+              AddDeckDialog.show(context, widget.decks, refresh);
 
             },
             style: OutlinedButton.styleFrom(
@@ -138,10 +140,10 @@ class _DeckSelectionState extends State<DeckSelection> {
     );
   }
 
-  getcardcount(Deck deck) {
+  getCardCount(Deck deck) {
     var count = 0;
-    for(var flash in flashcards){
-      if(flash.deck == deck.name){
+    for(var flashcard in widget.flashcards){
+      if(flashcard.deck.name == deck.name){
         count++;
       }
     }

@@ -1,10 +1,12 @@
+import 'deck.dart';
+
 class Flashcard {
   final String question;
   final String answer;
   double interval;
   double ease;
   String? hint;
-  String deck;
+  Deck deck;
   DateTime dueDate;
 
   Flashcard({
@@ -24,7 +26,7 @@ class Flashcard {
       'answer': answer,
       'ease': ease,
       'interval': interval,
-      'deck': deck,
+      'deck': deck.toJson(),
       'dueDate': dueDate.toIso8601String(),
     };
 
@@ -50,7 +52,7 @@ class Flashcard {
       hint: json['hint'],
       ease: json['ease'].toDouble(),
       interval: json['interval'].toDouble(),
-      deck: json['deck'],
+      deck: Deck.fromJson(json['deck']),
       dueDate: DateTime.parse(json['dueDate']),
     );
   }
