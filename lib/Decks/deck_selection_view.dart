@@ -56,7 +56,7 @@ class _DeckSelectionState extends State<DeckSelection> {
               padding: const EdgeInsets.all(8.0),
               child: SizedBox(
                 width: double.maxFinite,
-                height: 550,
+                height: 500,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: ListView(
