@@ -35,77 +35,79 @@ class CardManagementView extends StatelessWidget {
           leftIcon: Icons.arrow_back,
         ),
         endDrawer: CustomDrawer(currentDeck: currentDeck, flashcards: flashcards, decks: decks,),
-        body: Column(
-          children: [
-            const Padding(
-              padding: EdgeInsets.only(top:15.0, bottom: 50),
-              child: FittedBox(
-                fit: BoxFit.scaleDown,
-                child: Text(
-                  'Card Management',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              const Padding(
+                padding: EdgeInsets.only(top:15.0, bottom: 50),
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text(
+                    'Card Management',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18
+                    ),
                   ),
                 ),
               ),
-            ),
-            Container(
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  border: Border.all(color: Colors.white)),
-              child: SizedBox(
-                width: double.maxFinite,
-                height: 500,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ListView.builder(
-                    itemCount: flashcards.length,
-                    itemBuilder: (context, index) {
-                      final flashcard = flashcards[index];
-                      return Padding(
-                        padding: const EdgeInsets.only(bottom:8.0),
-                        child: Container(
-                          decoration: BoxDecoration(
-                              border:
-                              Border.all(color: const Color(0xFF549186)),
-                              borderRadius: const BorderRadius.horizontal(
-                                  right: Radius.circular(10),
-                                  left: Radius.circular(10))),
-                          child: ListTile(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => FlashcardEditorView(
-                                          flashcard: flashcard, currentDeck: currentDeck, flashcards: flashcards, decks: decks,
-                                        )),
-                              );
-                            },
-                            textColor: Colors.white,
-                            title: Text(flashcard.question),
-                            subtitle: Row(
-                              children: [
-                                Text(flashcard.answer),
-                                const Spacer(),
-                                Text(flashcard.deck.name, style: const TextStyle(color: Colors.white54,),)
-                              ],
+              Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(color: Colors.white)),
+                child: SizedBox(
+                  width: double.maxFinite,
+                  height: 500,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ListView.builder(
+                      itemCount: flashcards.length,
+                      itemBuilder: (context, index) {
+                        final flashcard = flashcards[index];
+                        return Padding(
+                          padding: const EdgeInsets.only(bottom:8.0),
+                          child: Container(
+                            decoration: BoxDecoration(
+                                border:
+                                Border.all(color: const Color(0xFF549186)),
+                                borderRadius: const BorderRadius.horizontal(
+                                    right: Radius.circular(10),
+                                    left: Radius.circular(10))),
+                            child: ListTile(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => FlashcardEditorView(
+                                            flashcard: flashcard, currentDeck: currentDeck, flashcards: flashcards, decks: decks,
+                                          )),
+                                );
+                              },
+                              textColor: Colors.white,
+                              title: Text(flashcard.question),
+                              subtitle: Row(
+                                children: [
+                                  Text(flashcard.answer),
+                                  const Spacer(),
+                                  Text(flashcard.deck.name, style: const TextStyle(color: Colors.white54,),)
+                                ],
+                              ),
+          
+                              /*trailing: Checkbox(
+                                value: false,
+                                onChanged: (bool? value) {},
+                              ),*/
                             ),
-
-                            /*trailing: Checkbox(
-                              value: false,
-                              onChanged: (bool? value) {},
-                            ),*/
                           ),
-                        ),
-                      );
-                    },
+                        );
+                      },
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

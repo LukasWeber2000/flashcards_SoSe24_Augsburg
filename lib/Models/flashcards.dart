@@ -31,7 +31,12 @@ Future<List<Flashcard>> getFlashcardListFromJson() async {
   }
 
   final jsonString = await file.readAsString();
-  final jsonList = json.decode(jsonString) as List<dynamic>;
-  var flashcards = jsonList.map((json) => Flashcard.fromJson(json)).toList();
-  return flashcards;
+  if(!jsonString.isEmpty){
+    final jsonList = json.decode(jsonString) as List<dynamic>;
+    var flashcards = jsonList.map((json) => Flashcard.fromJson(json)).toList();
+    return flashcards;
+  }else{
+    return [];
+  }
+
 }

@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:easy_flashcard/Decks/deck_selection_view.dart';
 import 'package:flutter/material.dart';
 
@@ -76,18 +74,4 @@ class DeckViewState extends State<DeckView> {
                 ),
               ));
         }));
-  }
-
-  Future<List<Flashcard>> getFlashcardListFromJson() async {
-    final file = await localFile;
-    if (!await file.exists()) {
-      await file.create();
-      return flashcards;
-    }
-
-    final jsonString = await file.readAsString();
-    final jsonList = json.decode(jsonString) as List<dynamic>;
-    flashcards = jsonList.map((json) => Flashcard.fromJson(json)).toList();
-    return flashcards;
-  }
-}
+  }}
