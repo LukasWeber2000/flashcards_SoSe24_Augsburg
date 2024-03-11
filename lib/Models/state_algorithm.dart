@@ -9,25 +9,27 @@ class FlipDeckAlgorithm {
   static void processAnswer(String answer, Flashcard card) {
     switch (answer) {
       case 'again':
-        double newInterval = card.interval * 0.5; // & of old interval
-        double newEase = card.ease - 0.2; // -20% from ease
-        DateTime newDueDate = calculateDueDate(card.dueDate, newInterval);
+      // Konvertiere das Intervall in Minuten
+        double newInterval = card.interval * 0.5 * 1440; // & des alten Intervalls
+        double newEase = card.ease - 0.2; // -20% von ease
+        //DateTime newDueDate = DateTime.now().add(Duration(minutes: newInterval.toInt()));
+        DateTime newDueDate = DateTime.now();
         updateCard(card, newInterval, newEase, newDueDate);
         break;
       case 'difficult':
-        double newInterval = card.interval * defaultHardInterval;
-        double newEase = card.ease - 0.15; // -15% from ease
+        double newInterval = card.interval * defaultHardInterval * 1440;
+        double newEase = card.ease - 0.15; // -15% von ease
         DateTime newDueDate = calculateDueDate(card.dueDate, newInterval);
         updateCard(card, newInterval, newEase, newDueDate);
         break;
       case 'good':
-        double newInterval = card.interval * 2.5;
+        double newInterval = card.interval * 2.5 * 1440;
         DateTime newDueDate = calculateDueDate(card.dueDate, newInterval);
         updateCard(card, newInterval, card.ease, newDueDate);
         break;
       case 'easy':
-        double newInterval = card.interval * 2.5 * defaultEasyBonus;
-        double newEase = card.ease + 0.15; // +15% to ease
+        double newInterval = card.interval * 2.5 * defaultEasyBonus * 1440;
+        double newEase = card.ease + 0.15; // +15% zu ease
         DateTime newDueDate = calculateDueDate(card.dueDate, newInterval);
         updateCard(card, newInterval, newEase, newDueDate);
         break;
@@ -36,15 +38,14 @@ class FlipDeckAlgorithm {
     }
   }
 
-  static DateTime calculateDueDate(
-      DateTime currentDueDate, double newInterval) {
-    // Calculate new due date based on current due date and new interval
-    return currentDueDate.add(Duration(days: newInterval.toInt()));
+  static DateTime calculateDueDate(DateTime currentDueDate, double newInterval) {
+    // Berechne das neue Fälligkeitsdatum basierend auf dem aktuellen Fälligkeitsdatum und dem neuen Intervall
+    return currentDueDate.add(Duration(minutes: newInterval.toInt()));
   }
 
-  static void updateCard(
-      Flashcard card, double newInterval, double newEase, DateTime newDueDate) {
-    card.interval = newInterval;
+  static void updateCard(Flashcard card, double newInterval, double newEase, DateTime newDueDate) {
+    // Da wir jetzt mit Minuten arbeiten, konvertieren wir das Intervall zurück in Tage für die Speicherung
+    card.interval = newInterval / 1440;
     card.ease = newEase;
     card.dueDate = newDueDate;
   }

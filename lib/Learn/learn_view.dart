@@ -203,7 +203,9 @@ class _LearnState extends State<Learn> {
   Widget _buildButton(String label, Color color, String state) {
     return OutlinedButton(
       onPressed: () {
+        print("Datum vorher: ${currentFlashcard.dueDate}");
         FlipDeckAlgorithm.processAnswer(state, currentFlashcard);
+        print("Datum nachher: ${currentFlashcard.dueDate}");
         showNextCard();
       },
       style: OutlinedButton.styleFrom(
@@ -229,16 +231,19 @@ class _LearnState extends State<Learn> {
   }
 
   Flashcard getLowestCard() {
-    if (widget.flashcards.isNotEmpty) {
+    List<Flashcard> filteredFlashcards = widget.flashcards.where((card) {
+      return card.dueDate.isBefore(DateTime.now());
+    }).toList();
+    if (filteredFlashcards.isNotEmpty) {
       double interval = double.maxFinite;
-      Flashcard lowest = widget.flashcards.first;
+      Flashcard lowest = filteredFlashcards.first;
       bool noCard = true;
-      for (int i = 0; i < widget.flashcards.length; i++) {
-        if (widget.flashcards[i].deck.name == widget.currentDeck.name) {
+      for (int i = 0; i < filteredFlashcards.length; i++) {
+        if (filteredFlashcards[i].deck.name == widget.currentDeck.name) {
           noCard = false;
-          if (widget.flashcards[i].interval < interval) {
-            interval = widget.flashcards[i].interval;
-            lowest = widget.flashcards[i];
+          if (filteredFlashcards[i].interval < interval) {
+            interval = filteredFlashcards[i].interval;
+            lowest = filteredFlashcards[i];
           }
         }
       }
