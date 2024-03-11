@@ -15,7 +15,12 @@ class Learn extends StatefulWidget {
   final List<Flashcard> flashcards;
   final Deck currentDeck;
   final List<Deck> decks;
-  const Learn({super.key, required this.flashcards, required this.currentDeck, required this.decks});
+
+  const Learn(
+      {super.key,
+      required this.flashcards,
+      required this.currentDeck,
+      required this.decks});
 
   @override
   State<StatefulWidget> createState() => _LearnState();
@@ -58,7 +63,11 @@ class _LearnState extends State<Learn> {
               rightIcon: Icons.menu,
               leftIcon: Icons.arrow_back,
             ),
-            endDrawer: CustomDrawer(currentDeck: widget.currentDeck, flashcards: widget.flashcards, decks: widget.decks,),
+            endDrawer: CustomDrawer(
+              currentDeck: widget.currentDeck,
+              flashcards: widget.flashcards,
+              decks: widget.decks,
+            ),
             body: SingleChildScrollView(
               child: Column(
                 children: [
@@ -74,7 +83,10 @@ class _LearnState extends State<Learn> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => FlashcardEditorView(
-                                          flashcard: currentFlashcard, currentDeck: widget.currentDeck, flashcards: widget.flashcards, decks: widget.decks,
+                                          flashcard: currentFlashcard,
+                                          currentDeck: widget.currentDeck,
+                                          flashcards: widget.flashcards,
+                                          decks: widget.decks,
                                         )),
                               );
                             },
@@ -111,9 +123,9 @@ class _LearnState extends State<Learn> {
                       ),
                     ],
                   ),
-              
                   Padding(
-                    padding: const EdgeInsets.only(top:30.0,left:5,right: 5),
+                    padding:
+                        const EdgeInsets.only(top: 30.0, left: 5, right: 5),
                     child: Container(
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(30),
@@ -124,7 +136,7 @@ class _LearnState extends State<Learn> {
                           child: Column(
                             children: [
                               Padding(
-                                padding: const EdgeInsets.only(bottom:60.0),
+                                padding: const EdgeInsets.only(bottom: 60.0),
                                 child: FittedBox(
                                   fit: BoxFit.scaleDown,
                                   child: Text(
@@ -136,11 +148,9 @@ class _LearnState extends State<Learn> {
                                   ),
                                 ),
                               ),
-              
                               Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-              
                                   SizedBox(
                                     width: 380,
                                     height: 400,
@@ -148,22 +158,28 @@ class _LearnState extends State<Learn> {
                                         side: CardSide.FRONT,
                                         key: _flipCardKey,
                                         front: FlashcardView(
-                                          text: ('${currentFlashcard.question} ${currentFlashcard.interval}'), side: CardSide.FRONT,
+                                          text:
+                                              ('${currentFlashcard.question} ${currentFlashcard.interval}'),
+                                          side: CardSide.FRONT,
                                         ),
                                         back: FlashcardView(
-                                          text: currentFlashcard.answer, side: CardSide.BACK,
+                                          text: currentFlashcard.answer,
+                                          side: CardSide.BACK,
                                         )),
                                   ),
-              
                                   Padding(
-                                    padding: const EdgeInsets.only(top:50.0),
+                                    padding: const EdgeInsets.only(top: 50.0),
                                     child: ButtonBar(
                                       alignment: MainAxisAlignment.center,
                                       children: [
-                                        _buildButton('Again', Colors.red, 'again'),
-                                        _buildButton('Difficult', Colors.orange, 'difficult'),
-                                        _buildButton('Good', Colors.yellow, 'good'),
-                                        _buildButton('Easy', Colors.green, 'easy'),
+                                        _buildButton(
+                                            'Again', Colors.red, 'again'),
+                                        _buildButton('Difficult', Colors.orange,
+                                            'difficult'),
+                                        _buildButton(
+                                            'Good', Colors.yellow, 'good'),
+                                        _buildButton(
+                                            'Easy', Colors.green, 'easy'),
                                       ],
                                     ),
                                   ),
@@ -175,7 +191,6 @@ class _LearnState extends State<Learn> {
                       ),
                     ),
                   ),
-              
                 ],
               ),
             ),
@@ -214,19 +229,32 @@ class _LearnState extends State<Learn> {
   }
 
   Flashcard getLowestCard() {
-    double interval = double.maxFinite;
-    Flashcard lowest = widget.flashcards.first;
-    bool noCard = true;
-    for (int i = 0; i < widget.flashcards.length; i++) {
-      if (widget.flashcards[i].deck.name == widget.currentDeck.name) {
-        noCard = false;
-        if (widget.flashcards[i].interval < interval) {
-          interval = widget.flashcards[i].interval;
-          lowest = widget.flashcards[i];
+    if (widget.flashcards.isNotEmpty) {
+      double interval = double.maxFinite;
+      Flashcard lowest = widget.flashcards.first;
+      bool noCard = true;
+      for (int i = 0; i < widget.flashcards.length; i++) {
+        if (widget.flashcards[i].deck.name == widget.currentDeck.name) {
+          noCard = false;
+          if (widget.flashcards[i].interval < interval) {
+            interval = widget.flashcards[i].interval;
+            lowest = widget.flashcards[i];
+          }
         }
       }
+      if (noCard == true) {
+        return Flashcard(
+            question: 'Add your first FlashCard',
+            answer: '-',
+            interval: 2.0,
+            ease: 2.0,
+            deck: Deck(name: 'deck'),
+            dueDate: DateTime.now());
+      } else {
+        return lowest;
+      }
     }
-    if (noCard == true) {
+    {
       return Flashcard(
           question: 'Add your first FlashCard',
           answer: '-',
@@ -234,8 +262,6 @@ class _LearnState extends State<Learn> {
           ease: 2.0,
           deck: Deck(name: 'deck'),
           dueDate: DateTime.now());
-    } else {
-      return lowest;
     }
   }
 
@@ -249,7 +275,7 @@ class _LearnState extends State<Learn> {
           alignment: Alignment.bottomCenter,
           showProgressBar: false,
           style: ToastificationStyle.fillColored);
-    }else {
+    } else {
       toastification.show(
           context: context,
           title: Text("Hint is empty"),

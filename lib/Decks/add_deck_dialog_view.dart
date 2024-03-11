@@ -26,6 +26,7 @@ class AddDeckDialog {
               },
             ),
             TextButton(
+              key: Key('saveDeck'),
               child: const Text('Save'),
               onPressed: () {
                 // Hier können Sie die Logik zum Speichern des Kartenstapelnamens implementieren

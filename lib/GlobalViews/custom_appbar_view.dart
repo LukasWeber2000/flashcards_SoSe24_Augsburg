@@ -35,6 +35,7 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
             ),
             IconButton(
               onPressed: onRightButtonPressed,
+
               icon: Icon(
                 rightIcon,
                 color: const Color(0xFF549186),
