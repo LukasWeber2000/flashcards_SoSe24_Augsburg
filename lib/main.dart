@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 
 import 'GlobalViews/custom_appbar_view.dart';
 import 'GlobalViews/custom_drawer_view.dart';
+import 'Interfaces/file_storage.dart';
 import 'Models/deck.dart';
+import 'Models/file-storage.dart';
 import 'Models/flashcard.dart';
 import 'Models/flashcards.dart';
 import 'helper_methods.dart';
@@ -35,7 +37,8 @@ class DeckViewState extends State<DeckView> {
   @override
   void initState() {
     super.initState();
-    getFlashcardListFromJson().then((loadedFlashcards) {
+    IFileStorage fileStorage = FileStorage();// Create an instance of FileStorage
+    getFlashcardListFromJsonFile(fileStorage).then((loadedFlashcards) {
       setState(() {
         flashcards = loadedFlashcards;
         decks = getDecksFromFlashcards(flashcards);

@@ -3,6 +3,8 @@ import 'package:easy_flashcard/Models/flashcard.dart';
 import 'package:flutter/material.dart';
 import '../GlobalViews/custom_appbar_view.dart';
 import '../GlobalViews/custom_drawer_view.dart';
+import '../Interfaces/file_storage.dart';
+import '../Models/file-storage.dart';
 import '../Models/flashcards.dart';
 import '../Learn/learn_view.dart';
 import 'package:toastification/toastification.dart';
@@ -15,6 +17,7 @@ class FlashcardEditorView extends StatefulWidget {
   final List<Flashcard> flashcards;
   final List<Deck> decks;
 
+
   @override
   FlashcardEditorViewState createState() => FlashcardEditorViewState();
 }
@@ -24,6 +27,7 @@ class FlashcardEditorViewState extends State<FlashcardEditorView> {
   final answerTextController = TextEditingController();
   final hintTextController = TextEditingController();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  IFileStorage fileStorage = FileStorage(); // Create an instance of FileStorage
 
 
   @override
@@ -321,7 +325,7 @@ class FlashcardEditorViewState extends State<FlashcardEditorView> {
             style: ToastificationStyle.fillColored);
       }
       // Write all Flashcards
-      writeFlashcardListToFile(widget.flashcards);
+      writeFlashcardListToFile(widget.flashcards, fileStorage);
     } else {
       toastification.show(
           context: context,
@@ -341,7 +345,7 @@ class FlashcardEditorViewState extends State<FlashcardEditorView> {
     FocusScope.of(context).unfocus();
     if (flashcard != null) {
       widget.flashcards.remove(flashcard);
-      writeFlashcardListToFile(widget.flashcards);
+      writeFlashcardListToFile(widget.flashcards, fileStorage);
       clearInputs();
       toastification.show(
           context: context,
