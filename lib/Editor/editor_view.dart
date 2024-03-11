@@ -10,13 +10,18 @@ import '../Learn/learn_view.dart';
 import 'package:toastification/toastification.dart';
 
 class FlashcardEditorView extends StatefulWidget {
-  FlashcardEditorView({super.key, this.flashcard, required this.decks, required this.currentDeck, required this.flashcards, });
+  FlashcardEditorView({
+    super.key,
+    this.flashcard,
+    required this.decks,
+    required this.currentDeck,
+    required this.flashcards,
+  });
 
   final Flashcard? flashcard;
   Deck currentDeck;
   final List<Flashcard> flashcards;
   final List<Deck> decks;
-
 
   @override
   FlashcardEditorViewState createState() => FlashcardEditorViewState();
@@ -29,7 +34,6 @@ class FlashcardEditorViewState extends State<FlashcardEditorView> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   IFileStorage fileStorage = FileStorage(); // Create an instance of FileStorage
 
-
   @override
   void initState() {
     super.initState();
@@ -40,7 +44,6 @@ class FlashcardEditorViewState extends State<FlashcardEditorView> {
 
   @override
   Widget build(BuildContext context) {
-
     return MaterialApp(
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.white10,
@@ -49,6 +52,7 @@ class FlashcardEditorViewState extends State<FlashcardEditorView> {
       home: Padding(
         padding: const EdgeInsets.only(top: 50),
         child: Scaffold(
+          resizeToAvoidBottomInset: false,
             key: _scaffoldKey,
             appBar: CustomAppbar(
               onRightButtonPressed: () =>
@@ -56,13 +60,22 @@ class FlashcardEditorViewState extends State<FlashcardEditorView> {
               onLeftButtonPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => Learn(flashcards: widget.flashcards, currentDeck: widget.currentDeck, decks: widget.decks,)),
+                  MaterialPageRoute(
+                      builder: (context) => Learn(
+                            flashcards: widget.flashcards,
+                            currentDeck: widget.currentDeck,
+                            decks: widget.decks,
+                          )),
                 );
               },
               rightIcon: Icons.menu,
               leftIcon: Icons.arrow_back,
             ),
-            endDrawer: CustomDrawer(currentDeck: widget.currentDeck, flashcards: widget.flashcards, decks: widget.decks,),
+            endDrawer: CustomDrawer(
+              currentDeck: widget.currentDeck,
+              flashcards: widget.flashcards,
+              decks: widget.decks,
+            ),
             body: Column(
               children: [
                 Row(
@@ -155,14 +168,17 @@ class FlashcardEditorViewState extends State<FlashcardEditorView> {
                       padding: EdgeInsets.all(8.0),
                       child: Row(
                         children: [
-                          Text("Hint:", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold)),
+                          Text("Hint:",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold)),
                         ],
                       ),
                     ),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 8.0, left:8, right: 8),
+                  padding: const EdgeInsets.only(top: 8.0, left: 8, right: 8),
                   child: SizedBox(
                     width: double.maxFinite,
                     child: TextField(
@@ -196,14 +212,16 @@ class FlashcardEditorViewState extends State<FlashcardEditorView> {
                       child: Row(
                         children: [
                           Text("Front Side:",
-                              style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold)),
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold)),
                         ],
                       ),
                     ),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 8.0, left: 8, right:8),
+                  padding: const EdgeInsets.only(top: 8.0, left: 8, right: 8),
                   child: SizedBox(
                     width: double.maxFinite,
                     child: TextField(
@@ -237,14 +255,16 @@ class FlashcardEditorViewState extends State<FlashcardEditorView> {
                       child: Row(
                         children: [
                           Text("Back Side:",
-                              style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold)),
                         ],
                       ),
                     ),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 8.0, left: 8, right:8),
+                  padding: const EdgeInsets.only(top: 8.0, left: 8, right: 8),
                   child: SizedBox(
                     width: double.maxFinite,
                     child: TextField(
@@ -284,48 +304,68 @@ class FlashcardEditorViewState extends State<FlashcardEditorView> {
 
   saveFlashcard(BuildContext context) async {
     if (questionTextController.text != '' && answerTextController.text != '') {
-      if (isQuestionUnique(questionTextController.text, widget.flashcards)) {
-        widget.flashcards.add(Flashcard(
-            question: questionTextController.text,
-            answer: answerTextController.text,
-            hint: hintTextController.text,
-            ease: 2.5,
-            interval: 1.0,
-            deck: widget.currentDeck,
-            dueDate: DateTime.now()));
+      bool isUnique =
+          isQuestionUnique(questionTextController.text, widget.flashcards);
+      bool proceedWithSave = true;
 
-        toastification.show(
-            context: context,
-            title: const Text('Saved Successfully'),
-            type: ToastificationType.success,
-            autoCloseDuration: const Duration(seconds: 2),
-            alignment: Alignment.bottomCenter,
-            showProgressBar: false,
-            style: ToastificationStyle.fillColored);
-        clearInputs();
+// Check if question is not unique and ask user for confirmation to overwrite
+      if (!isUnique) {
+        proceedWithSave = await showOverwriteDialog(context);
+      }
+
+      if (proceedWithSave) {
+        if (isUnique) {
+          widget.flashcards.add(Flashcard(
+              question: questionTextController.text,
+              answer: answerTextController.text,
+              hint: hintTextController.text,
+              ease: 2.5,
+              interval: 1.0,
+              deck: widget.currentDeck,
+              dueDate: DateTime.now()));
+
+          toastification.show(
+              context: context,
+              title: const Text('Saved Successfully'),
+              type: ToastificationType.success,
+              autoCloseDuration: const Duration(seconds: 2),
+              alignment: Alignment.bottomCenter,
+              showProgressBar: false,
+              style: ToastificationStyle.fillColored);
+          clearInputs();
+        } else {
+          int flashcardToEditIndex = widget.flashcards.indexWhere(
+              (flashcard) => flashcard.question == questionTextController.text);
+          widget.flashcards[flashcardToEditIndex] = Flashcard(
+              question: questionTextController.text,
+              answer: answerTextController.text,
+              hint: hintTextController.text,
+              ease: widget.flashcards[flashcardToEditIndex].ease,
+              interval: widget.flashcards[flashcardToEditIndex].interval,
+              deck: widget.currentDeck,
+              dueDate: widget.flashcards[flashcardToEditIndex].dueDate);
+
+          toastification.show(
+              context: context,
+              title: const Text('Edited Successfully'),
+              type: ToastificationType.success,
+              autoCloseDuration: const Duration(seconds: 5),
+              alignment: Alignment.bottomCenter,
+              showProgressBar: false,
+              style: ToastificationStyle.fillColored);
+        }
+        // Write all Flashcards
+        writeFlashcardListToFile(widget.flashcards, fileStorage);
       } else {
-        int flashcardToEditIndex = widget.flashcards.indexWhere(
-            (flashcard) => flashcard.question == questionTextController.text);
-        widget.flashcards[flashcardToEditIndex] = Flashcard(
-            question: questionTextController.text,
-            answer: answerTextController.text,
-            hint: hintTextController.text,
-            ease: widget.flashcards[flashcardToEditIndex].ease,
-            interval: widget.flashcards[flashcardToEditIndex].interval,
-            deck: widget.currentDeck,
-            dueDate: widget.flashcards[flashcardToEditIndex].dueDate);
-
         toastification.show(
             context: context,
-            title: const Text('Edited Successfully'),
-            type: ToastificationType.success,
+            title: const Text('Operation canceled'),
+            type: ToastificationType.info,
             autoCloseDuration: const Duration(seconds: 5),
             alignment: Alignment.bottomCenter,
             showProgressBar: false,
             style: ToastificationStyle.fillColored);
       }
-      // Write all Flashcards
-      writeFlashcardListToFile(widget.flashcards, fileStorage);
     } else {
       toastification.show(
           context: context,
@@ -371,5 +411,29 @@ class FlashcardEditorViewState extends State<FlashcardEditorView> {
     questionTextController.text = '';
     answerTextController.text = '';
     hintTextController.text = '';
+  }
+
+  Future<bool> showOverwriteDialog(BuildContext context) async {
+    return await showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: Text('Duplicate Question'),
+              content: Text(
+                  'A flashcard with this question already exists. Do you want to overwrite it?'),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () => Navigator.of(context).pop(false),
+                  child: Text('Cancel'),
+                ),
+                TextButton(
+                  onPressed: () => Navigator.of(context).pop(true),
+                  child: Text('Overwrite Card'),
+                ),
+              ],
+            );
+          },
+        ) ??
+        false; // Return false if dialog is dismissed
   }
 }

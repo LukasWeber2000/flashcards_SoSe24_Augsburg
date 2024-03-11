@@ -21,6 +21,7 @@ class DeckSelection extends StatefulWidget {
 
 class _DeckSelectionState extends State<DeckSelection> {
   Deck currentDeck = Deck(name: '');
+
   void refresh() {
     setState(() {});
   }
@@ -48,84 +49,79 @@ class _DeckSelectionState extends State<DeckSelection> {
             ],
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Container(
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30),
-                border: Border.all(color: Colors.white)),
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: SizedBox(
-                width: double.maxFinite,
-                height: 300,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ListView(
-                    children: [
-                      for (var deck in widget.decks)
-
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 5),
-                          child: Container(
-                            decoration: BoxDecoration(
-                                border:
-                                    Border.all(color: const Color(0xFF549186)),
-                                borderRadius: const BorderRadius.horizontal(
-                                    right: Radius.circular(10),
-                                    left: Radius.circular(10))),
-                            child: ListTile(
-                              title: Row(
-                                children: [
-                                  Text(
-                                    '${deck.name} ',
-                                    style: const TextStyle(color: Colors.white),
-                                  ),
-                                  const Spacer(),
-                                  OutlinedButton(
-                                    onPressed: () {
-                                      currentDeck = deck;
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                FlashcardEditorView(currentDeck: currentDeck, flashcards: widget.flashcards, decks: widget.decks)),
-                                      );
-                                    },
-                                    style: OutlinedButton.styleFrom(
-                                        shape: const CircleBorder(),
-                                        foregroundColor:
-                                            const Color(0xFF549186)),
-                                    child: const Icon(Icons.add),
-                                  ),
-                                ],
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(30),
+                  border: Border.all(color: Colors.white)),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ListView.builder(
+                  itemCount: widget.decks.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    final deck = widget.decks[index];
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 5),
+                      child: Container(
+                        decoration: BoxDecoration(
+                            border: Border.all(color: const Color(0xFF549186)),
+                            borderRadius: const BorderRadius.horizontal(
+                                right: Radius.circular(10),
+                                left: Radius.circular(10))),
+                        child: ListTile(
+                          title: Row(
+                            children: [
+                              Text(
+                                '${deck.name} ',
+                                style: const TextStyle(color: Colors.white),
                               ),
-                              subtitle: Text('Cards: ${getCardCount(deck)}', style: TextStyle(color: Colors.white54)),
-                              onTap: () {
-                                currentDeck = deck;
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Learn(flashcards: widget.flashcards, currentDeck: currentDeck, decks: widget.decks,)),
-                                );
-                              },
-                            ),
+                              const Spacer(),
+                              OutlinedButton(
+                                onPressed: () {
+                                  currentDeck = deck;
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => FlashcardEditorView(
+                                            currentDeck: currentDeck, flashcards: widget.flashcards, decks: widget.decks)),
+                                  );
+                                },
+                                style: OutlinedButton.styleFrom(
+                                    shape: const CircleBorder(),
+                                    foregroundColor: const Color(0xFF549186)),
+                                child: const Icon(Icons.add),
+                              ),
+                            ],
                           ),
+                          subtitle: Text('Cards: ${getCardCount(deck)}', style: TextStyle(color: Colors.white54)),
+                          onTap: () {
+                            currentDeck = deck;
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Learn(
+                                    flashcards: widget.flashcards,
+                                    currentDeck: currentDeck,
+                                    decks: widget.decks,
+                                  )),
+                            );
+                          },
                         ),
-                    ],
-                  ),
+                      ),
+                    );
+                  },
                 ),
               ),
             ),
           ),
         ),
-        const Spacer(),
         Padding(
           padding: const EdgeInsets.only(bottom: 15.0),
           child: OutlinedButton(
             onPressed: () {
               AddDeckDialog.show(context, widget.decks, refresh);
-
             },
             style: OutlinedButton.styleFrom(
                 side: const BorderSide(color: Color(0xFF549186)),
@@ -140,13 +136,7 @@ class _DeckSelectionState extends State<DeckSelection> {
     );
   }
 
-  getCardCount(Deck deck) {
-    var count = 0;
-    for(var flashcard in widget.flashcards){
-      if(flashcard.deck.name == deck.name){
-        count++;
-      }
-    }
-    return count;
+  int getCardCount(Deck deck) {
+    return widget.flashcards.where((flashcard) => flashcard.deck.name == deck.name).length;
   }
 }

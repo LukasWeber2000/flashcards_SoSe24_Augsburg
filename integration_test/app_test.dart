@@ -14,14 +14,21 @@ void main() {
       await tester.pumpAndSettle();
       final addDeckDialogTextBox = find.byType(TextField).first;
       await tester.enterText(addDeckDialogTextBox, 'Test Deck');
+      await tester.testTextInput.receiveAction(TextInputAction.done);
       await tester.pumpAndSettle();
       final saveDeckButton = find.byKey(const Key('saveDeck'));
       await tester.pumpAndSettle();
       await tester.tap(saveDeckButton);
       await tester.pumpAndSettle();
+      await tester.pump(const Duration(seconds: 8));
       final testDeckFinder = find.text('Test Deck');
       await tester.pumpAndSettle();
       //expect(testDeckFinder, findsOneWidget);
+      final addFlashcardButton = find.byIcon(Icons.add).last;
+      await tester.pumpAndSettle();
+
+      await tester.tap(addFlashcardButton);
+      await tester.pumpAndSettle();
     });
   });
 }
