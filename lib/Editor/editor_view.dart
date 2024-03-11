@@ -100,6 +100,7 @@ class FlashcardEditorViewState extends State<FlashcardEditorView> {
                       ),
                     ),
                     OutlinedButton(
+                      key: Key('flashcardSaveButton'),
                       onPressed: () => saveFlashcard(context),
                       style: OutlinedButton.styleFrom(
                           shape: const CircleBorder(),
@@ -182,6 +183,7 @@ class FlashcardEditorViewState extends State<FlashcardEditorView> {
                   child: SizedBox(
                     width: double.maxFinite,
                     child: TextField(
+                      key: Key('hintTextField'),
                       style: const TextStyle(color: Colors.white),
                       cursorColor: const Color(0xFF549186),
                       decoration: const InputDecoration(
@@ -225,6 +227,7 @@ class FlashcardEditorViewState extends State<FlashcardEditorView> {
                   child: SizedBox(
                     width: double.maxFinite,
                     child: TextField(
+                      key: Key('questionTextField'),
                       style: const TextStyle(color: Colors.white),
                       cursorColor: const Color(0xFF549186),
                       decoration: const InputDecoration(
@@ -268,6 +271,7 @@ class FlashcardEditorViewState extends State<FlashcardEditorView> {
                   child: SizedBox(
                     width: double.maxFinite,
                     child: TextField(
+                      key: Key('answerTextField'),
                       style: const TextStyle(color: Colors.white),
                       cursorColor: const Color(0xFF549186),
                       decoration: const InputDecoration(
