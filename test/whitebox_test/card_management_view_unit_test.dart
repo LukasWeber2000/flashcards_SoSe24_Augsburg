@@ -8,16 +8,22 @@ void main() {
   group('CardManagementView Tests', () {
     // Sample data to be used for testing
     final flashcards = [
-      Flashcard(question: 'Question 1', answer: 'Answer 1', deck: Deck(name: 'Deck 1'), interval: 2.1, ease: 2.2, dueDate: DateTime.now()),
-      // Add more flashcards as needed
+      Flashcard(
+          question: 'Question 1',
+          answer: 'Answer 1',
+          deck: Deck(name: 'Deck 1'),
+          interval: 2.1,
+          ease: 2.2,
+          dueDate: DateTime.now()),
     ];
     final currentDeck = Deck(name: 'Deck 1');
     final decks = [Deck(name: 'Deck 1'), Deck(name: 'Deck 2')];
 
-    testWidgets('CardManagementView builds correctly with given flashcards', (WidgetTester tester) async {
-      // Build our app and trigger a frame.
+    testWidgets('CardManagementView builds correctly with given flashcards',
+        (WidgetTester tester) async {
       await tester.pumpWidget(MaterialApp(
-        home: CardManagementView(flashcards: flashcards, currentDeck: currentDeck, decks: decks),
+        home: CardManagementView(
+            flashcards: flashcards, currentDeck: currentDeck, decks: decks),
       ));
 
       // Verify that the CardManagementView shows the correct number of flashcards

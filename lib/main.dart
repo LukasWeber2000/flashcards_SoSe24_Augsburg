@@ -38,6 +38,7 @@ class DeckViewState extends State<DeckView> {
   void initState() {
     super.initState();
     IFileStorage fileStorage = FileStorage();// Create an instance of FileStorage
+    //loadDemoCards(fileStorage);
     getFlashcardListFromJsonFile(fileStorage).then((loadedFlashcards) {
       setState(() {
         flashcards = loadedFlashcards;

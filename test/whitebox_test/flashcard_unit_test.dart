@@ -29,7 +29,8 @@ void main() {
     });
 
     test('test if toJson function returns the correct json string', () {
-      DateTime randomDate = DateTime.now().subtract(Duration(days: Random().nextInt(365)));
+      DateTime randomDate =
+          DateTime.now().subtract(Duration(days: Random().nextInt(365)));
       String formattedDate = randomDate.toIso8601String();
 
       Map<String, dynamic> expectedJson = {
@@ -52,8 +53,8 @@ void main() {
         dueDate: randomDate,
       );
 
-      Map<String, dynamic> actualJson = jsonDecode(jsonEncode(flashcard.toJson()));
-
+      Map<String, dynamic> actualJson =
+          jsonDecode(jsonEncode(flashcard.toJson()));
       expect(actualJson, equals(expectedJson));
     });
 
@@ -75,25 +76,28 @@ void main() {
 
     test(
         'Flashcard created without optional parameters should have default values',
-            () {
-          final flashcard = Flashcard(
-            question: 'What is the chemical symbol for water?',
-            answer: 'H2O',
-            interval: 1.0,
-            ease: 2.5,
-            deck: Deck(name: 'Science'),
-            dueDate: DateTime.now(),
-          );
+        () {
+      final flashcard = Flashcard(
+        question: 'What is the chemical symbol for water?',
+        answer: 'H2O',
+        interval: 1.0,
+        ease: 2.5,
+        deck: Deck(name: 'Science'),
+        dueDate: DateTime.now(),
+      );
 
-          expect(flashcard.hint, isNull);
-        });
+      expect(flashcard.hint, isNull);
+    });
 
-    test('fromJson should throw FormatException on missing required fields', () {
-      expect(() => Flashcard.fromJson({'question': 'Missing fields'}), throwsA(isA<FormatException>()));
+    test('fromJson should throw FormatException on missing required fields',
+        () {
+      expect(() => Flashcard.fromJson({'question': 'Missing fields'}),
+          throwsA(isA<FormatException>()));
     });
 
     test('toJson should handle null hint correctly', () {
-      DateTime randomDate = DateTime.now().subtract(Duration(days: Random().nextInt(365)));
+      DateTime randomDate =
+          DateTime.now().subtract(Duration(days: Random().nextInt(365)));
       Flashcard flashcard = Flashcard(
         question: 'question',
         answer: 'answer',
@@ -105,7 +109,8 @@ void main() {
       );
 
       final jsonString = jsonEncode(flashcard.toJson());
-      expect(jsonString.contains('"hint":null'), isFalse); // This test ensures that "hint": null is not part of the JSON string, as intended by the Flashcard toJson method.
+      expect(jsonString.contains('"hint":null'),
+          isFalse); // This test ensures that "hint": null is not part of the JSON string, as intended by the Flashcard toJson method.
     });
   });
 }
