@@ -95,7 +95,7 @@ class _DeckSelectionState extends State<DeckSelection> {
                               ),
                             ],
                           ),
-                          subtitle: Text('Cards: ${getCardCount(deck)}', style: TextStyle(color: Colors.white54)),
+                          subtitle: Text('Cards: ${getCardCount(deck)}  -  Today remaining: ${getTodayDue(deck)} ', style: TextStyle(color: Colors.white54)),
                           onTap: () {
                             currentDeck = deck;
                             Navigator.push(
@@ -139,4 +139,17 @@ class _DeckSelectionState extends State<DeckSelection> {
   int getCardCount(Deck deck) {
     return widget.flashcards.where((flashcard) => flashcard.deck.name == deck.name).length;
   }
+
+  int getTodayDue(Deck deck) {
+    DateTime now = DateTime.now();
+    // Setzt das Datum auf den nächsten Tag um 00:00 Uhr
+    DateTime startOfNextDay = DateTime(now.year, now.month, now.day + 1);
+
+    // Filtert die Karten, die zum gegebenen Deck gehören und deren Fälligkeitsdatum vor dem Start des nächsten Tages liegt
+    int dueTodayCount = widget.flashcards.where((flashcard) =>
+    flashcard.deck.name == deck.name &&
+        flashcard.dueDate.isBefore(startOfNextDay)).length;
+
+    return dueTodayCount;
+   }
 }

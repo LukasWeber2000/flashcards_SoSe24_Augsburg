@@ -1,4 +1,5 @@
 import 'package:easy_flashcard/Learn/flashcard_view.dart';
+import 'package:easy_flashcard/Models/flashcards.dart';
 import 'package:easy_flashcard/Models/state_algorithm.dart';
 import 'package:flutter/material.dart';
 import 'package:flip_card/flip_card.dart';
@@ -6,7 +7,9 @@ import 'package:toastification/toastification.dart';
 
 import '../GlobalViews/custom_appbar_view.dart';
 import '../GlobalViews/custom_drawer_view.dart';
+import '../Interfaces/file_storage.dart';
 import '../Models/deck.dart';
+import '../Models/file-storage.dart';
 import '../Models/flashcard.dart';
 import '../Editor/editor_view.dart';
 import '../main.dart';
@@ -55,8 +58,12 @@ class _LearnState extends State<Learn> {
               onRightButtonPressed: () =>
                   _scaffoldKey.currentState?.openEndDrawer(),
               onLeftButtonPressed: () {
+                //eigentlich speichern
+                //IFileStorage fileStorage = FileStorage();
+                //writeFlashcardListToFile(widget.flashcards, fileStorage);
                 Navigator.push(
                   context,
+
                   MaterialPageRoute(builder: (context) => DeckView()),
                 );
               },
@@ -152,6 +159,7 @@ class _LearnState extends State<Learn> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   SizedBox(
+                                    key: Key('FlashcardBox'),
                                     width: 380,
                                     height: 400,
                                     child: FlipCard(

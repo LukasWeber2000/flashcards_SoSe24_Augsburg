@@ -33,12 +33,17 @@ class DeckViewState extends State<DeckView> {
         dueDate: DateTime.now())
   ];
   List<Deck> decks = [];
+  int i = 0;
 
   @override
   void initState() {
     super.initState();
-    IFileStorage fileStorage = FileStorage();// Create an instance of FileStorage
-    //loadDemoCards(fileStorage);
+    IFileStorage fileStorage =
+        FileStorage(); // Create an instance of FileStorage
+   /* if (i < 1) {
+      i++;
+      loadDemoCards(fileStorage);
+    }*/
     getFlashcardListFromJsonFile(fileStorage).then((loadedFlashcards) {
       setState(() {
         flashcards = loadedFlashcards;
@@ -67,7 +72,8 @@ class DeckViewState extends State<DeckView> {
                   //leftIcon: Icons.arrow_back,
                 ),
                 endDrawer: CustomDrawer(
-                  currentDeck: decks.isNotEmpty ? decks[0] : Deck(name: 'No Decks'),
+                  currentDeck:
+                      decks.isNotEmpty ? decks[0] : Deck(name: 'No Decks'),
                   flashcards: flashcards,
                   decks: decks,
                 ),
@@ -78,4 +84,5 @@ class DeckViewState extends State<DeckView> {
                 ),
               ));
         }));
-  }}
+  }
+}
