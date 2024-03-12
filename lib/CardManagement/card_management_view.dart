@@ -88,7 +88,9 @@ class CardManagementView extends StatelessWidget {
                               title: Text(flashcard.question),
                               subtitle: Row(
                                 children: [
-                                  Text(flashcard.answer),
+                                  Text(
+                                    flashcard.answer.length > 15 ? flashcard.answer.substring(0, 15) + '...' : flashcard.answer,
+                                  ),
                                   const Spacer(),
                                   Text(flashcard.deck.name, style: const TextStyle(color: Colors.white54,),)
                                 ],
