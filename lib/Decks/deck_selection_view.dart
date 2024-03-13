@@ -54,7 +54,7 @@ class _DeckSelectionState extends State<DeckSelection> {
             padding: const EdgeInsets.all(8.0),
             child: Container(
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30),
+                  borderRadius: BorderRadius.circular(15),
                   border: Border.all(color: Colors.white)),
               child: Padding(
                 padding: const EdgeInsets.all(8.0),

@@ -166,7 +166,7 @@ class _LearnState extends State<Learn> {
                                         key: _flipCardKey,
                                         front: FlashcardView(
                                           text:
-                                              ('${currentFlashcard.question} ${currentFlashcard.interval} - Ease ${currentFlashcard.ease} '),
+                                              ('${currentFlashcard.question} '),
                                           side: CardSide.FRONT,
                                         ),
                                         back: FlashcardView(
