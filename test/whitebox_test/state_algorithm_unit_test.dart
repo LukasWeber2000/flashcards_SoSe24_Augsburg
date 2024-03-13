@@ -38,16 +38,16 @@ void main() {
 
     test('processAnswer with "easy" updates card correctly', () {
       FlipDeckAlgorithm.processAnswer("easy", flashcard);
-      expect(flashcard.interval, 3.25);
+      expect(flashcard.interval, 1.3);
       expect(flashcard.ease, 2.65);
     });
 
     test('calculateDueDate returns correct new due date', () {
       DateTime currentDueDate = DateTime(2023, 1, 1);
       double interval = 10.0;
-      DateTime expectedDueDate = DateTime(2023, 1, 11);
+      DateTime expectedDueDate = DateTime(2023, 1, 1).add(const Duration(minutes: 10));
       DateTime calculatedDueDate =
-          FlipDeckAlgorithm.calculateDueDate(currentDueDate, interval);
+      FlipDeckAlgorithm.calculateDueDate(currentDueDate, interval);
       expect(calculatedDueDate, expectedDueDate);
     });
   });

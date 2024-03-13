@@ -1,0 +1,281 @@
+[
+  {
+    "question": "What is the capital of France?",
+    "answer": "Paris",
+    "hint": null,
+    "interval": 1.5,
+    "ease": 2.5,
+    "deck": {"name": "Geography"},
+    "dueDate": "2024-03-15T08:00:00Z"
+  },
+  {
+    "question": "Who wrote 'Romeo and Juliet'?",
+    "answer": "William Shakespeare",
+    "hint": null,
+    "interval": 2.0,
+    "ease": 2.8,
+    "deck": {"name": "Literature"},
+    "dueDate": "2024-03-17T10:30:00Z"
+  },
+  {
+    "question": "What is the chemical symbol for water?",
+    "answer": "H2O",
+    "hint": "It consists of two hydrogen atoms and one oxygen atom.",
+    "interval": 1.8,
+    "ease": 2.7,
+    "deck": {"name": "Science"},
+    "dueDate": "2024-03-16T14:15:00Z"
+  },
+  {
+    "question": "What is the largest planet in our solar system?",
+    "answer": "Jupiter",
+    "hint": null,
+    "interval": 2.3,
+    "ease": 2.9,
+    "deck": {"name": "Astronomy"},
+    "dueDate": "2024-03-19T11:45:00Z"
+  },
+  {
+    "question": "Who painted the Mona Lisa?",
+    "answer": "Leonardo da Vinci",
+    "hint": null,
+    "interval": 1.9,
+    "ease": 2.6,
+    "deck": {"name": "Art"},
+    "dueDate": "2024-03-15T16:20:00Z"
+  },
+  {
+    "question": "What is the boiling point of water in Celsius?",
+    "answer": "100°C",
+    "hint": null,
+    "interval": 2.1,
+    "ease": 2.7,
+    "deck": {"name": "Science"},
+    "dueDate": "2024-03-18T09:10:00Z"
+  },
+  {
+    "question": "Who discovered gravity?",
+    "answer": "Isaac Newton",
+    "hint": null,
+    "interval": 2.2,
+    "ease": 2.8,
+    "deck": {"name": "Science"},
+    "dueDate": "2024-03-18T13:45:00Z"
+  },
+  {
+    "question": "What is the largest ocean on Earth?",
+    "answer": "Pacific Ocean",
+    "hint": null,
+    "interval": 2.5,
+    "ease": 2.9,
+    "deck": {"name": "Geography"},
+    "dueDate": "2024-03-20T10:00:00Z"
+  },
+  {
+    "question": "Who wrote 'To Kill a Mockingbird'?",
+    "answer": "Harper Lee",
+    "hint": null,
+    "interval": 2.4,
+    "ease": 2.8,
+    "deck": {"name": "Literature"},
+    "dueDate": "2024-03-19T12:30:00Z"
+  },
+  {
+    "question": "What is the chemical symbol for gold?",
+    "answer": "Au",
+    "hint": null,
+    "interval": 1.7,
+    "ease": 2.6,
+    "deck": {"name": "Science"},
+    "dueDate": "2024-03-16T09:45:00Z"
+  },
+  {
+    "question": "Who is known as the 'Father of Computers'?",
+    "answer": "Charles Babbage",
+    "hint": null,
+    "interval": 2.6,
+    "ease": 2.9,
+    "deck": {"name": "Technology"},
+    "dueDate": "2024-03-21T11:20:00Z"
+  },
+  {
+    "question": "What is the speed of light in a vacuum?",
+    "answer": "299,792,458 meters per second",
+    "hint": null,
+    "interval": 2.7,
+    "ease": 2.9,
+    "deck": {"name": "Physics"},
+    "dueDate": "2024-03-22T14:00:00Z"
+  },
+  {
+    "question": "Who painted 'Starry Night'?",
+    "answer": "Vincent van Gogh",
+    "hint": null,
+    "interval": 1.8,
+    "ease": 2.6,
+    "deck": {"name": "Art"},
+    "dueDate": "2024-03-16T16:40:00Z"
+  },
+  {
+    "question": "What is the capital of Japan?",
+    "answer": "Tokyo",
+    "hint": null,
+    "interval": 2.2,
+    "ease": 2.8,
+    "deck": {"name": "Geography"},
+    "dueDate": "2024-03-18T11:50:00Z"
+  },
+  {
+    "question": "Who wrote '1984'?",
+    "answer": "George Orwell",
+    "hint": null,
+    "interval": 2.3,
+    "ease": 2.8,
+    "deck": {"name": "Literature"},
+    "dueDate": "2024-03-19T13:20:00Z"
+  },
+  {
+    "question": "What is the chemical symbol for oxygen?",
+    "answer": "O2",
+    "hint": "It's a diatomic molecule.",
+    "interval": 2.1,
+    "ease": 2.7,
+    "deck": {"name": "Science"},
+    "dueDate": "2024-03-18T09:30:00Z"
+  },
+  {
+    "question": "Who proposed the theory of relativity?",
+    "answer": "Albert Einstein",
+    "hint": null,
+    "interval": 2.5,
+    "ease": 2.9,
+    "deck": {"name": "Physics"},
+    "dueDate": "2024-03-20T09:15:00Z"
+  },
+  {
+    "question": "What is the deepest ocean trench?",
+    "answer": "Mariana Trench",
+    "hint": null,
+    "interval": 2.6,
+    "ease": 2.9,
+    "deck": {"name": "Geography"},
+    "dueDate": "2024-03-21T10:30:00Z"
+  },
+  {
+    "question": "Who painted 'The Scream'?",
+    "answer": "Edvard Munch",
+    "hint": null,
+    "interval": 2.4,
+    "ease": 2.8,
+    "deck": {"name": "Art"},
+    "dueDate": "2024-03-19T15:40:00Z"
+  },
+  {
+    "question": "What is the smallest prime number?",
+    "answer": "2",
+    "hint": null,
+    "interval": 2.0,
+    "ease": 2.7,
+    "deck": {"name": "Mathematics"},
+    "dueDate": "2024-03-17T10:00:00Z"
+  },
+  {
+    "question": "Who invented the telephone?",
+    "answer": "Alexander Graham Bell",
+    "hint": null,
+    "interval": 2.1,
+    "ease": 2.7,
+    "deck": {"name": "Technology"},
+    "dueDate": "2024-03-18T09:45:00Z"
+  },
+  {
+    "question": "What is the boiling point of water in Fahrenheit?",
+    "answer": "212°F",
+    "hint": null,
+    "interval": 1.9,
+    "ease": 2.6,
+    "deck": {"name": "Science"},
+    "dueDate": "2024-03-16T11:20:00Z"
+  },
+  {
+    "question": "Who discovered penicillin?",
+    "answer": "Alexander Fleming",
+    "hint": null,
+    "interval": 2.3,
+    "ease": 2.8,
+    "deck": {"name": "Medicine"},
+    "dueDate": "2024-03-19T12:30:00Z"
+  },
+  {
+    "question": "What is the largest mammal?",
+    "answer": "Blue whale",
+    "hint": null,
+    "interval": 2.2,
+    "ease": 2.8,
+    "deck": {"name": "Biology"},
+    "dueDate": "2024-03-18T11:00:00Z"
+  },
+  {
+    "question": "Who wrote 'The Great Gatsby'?",
+    "answer": "F. Scott Fitzgerald",
+    "hint": null,
+    "interval": 2.7,
+    "ease": 2.9,
+    "deck": {"name": "Literature"},
+    "dueDate": "2024-03-22T08:45:00Z"
+  },
+  {
+    "question": "What is the chemical symbol for carbon?",
+    "answer": "C",
+    "hint": null,
+    "interval": 1.8,
+    "ease": 2.6,
+    "deck": {"name": "Science"},
+    "dueDate": "2024-03-16T13:00:00Z"
+  },
+  {
+    "question": "Who discovered the theory of evolution?",
+    "answer": "Charles Darwin",
+    "hint": null,
+    "interval": 2.8,
+    "ease": 2.9,
+    "deck": {"name": "Biology"},
+    "dueDate": "2024-03-23T10:30:00Z"
+  },
+  {
+    "question": "What is the boiling point of water at sea level?",
+    "answer": "100°C",
+    "hint": null,
+    "interval": 2.9,
+    "ease": 3.0,
+    "deck": {"name": "Science"},
+    "dueDate": "2024-03-24T09:15:00Z"
+  },
+  {
+    "question": "Who painted 'The Last Supper'?",
+    "answer": "Leonardo da Vinci",
+    "hint": null,
+    "interval": 2.0,
+    "ease": 2.7,
+    "deck": {"name": "Art"},
+    "dueDate": "2024-03-17T15:40:00Z"
+  },
+  {
+    "question": "What is the chemical symbol for silver?",
+    "answer": "Ag",
+    "hint": null,
+    "interval": 2.3,
+    "ease": 2.8,
+    "deck": {"name": "Science"},
+    "dueDate": "2024-03-19T12:00:00Z"
+  },
+  {
+    "question": "Who invented the light bulb?",
+    "answer": "Thomas Edison",
+    "hint": null,
+    "interval": 2.6,
+    "ease": 2.9,
+    "deck": {"name": "Technology"},
+    "dueDate": "2024-03-21T09:30:00Z"
+  }
+]

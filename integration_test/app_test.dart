@@ -36,10 +36,9 @@ void main() {
       await tester.pumpAndSettle();
       await tester.tap(addFlashcardButton);
       await tester.pumpAndSettle();
-
       await tester.pumpAndSettle();
 
-      //Check if Navigation was successfull
+      //Check if Navigation was successful
       final headingOfEditorView = find.widgetWithText(FittedBox, 'Add Card');
       expect(headingOfEditorView, findsOneWidget);
 
@@ -98,6 +97,9 @@ void main() {
 
 Future<void> verifyCardIsInLearnView(
     WidgetTester tester, String question, String answer) async {
+  await tester.pumpAndSettle();
+  await tester.pump(const Duration(seconds: 2));
+  await tester.pumpAndSettle();
   expect(find.textContaining(question), findsOneWidget);
   final flashcardBox = find.byKey(const Key('FlashcardBox'));
   await tester.tap(flashcardBox);
@@ -110,11 +112,17 @@ Future<void> verifyCardIsInLearnView(
 
 Future<void> clickOnFirstDeck(WidgetTester tester) async {
   await tester.pumpAndSettle();
+  await tester.pump(const Duration(seconds: 2));
+  await tester.pumpAndSettle();
+  await tester.pumpAndSettle();
   final listElement = find.byType(ListTile).first;
   await tester.tap(listElement);
 }
 
 Future<int> getInitialCountOfDecks(WidgetTester tester) async {
+  await tester.pumpAndSettle();
+  await tester.pump(const Duration(seconds: 2));
+  await tester.pumpAndSettle();
   await tester.pumpAndSettle();
   final initialDeckItems = find.byType(ListTile);
   final initialCount = tester.widgetList(initialDeckItems).length;
@@ -122,6 +130,9 @@ Future<int> getInitialCountOfDecks(WidgetTester tester) async {
 }
 
 Future<void> addAndVerifyDeck(WidgetTester tester) async {
+  await tester.pumpAndSettle();
+  await tester.pump(const Duration(seconds: 2));
+  await tester.pumpAndSettle();
   await tester.pumpAndSettle();
   final addDeckButton = find.byType(OutlinedButton).last;
   await tester.tap(addDeckButton);
@@ -164,12 +175,18 @@ Future<void> addAndVerifyFlashcard(
 }
 
 Future<void> pressSaveOnFlashcard(WidgetTester tester) async {
+  await tester.pumpAndSettle();
+  await tester.pump(const Duration(seconds: 2));
+  await tester.pumpAndSettle();
   final saveButton = find.byKey(const Key('flashcardSaveButton'));
   await tester.tap(saveButton);
   await tester.pumpAndSettle();
 }
 
 Future<void> navigateViaDrawer(WidgetTester tester, String viewName) async {
+  await tester.pumpAndSettle();
+  await tester.pump(const Duration(seconds: 2));
+  await tester.pumpAndSettle();
   final menuButton = find.byIcon(Icons.menu);
   await tester.pumpAndSettle();
   await tester.tap(menuButton);

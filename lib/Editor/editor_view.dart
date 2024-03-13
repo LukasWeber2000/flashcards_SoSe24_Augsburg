@@ -345,16 +345,7 @@ class FlashcardEditorViewState extends State<FlashcardEditorView> {
               style: ToastificationStyle.fillColored);
           clearInputs();
         } else {
-          int flashcardToEditIndex = widget.flashcards.indexWhere(
-              (flashcard) => flashcard.question == questionTextController.text);
-          widget.flashcards[flashcardToEditIndex] = Flashcard(
-              question: questionTextController.text,
-              answer: answerTextController.text,
-              hint: hintTextController.text,
-              ease: widget.flashcards[flashcardToEditIndex].ease,
-              interval: widget.flashcards[flashcardToEditIndex].interval,
-              deck: widget.currentDeck,
-              dueDate: widget.flashcards[flashcardToEditIndex].dueDate);
+          overwriteFlashcard(questionTextController.text);
 
           toastification.show(
               context: context,
@@ -391,6 +382,20 @@ class FlashcardEditorViewState extends State<FlashcardEditorView> {
 
     FocusScope.of(context).unfocus();
   }
+
+  overwriteFlashcard(String question){
+    int flashcardToEditIndex = widget.flashcards.indexWhere(
+            (flashcard) => flashcard.question == question);
+    widget.flashcards[flashcardToEditIndex] = Flashcard(
+        question: questionTextController.text,
+        answer: answerTextController.text,
+        hint: hintTextController.text,
+        ease: widget.flashcards[flashcardToEditIndex].ease,
+        interval: widget.flashcards[flashcardToEditIndex].interval,
+        deck: widget.currentDeck,
+        dueDate: widget.flashcards[flashcardToEditIndex].dueDate);
+  }
+
 
   deleteFlashcard(Flashcard? flashcard, BuildContext context) {
     FocusScope.of(context).unfocus();

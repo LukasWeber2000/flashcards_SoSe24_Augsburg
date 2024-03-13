@@ -1,0 +1,35 @@
+// Flashcards Collection
+[
+  {
+    "_id": ObjectId("flashcard1_id"),
+    "question": "What is the capital of France?",
+    "answer": "Paris",
+    "hint": null,
+    "interval": 1.5,
+    "ease": 2.5,
+    "deck_id": ObjectId("geography_deck_id"),
+    "dueDate": ISODate("2024-03-15T08:00:00Z")
+  },
+  {
+    "_id": ObjectId("flashcard2_id"),
+    "question": "Who wrote 'Romeo and Juliet'?",
+    "answer": "William Shakespeare",
+    "hint": null,
+    "interval": 2.0,
+    "ease": 2.8,
+    "deck_id": ObjectId("literature_deck_id"),
+    "dueDate": ISODate("2024-03-17T10:30:00Z")
+  },
+]
+
+// Decks Collection
+[
+  {
+    "_id": ObjectId("geography_deck_id"),
+    "name": "Geography"
+  },
+  {
+    "_id": ObjectId("literature_deck_id"),
+    "name": "Literature"
+  },
+]
