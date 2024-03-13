@@ -59,8 +59,7 @@ class _LearnState extends State<Learn> {
                   _scaffoldKey.currentState?.openEndDrawer(),
               onLeftButtonPressed: () {
                 //eigentlich speichern
-                //IFileStorage fileStorage = FileStorage();
-                //writeFlashcardListToFile(widget.flashcards, fileStorage);
+
                 Navigator.push(
                   context,
 
@@ -211,9 +210,15 @@ class _LearnState extends State<Learn> {
   Widget _buildButton(String label, Color color, String state) {
     return OutlinedButton(
       onPressed: () {
-        print("Datum vorher: ${currentFlashcard.dueDate}");
-        FlipDeckAlgorithm.processAnswer(state, currentFlashcard);
-        print("Datum nachher: ${currentFlashcard.dueDate}");
+        int currentFlashcardIndex = widget.flashcards.indexWhere((element) => element == currentFlashcard);
+
+        if(currentFlashcardIndex >= 0 ){
+          print("Datum vorher: ${widget.flashcards[currentFlashcardIndex].dueDate}");
+          FlipDeckAlgorithm.processAnswer(
+              state, widget.flashcards[currentFlashcardIndex]);
+          print("Datum nachher: ${widget.flashcards[currentFlashcardIndex].dueDate}");
+        }
+
         showNextCard();
       },
       style: OutlinedButton.styleFrom(

@@ -3,11 +3,12 @@ import 'deck.dart';
 class Flashcard {
   final String question;
   final String answer;
-  double interval;
-  double ease;
+  double interval = 1.0;
+  double ease = 2.5;
   String? hint;
   Deck deck;
   DateTime dueDate;
+
 
   Flashcard({
     required this.question,

@@ -1,6 +1,5 @@
-import 'package:easy_flashcard/Decks/deck_selection_view.dart';
 import 'package:flutter/material.dart';
-
+import 'Decks/deck_selection_view.dart';
 import 'GlobalViews/custom_appbar_view.dart';
 import 'GlobalViews/custom_drawer_view.dart';
 import 'Interfaces/file_storage.dart';
@@ -11,15 +10,63 @@ import 'Models/flashcards.dart';
 import 'helper_methods.dart';
 
 void main() {
-  runApp(const DeckView());
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: SplashScreen(),
+    );
+  }
+}
+
+class SplashScreen extends StatefulWidget {
+  @override
+  _SplashScreenState createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(Duration(seconds: 3), () {
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => DeckView()));
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [Colors.black, Color(0xFF549186)],
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Center(
+            child: Image.asset('images/FlipDeck_Logo_final.png'),
+          ),
+        ),
+      ),
+    );
+  }
 }
 
 class DeckView extends StatefulWidget {
-  const DeckView({super.key});
+  const DeckView({Key? key}) : super(key: key);
 
   @override
   DeckViewState createState() => DeckViewState();
 }
+
+// Your existing DeckView and DeckViewState code remains here unchanged.
+
 
 class DeckViewState extends State<DeckView> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -40,10 +87,10 @@ class DeckViewState extends State<DeckView> {
     super.initState();
     IFileStorage fileStorage =
         FileStorage(); // Create an instance of FileStorage
-   /* if (i < 1) {
+    if (i < 1) {
       i++;
       loadDemoCards(fileStorage);
-    }*/
+    }
     getFlashcardListFromJsonFile(fileStorage).then((loadedFlashcards) {
       setState(() {
         flashcards = loadedFlashcards;

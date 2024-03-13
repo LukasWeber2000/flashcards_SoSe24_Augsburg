@@ -4,12 +4,12 @@ class FlipDeckAlgorithm {
   static double defaultStartingEase = 2.5;
   static double defaultIntervalModifier = 1.0;
   static double defaultEasyBonus = 1.3;
-  static double defaultHardInterval = 1.2;
+  static double defaultHardInterval = 0.05;
 
   static void processAnswer(String answer, Flashcard card) {
     switch (answer) {
       case 'again':
-      // Konvertiere das Intervall in Minuten
+        // Konvertiere das Intervall in Minuten
         double newInterval = card.interval * 0.5 * 1440; // & des alten Intervalls
         double newEase = card.ease - 0.2; // -20% von ease
         //DateTime newDueDate = DateTime.now().add(Duration(minutes: newInterval.toInt()));
@@ -38,12 +38,15 @@ class FlipDeckAlgorithm {
     }
   }
 
-  static DateTime calculateDueDate(DateTime currentDueDate, double newInterval) {
+  static DateTime calculateDueDate(
+      DateTime currentDueDate, double newInterval) {
     // Berechne das neue Fälligkeitsdatum basierend auf dem aktuellen Fälligkeitsdatum und dem neuen Intervall
+    int i = newInterval.toInt();
     return currentDueDate.add(Duration(minutes: newInterval.toInt()));
   }
 
-  static void updateCard(Flashcard card, double newInterval, double newEase, DateTime newDueDate) {
+  static void updateCard(
+      Flashcard card, double newInterval, double newEase, DateTime newDueDate) {
     // Da wir jetzt mit Minuten arbeiten, konvertieren wir das Intervall zurück in Tage für die Speicherung
     card.interval = newInterval / 1440;
     card.ease = newEase;
