@@ -80,7 +80,7 @@ class CardManagementView extends StatelessWidget {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => FlashcardEditorView(
-                                            flashcard: flashcard, currentDeck: currentDeck, flashcards: flashcards, decks: decks,
+                                            flashcard: flashcard, currentDeck: flashcard.deck, flashcards: flashcards, decks: decks,
                                           )),
                                 );
                               },

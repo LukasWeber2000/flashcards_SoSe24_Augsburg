@@ -41,6 +41,13 @@ dependencies:
   toastification: ^1.2.1
   mockito: ^5.4.4
   test: any
+  flutter_launcher_icons: ^0.13.1
+
+flutter_icons:
+  android: true
+  image_path: "images/FlipDeck_Logo_Cards.png"
+
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
