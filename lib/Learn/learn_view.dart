@@ -166,7 +166,7 @@ class _LearnState extends State<Learn> {
                                         key: _flipCardKey,
                                         front: FlashcardView(
                                           text:
-                                              ('${currentFlashcard.question} ${currentFlashcard.interval}'),
+                                              ('${currentFlashcard.question} ${currentFlashcard.interval} - Ease ${currentFlashcard.ease} '),
                                           side: CardSide.FRONT,
                                         ),
                                         back: FlashcardView(
@@ -213,10 +213,10 @@ class _LearnState extends State<Learn> {
         int currentFlashcardIndex = widget.flashcards.indexWhere((element) => element == currentFlashcard);
 
         if(currentFlashcardIndex >= 0 ){
-          print("Datum vorher: ${widget.flashcards[currentFlashcardIndex].dueDate}");
+          print("Datum vorher: ${widget.flashcards[currentFlashcardIndex].dueDate} - Interval ${widget.flashcards[currentFlashcardIndex].interval} -- Ease ${widget.flashcards[currentFlashcardIndex].ease}");
           FlipDeckAlgorithm.processAnswer(
               state, widget.flashcards[currentFlashcardIndex]);
-          print("Datum nachher: ${widget.flashcards[currentFlashcardIndex].dueDate}");
+          print("Datum vorher: ${widget.flashcards[currentFlashcardIndex].dueDate} - Interval ${widget.flashcards[currentFlashcardIndex].interval} -- Ease ${widget.flashcards[currentFlashcardIndex].ease}");
         }
         IFileStorage fileStorage = FileStorage();
         writeFlashcardListToFile(widget.flashcards, fileStorage);

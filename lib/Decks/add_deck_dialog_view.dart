@@ -37,7 +37,7 @@ class AddDeckDialog {
                   onDeckAdded();
                   toastification.show(
                       context: context,
-                      title: Text('Deck "${textFieldController.text}" wurde erfolgreich angelegt!'),
+                      title: Text('Deck "${textFieldController.text}" A new deck has been added successfully'),
                       type: ToastificationType.success,
                       alignment: Alignment.bottomCenter,
                       autoCloseDuration: const Duration(seconds: 2),
@@ -46,7 +46,7 @@ class AddDeckDialog {
                 }else{
                   toastification.show(
                       context: context,
-                      title: Text("Deckname fehlt"),
+                      title: Text("Deckname is missing"),
                       type: ToastificationType.warning,
                       alignment: Alignment.bottomCenter,
                       autoCloseDuration: const Duration(seconds: 3),
