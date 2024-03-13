@@ -218,6 +218,8 @@ class _LearnState extends State<Learn> {
               state, widget.flashcards[currentFlashcardIndex]);
           print("Datum nachher: ${widget.flashcards[currentFlashcardIndex].dueDate}");
         }
+        IFileStorage fileStorage = FileStorage();
+        writeFlashcardListToFile(widget.flashcards, fileStorage);
 
         showNextCard();
       },

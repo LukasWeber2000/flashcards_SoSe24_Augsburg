@@ -24,6 +24,7 @@ class MyApp extends StatelessWidget {
 
 class SplashScreen extends StatefulWidget {
   @override
+
   _SplashScreenState createState() => _SplashScreenState();
 }
 
@@ -60,14 +61,13 @@ class _SplashScreenState extends State<SplashScreen> {
 
 class DeckView extends StatefulWidget {
   const DeckView({Key? key}) : super(key: key);
-
   @override
   DeckViewState createState() => DeckViewState();
 }
 
 // Your existing DeckView and DeckViewState code remains here unchanged.
 
-
+int i = 0;
 class DeckViewState extends State<DeckView> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   List<Flashcard> flashcards = [
@@ -80,7 +80,6 @@ class DeckViewState extends State<DeckView> {
         dueDate: DateTime.now())
   ];
   List<Deck> decks = [];
-  int i = 0;
 
   @override
   void initState() {
