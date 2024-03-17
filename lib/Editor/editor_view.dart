@@ -89,7 +89,7 @@ class FlashcardEditorViewState extends State<FlashcardEditorView> {
                               deleteFlashcard(widget.flashcard, context),
                           style: OutlinedButton.styleFrom(
                               shape: const CircleBorder(),
-                              foregroundColor: Color(0xFF549186)),
+                              foregroundColor: const Color(0xFF549186)),
                           child: const Icon(Icons.delete),
                         ),
                         const FittedBox(
@@ -103,7 +103,7 @@ class FlashcardEditorViewState extends State<FlashcardEditorView> {
                           ),
                         ),
                         OutlinedButton(
-                          key: Key('flashcardSaveButton'),
+                          key: const Key('flashcardSaveButton'),
                           onPressed: () => saveFlashcard(context),
                           style: OutlinedButton.styleFrom(
                               shape: const CircleBorder(),
@@ -113,7 +113,7 @@ class FlashcardEditorViewState extends State<FlashcardEditorView> {
                       ],
                     ),
                     //const Spacer(),
-                    SizedBox(height: 40,),
+                    const SizedBox(height: 40,),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Container(
@@ -162,7 +162,7 @@ class FlashcardEditorViewState extends State<FlashcardEditorView> {
                       ),
                     ),
                     //const Spacer(),
-                    SizedBox(height: 40,),
+                    const SizedBox(height: 40,),
                     Padding(
                       padding: const EdgeInsets.all(12.0),
                       child: Container(
@@ -187,22 +187,29 @@ class FlashcardEditorViewState extends State<FlashcardEditorView> {
                       padding: const EdgeInsets.only(top: 8.0, left: 8, right: 8),
                       child: SizedBox(
                         width: double.maxFinite,
-                        child: TextField(
-                          key: Key('hintTextField'),
-                          style: const TextStyle(color: Colors.white),
-                          cursorColor: const Color(0xFF549186),
-                          decoration: const InputDecoration(
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Color(0xFF549186)),
+                        child: Material(
+                          color:Colors.white10,
+                          elevation:10,
+                          borderRadius: BorderRadius.circular(10),
+                          child: TextField(
+                            key: const Key('hintTextField'),
+                            style: const TextStyle(color: Colors.white),
+                            cursorColor: const Color(0xFF549186),
+                            decoration: const InputDecoration(
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.transparent),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.transparent),
+                              ),
+                              border: OutlineInputBorder(
+
+                              ),
+                              labelStyle: TextStyle(color: Color(0xFF549186)),
+                              labelText: 'Type your hint here ...',
                             ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Color(0xFF549186)),
-                            ),
-                            border: OutlineInputBorder(),
-                            labelStyle: TextStyle(color: Color(0xFF549186)),
-                            labelText: 'Type your hint here ...',
+                            controller: hintTextController,
                           ),
-                          controller: hintTextController,
                         ),
                       ),
                     ),
@@ -232,7 +239,7 @@ class FlashcardEditorViewState extends State<FlashcardEditorView> {
                       child: SizedBox(
                         width: double.maxFinite,
                         child: TextField(
-                          key: Key('questionTextField'),
+                          key: const Key('questionTextField'),
                           style: const TextStyle(color: Colors.white),
                           cursorColor: const Color(0xFF549186),
                           decoration: const InputDecoration(
@@ -276,7 +283,7 @@ class FlashcardEditorViewState extends State<FlashcardEditorView> {
                       child: SizedBox(
                         width: double.maxFinite,
                         child: TextField(
-                          key: Key('answerTextField'),
+                          key: const Key('answerTextField'),
                           style: const TextStyle(color: Colors.white),
                           cursorColor: const Color(0xFF549186),
                           decoration: const InputDecoration(
@@ -434,17 +441,17 @@ class FlashcardEditorViewState extends State<FlashcardEditorView> {
           context: context,
           builder: (context) {
             return AlertDialog(
-              title: Text('Duplicate Question'),
-              content: Text(
+              title: const Text('Duplicate Question'),
+              content: const Text(
                   'A flashcard with this question already exists. Do you want to overwrite it?'),
               actions: <Widget>[
                 TextButton(
                   onPressed: () => Navigator.of(context).pop(false),
-                  child: Text('Cancel'),
+                  child: const Text('Cancel'),
                 ),
                 TextButton(
                   onPressed: () => Navigator.of(context).pop(true),
-                  child: Text('Overwrite Card'),
+                  child: const Text('Overwrite Card'),
                 ),
               ],
             );

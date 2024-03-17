@@ -1,4 +1,3 @@
-import 'package:easy_flashcard/Decks/deck_selection_view.dart';
 import 'package:flutter/material.dart';
 import 'package:toastification/toastification.dart';
 
@@ -26,7 +25,7 @@ class AddDeckDialog {
               },
             ),
             TextButton(
-              key: Key('saveDeck'),
+              key: const Key('saveDeck'),
               child: const Text('Save'),
               onPressed: () {
                 // Hier können Sie die Logik zum Speichern des Kartenstapelnamens implementieren
@@ -46,7 +45,7 @@ class AddDeckDialog {
                 }else{
                   toastification.show(
                       context: context,
-                      title: Text("Deckname is missing"),
+                      title: const Text("Deckname is missing"),
                       type: ToastificationType.warning,
                       alignment: Alignment.bottomCenter,
                       autoCloseDuration: const Duration(seconds: 3),

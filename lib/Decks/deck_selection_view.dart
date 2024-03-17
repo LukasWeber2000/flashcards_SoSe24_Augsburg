@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:easy_flashcard/Decks/add_deck_dialog_view.dart';
 import 'package:easy_flashcard/Models/flashcard.dart';
 import 'package:flutter/material.dart';
@@ -10,10 +12,10 @@ class DeckSelection extends StatefulWidget {
   final List<Flashcard> flashcards;
 
   const DeckSelection({
-    Key? key,
+    super.key,
     required this.decks,
     required this.flashcards,
-  }) : super(key: key);
+  });
 
   @override
   _DeckSelectionState createState() => _DeckSelectionState();
@@ -32,7 +34,7 @@ class _DeckSelectionState extends State<DeckSelection> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         const Padding(
-          padding: EdgeInsets.only(top: 15.0, bottom: 30),
+          padding: EdgeInsets.only(top: 15.0, bottom: 15),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -50,69 +52,89 @@ class _DeckSelectionState extends State<DeckSelection> {
           ),
         ),
         Expanded(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  border: Border.all(color: Colors.white)),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: ListView.builder(
-                  itemCount: widget.decks.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    final deck = widget.decks[index];
-                    return Padding(
-                      padding: const EdgeInsets.only(bottom: 5),
-                      child: Container(
-                        decoration: BoxDecoration(
-                            border: Border.all(color: const Color(0xFF549186)),
-                            borderRadius: const BorderRadius.horizontal(
-                                right: Radius.circular(10),
-                                left: Radius.circular(10))),
-                        child: ListTile(
-                          title: Row(
-                            children: [
-                              Text(
-                                '${deck.name} ',
-                                style: const TextStyle(color: Colors.white),
-                              ),
-                              const Spacer(),
-                              OutlinedButton(
-                                onPressed: () {
-                                  currentDeck = deck;
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => FlashcardEditorView(
-                                            currentDeck: currentDeck, flashcards: widget.flashcards, decks: widget.decks)),
-                                  );
-                                },
-                                style: OutlinedButton.styleFrom(
-                                    shape: const CircleBorder(),
-                                    foregroundColor: const Color(0xFF549186)),
-                                child: const Icon(Icons.add),
-                              ),
-                            ],
-                          ),
-                          subtitle: Text('Cards: ${getCardCount(deck)}  -  Today remaining: ${getTodayDue(deck)} ', style: TextStyle(color: Colors.white54)),
-                          onTap: () {
-                            currentDeck = deck;
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => Learn(
-                                    flashcards: widget.flashcards,
-                                    currentDeck: currentDeck,
-                                    decks: widget.decks,
-                                  )),
-                            );
-                          },
+          child: ShaderMask(
+            shaderCallback: (Rect bounds) {
+              return const LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Color(0xFF549186),
+                  Colors.transparent,
+                  Colors.transparent,
+                  Color(0xFF549186),
+                ],
+                stops: [
+                  0.0,
+                  0.04,
+                  0.95,
+                  1.0
+                ],
+              ).createShader(bounds);
+            },
+            blendMode: BlendMode.dstOut,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ListView.builder(
+                itemCount: widget.decks.length,
+                itemBuilder: (BuildContext context, int index) {
+                  final deck = widget.decks[index];
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 8),
+                    child: Material(
+                      color: Colors.white10,
+                      elevation: 20.0, // Fügt Schatten hinzu
+                      borderRadius: BorderRadius.circular(10),
+                      child: ListTile(
+                        title: Row(
+                          children: [
+                            Text(
+                              '${deck.name} ',
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            const Spacer(),
+                            OutlinedButton(
+                              onPressed: () {
+                                currentDeck = deck;
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => FlashcardEditorView(
+                                          currentDeck: currentDeck,
+                                          flashcards: widget.flashcards,
+                                          decks: widget.decks)),
+                                );
+                              },
+                              style:
+                              OutlinedButton.styleFrom(
+
+                                  shape: const CircleBorder(),
+                                  foregroundColor: const Color(0xFF549186)),
+
+                              child: const Icon(Icons.add),
+                            ),
+                          ],
                         ),
+                        subtitle: Text(
+                            'Cards: ${getCardCount(deck)}  -  Today remaining: ${getTodayDue(deck)} ',
+                            style: const TextStyle(color: Colors.white54)),
+                        onTap: () {
+                          currentDeck = deck;
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Learn(
+                                      flashcards: widget.flashcards,
+                                      currentDeck: currentDeck,
+                                      decks: widget.decks,
+                                    )),
+                          );
+                        },
                       ),
-                    );
-                  },
-                ),
+                    ),
+                  );
+                },
               ),
             ),
           ),
@@ -137,7 +159,9 @@ class _DeckSelectionState extends State<DeckSelection> {
   }
 
   int getCardCount(Deck deck) {
-    return widget.flashcards.where((flashcard) => flashcard.deck.name == deck.name).length;
+    return widget.flashcards
+        .where((flashcard) => flashcard.deck.name == deck.name)
+        .length;
   }
 
   int getTodayDue(Deck deck) {
@@ -146,10 +170,12 @@ class _DeckSelectionState extends State<DeckSelection> {
     DateTime startOfNextDay = DateTime(now.year, now.month, now.day + 1);
 
     // Filtert die Karten, die zum gegebenen Deck gehören und deren Fälligkeitsdatum vor dem Start des nächsten Tages liegt
-    int dueTodayCount = widget.flashcards.where((flashcard) =>
-    flashcard.deck.name == deck.name &&
-        flashcard.dueDate.isBefore(startOfNextDay)).length;
+    int dueTodayCount = widget.flashcards
+        .where((flashcard) =>
+            flashcard.deck.name == deck.name &&
+            flashcard.dueDate.isBefore(startOfNextDay))
+        .length;
 
     return dueTodayCount;
-   }
+  }
 }

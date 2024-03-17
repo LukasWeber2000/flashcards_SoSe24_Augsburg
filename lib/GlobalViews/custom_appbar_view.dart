@@ -8,12 +8,12 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
   final IconData? leftIcon;
 
   const CustomAppbar({
-    Key? key,
+    super.key,
     this.onRightButtonPressed,
     this.onLeftButtonPressed,
     this.rightIcon,
     this.leftIcon,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

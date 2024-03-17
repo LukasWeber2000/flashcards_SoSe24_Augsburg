@@ -10,19 +10,23 @@ import 'Models/flashcards.dart';
 import 'helper_methods.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       home: SplashScreen(),
     );
   }
 }
 
 class SplashScreen extends StatefulWidget {
+  const SplashScreen({super.key});
+
   @override
 
   _SplashScreenState createState() => _SplashScreenState();
@@ -32,8 +36,8 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration(seconds: 3), () {
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => DeckView()));
+    Future.delayed(const Duration(seconds: 3), () {
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const DeckView()));
     });
   }
 
@@ -41,7 +45,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
@@ -60,7 +64,7 @@ class _SplashScreenState extends State<SplashScreen> {
 }
 
 class DeckView extends StatefulWidget {
-  const DeckView({Key? key}) : super(key: key);
+  const DeckView({super.key});
   @override
   DeckViewState createState() => DeckViewState();
 }

@@ -13,19 +13,19 @@ class FileStorage implements IFileStorage {
 
   @override
   Future<File> getLocalFile() async {
-    final path = await this.getLocalPath();
+    final path = await getLocalPath();
     return File('$path/flashcards.json');
   }
 
   @override
   Future<File> writeFile(String contents) async {
-    final file = await this.getLocalFile();
+    final file = await getLocalFile();
     return file.writeAsString(contents);
   }
 
   @override
   Future<String> readFile() async {
-    final file = await this.getLocalFile();
+    final file = await getLocalFile();
     if (!await file.exists()) {
       await file.create();
       return '';

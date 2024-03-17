@@ -5,12 +5,12 @@ class FlashcardView extends StatelessWidget {
   final String text;
   final CardSide side;
 
-  const FlashcardView({Key? key, required this.text, required this.side}) : super(key: key);
+  const FlashcardView({super.key, required this.text, required this.side});
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 4,
+      elevation: 50,
       color: Colors.white10,
       child: Stack(
         children: [

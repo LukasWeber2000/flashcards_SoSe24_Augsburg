@@ -63,7 +63,7 @@ class _LearnState extends State<Learn> {
                 Navigator.push(
                   context,
 
-                  MaterialPageRoute(builder: (context) => DeckView()),
+                  MaterialPageRoute(builder: (context) => const DeckView()),
                 );
               },
               rightIcon: Icons.menu,
@@ -158,7 +158,7 @@ class _LearnState extends State<Learn> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   SizedBox(
-                                    key: Key('FlashcardBox'),
+                                    key: const Key('FlashcardBox'),
                                     width: 380,
                                     height: 400,
                                     child: FlipCard(
@@ -298,7 +298,7 @@ class _LearnState extends State<Learn> {
     } else {
       toastification.show(
           context: context,
-          title: Text("Hint is empty"),
+          title: const Text("Hint is empty"),
           type: ToastificationType.info,
           alignment: Alignment.bottomCenter,
           autoCloseDuration: const Duration(seconds: 2),
