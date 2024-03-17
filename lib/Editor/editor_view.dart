@@ -76,123 +76,137 @@ class FlashcardEditorViewState extends State<FlashcardEditorView> {
               flashcards: widget.flashcards,
               decks: widget.decks,
             ),
-            body: SingleChildScrollView(
-              child: Padding(
-                padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        OutlinedButton(
-                          onPressed: () =>
-                              deleteFlashcard(widget.flashcard, context),
-                          style: OutlinedButton.styleFrom(
-                              shape: const CircleBorder(),
-                              foregroundColor: const Color(0xFF549186)),
-                          child: const Icon(Icons.delete),
-                        ),
-                        const FittedBox(
-                          fit: BoxFit.scaleDown,
-                          child: Text(
-                            "Add Card",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18),
+            body: GestureDetector(
+              onTap: () {
+              // Versteckt die Tastatur, wenn außerhalb des Textfeldes getippt wird
+              FocusScope.of(context).unfocus();
+            },
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          OutlinedButton(
+                            onPressed: () =>
+                                deleteFlashcard(widget.flashcard, context),
+                            style: OutlinedButton.styleFrom(
+                                shape: const CircleBorder(),
+                                foregroundColor: const Color(0xFF549186)),
+                            child: const Icon(Icons.delete),
                           ),
-                        ),
-                        OutlinedButton(
-                          key: const Key('flashcardSaveButton'),
-                          onPressed: () => saveFlashcard(context),
-                          style: OutlinedButton.styleFrom(
-                              shape: const CircleBorder(),
-                              foregroundColor: const Color(0xFF549186)),
-                          child: const Icon(Icons.save),
-                        )
-                      ],
-                    ),
-                    //const Spacer(),
-                    const SizedBox(height: 40,),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30),
-                            border: Border.all(color: Colors.white)),
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 15.0, right: 15.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Text(
-                                "Deck:",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              DropdownButtonHideUnderline(
-                                child: DropdownButton<Deck>(
-                                  dropdownColor: Colors.black,
-                                  value: widget.currentDeck,
-                                  onTap: () {},
-
-                                  items: widget.decks.map((Deck deck) {
-                                    return DropdownMenuItem<Deck>(
-                                      alignment: Alignment.center,
-                                      value: deck,
-                                      child: Text(deck.name,
-                                          style: const TextStyle(
-                                              color: Color(0xFF549186))),
-                                    );
-                                  }).toList(),
-
-                                  // Handler called when an item is selected
-                                  onChanged: (Deck? newValue) {
-                                    // You can put your logic here to respond to the selection of a new item
-                                    setState(() {
-                                      widget.currentDeck = newValue!;
-                                    });
-                                  },
-                                ),
-                              ),
-                            ],
+                          const FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Text(
+                              "Add Card",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18),
+                            ),
                           ),
-                        ),
+                          OutlinedButton(
+                            key: const Key('flashcardSaveButton'),
+                            onPressed: () => saveFlashcard(context),
+                            style: OutlinedButton.styleFrom(
+                                shape: const CircleBorder(),
+                                foregroundColor: const Color(0xFF549186)),
+                            child: const Icon(Icons.save),
+                          )
+                        ],
                       ),
-                    ),
-                    //const Spacer(),
-                    const SizedBox(height: 40,),
-                    Padding(
-                      padding: const EdgeInsets.all(12.0),
-                      child: Container(
-                        decoration: const BoxDecoration(
-                            border: Border(
-                          bottom: BorderSide(color: Colors.white),
-                        )),
-                        child: const Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: Row(
-                            children: [
-                              Text("Hint:",
+                      //const Spacer(),
+                      const SizedBox(height: 40,),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Material(
+                          elevation: 4,
+                           color: Colors.white10,
+
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 15.0, right: 15.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                const Text(
+                                  "Deck:",
                                   style: TextStyle(
                                       color: Colors.white,
-                                      fontWeight: FontWeight.bold)),
-                            ],
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                DropdownButtonHideUnderline(
+                                  child: DropdownButton<Deck>(
+                                    dropdownColor: Colors.black,
+                                    value: widget.currentDeck,
+                                    onTap: () {},
+              
+                                    items: widget.decks.map((Deck deck) {
+                                      return DropdownMenuItem<Deck>(
+                                        alignment: Alignment.center,
+                                        value: deck,
+                                        child: Text(deck.name,
+                                            style: const TextStyle(
+                                                color: Color(0xFF549186))),
+                                      );
+                                    }).toList(),
+              
+                                    // Handler called when an item is selected
+                                    onChanged: (Deck? newValue) {
+                                      // You can put your logic here to respond to the selection of a new item
+                                      setState(() {
+                                        widget.currentDeck = newValue!;
+                                      });
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 8.0, left: 8, right: 8),
-                      child: SizedBox(
-                        width: double.maxFinite,
+                      //const Spacer(),
+                      const SizedBox(height: 40,),
+              
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8.0, left: 8, right: 8),
+                        child: SizedBox(
+                          width: double.maxFinite,
+                          child: Material(
+                            color:Colors.white10,
+                            elevation:10,
+                            borderRadius: BorderRadius.circular(10),
+                            child: TextField(
+                              key: const Key('hintTextField'),
+                              style: const TextStyle(color: Colors.white),
+                              cursorColor: const Color(0xFF549186),
+                              decoration: const InputDecoration(
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.transparent),
+                                ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.transparent),
+                                ),
+                                border: OutlineInputBorder(
+              
+                                ),
+                                labelStyle: TextStyle(color: Color(0xFF549186)),
+                                labelText: 'Type your hint here ...',
+                              ),
+                              controller: hintTextController,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8.0, left: 8, right: 8),
                         child: Material(
                           color:Colors.white10,
                           elevation:10,
                           borderRadius: BorderRadius.circular(10),
                           child: TextField(
-                            key: const Key('hintTextField'),
+                            key: const Key('questionTextField'),
                             style: const TextStyle(color: Colors.white),
                             cursorColor: const Color(0xFF549186),
                             decoration: const InputDecoration(
@@ -203,106 +217,48 @@ class FlashcardEditorViewState extends State<FlashcardEditorView> {
                                 borderSide: BorderSide(color: Colors.transparent),
                               ),
                               border: OutlineInputBorder(
-
+              
                               ),
                               labelStyle: TextStyle(color: Color(0xFF549186)),
-                              labelText: 'Type your hint here ...',
+                              labelText: 'Type your question here ...',
                             ),
-                            controller: hintTextController,
+                            controller: questionTextController,
                           ),
                         ),
                       ),
-                    ),
-                    //const Spacer(),
-                    Padding(
-                      padding: const EdgeInsets.all(12.0),
-                      child: Container(
-                        decoration: const BoxDecoration(
-                            border: Border(
-                          bottom: BorderSide(color: Colors.white),
-                        )),
-                        child: const Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: Row(
-                            children: [
-                              Text("Front Side:",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold)),
-                            ],
+                      //const Spacer(),
+              
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8.0, left: 8, right: 8),
+                        child: Material(
+                          color:Colors.white10,
+                          elevation:10,
+                          borderRadius: BorderRadius.circular(10),
+                          child: TextField(
+                            
+                            key: const Key('answerTextField'),
+                            style: const TextStyle(color: Colors.white),
+                            cursorColor: const Color(0xFF549186),
+                            decoration: const InputDecoration(
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.transparent),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.transparent),
+                              ),
+                              border: OutlineInputBorder(
+              
+                              ),
+                              labelStyle: TextStyle(color: Color(0xFF549186)),
+                              labelText: 'Type your answer here ...',
+                            ),
+                            controller: answerTextController,
                           ),
                         ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 8.0, left: 8, right: 8),
-                      child: SizedBox(
-                        width: double.maxFinite,
-                        child: TextField(
-                          key: const Key('questionTextField'),
-                          style: const TextStyle(color: Colors.white),
-                          cursorColor: const Color(0xFF549186),
-                          decoration: const InputDecoration(
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Color(0xFF549186)),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Color(0xFF549186)),
-                            ),
-                            border: OutlineInputBorder(),
-                            labelStyle: TextStyle(color: Color(0xFF549186)),
-                            labelText: 'Type your question here ...',
-                          ),
-                          controller: questionTextController,
-                        ),
-                      ),
-                    ),
-                    //const Spacer(),
-                    Padding(
-                      padding: const EdgeInsets.all(12.0),
-                      child: Container(
-                        decoration: const BoxDecoration(
-                            border: Border(
-                          bottom: BorderSide(color: Colors.white),
-                        )),
-                        child: const Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: Row(
-                            children: [
-                              Text("Back Side:",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold)),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 8.0, left: 8, right: 8),
-                      child: SizedBox(
-                        width: double.maxFinite,
-                        child: TextField(
-                          key: const Key('answerTextField'),
-                          style: const TextStyle(color: Colors.white),
-                          cursorColor: const Color(0xFF549186),
-                          decoration: const InputDecoration(
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Color(0xFF549186)),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Color(0xFF549186)),
-                            ),
-                            border: OutlineInputBorder(),
-                            labelStyle: TextStyle(color: Color(0xFF549186)),
-                            labelText: 'Type your answer here ...',
-                          ),
-                          controller: answerTextController,
-                        ),
-                      ),
-                    ),
-                    //const Spacer(),
-                  ],
+                      //const Spacer(),
+                    ],
+                  ),
                 ),
               ),
             )),

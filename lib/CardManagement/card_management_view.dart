@@ -92,6 +92,7 @@ class CardManagementView extends StatelessWidget {
                             elevation: 10.0,
                             borderRadius: BorderRadius.circular(10),
                             child: ListTile(
+                              autofocus: true,
                               onTap: () {
                                 Navigator.push(
                                   context,
